@@ -10,11 +10,12 @@ export default $config({
   },
   async run() {
     await import("./infra/api");
-    await import("./infra/web");
+    const web = await import("./infra/web");
     await import("./infra/storage");
     const auth = await import("./infra/auth");
 
     return {
+      frontend: web.frontend.url,
       UserPool: auth.userPool.id,
       Region: aws.getRegionOutput().name,
       IdentityPool: auth.identityPool.id,
