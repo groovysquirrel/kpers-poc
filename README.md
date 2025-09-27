@@ -9,7 +9,6 @@ This is a full-stack serverless app built with SST, featuring:
 - API Gateway for routing
 - DynamoDB for data storage
 - Cognito for user authentication
-- Stripe integration for payments
 
 ## Project Structure
 
@@ -39,11 +38,6 @@ Install dependencies.
 npm install
 ```
 
-This project uses a secret that we are not checking in to the repo. Make sure to [create one before deploying](https://sst.dev/chapters/handling-secrets-in-sst.html).
-
-```bash
-sst secret set StripeSecretKey <YOUR_STRIPE_SECRET_TEST_KEY>
-```
 
 #### Developing Locally
 
@@ -63,11 +57,6 @@ Run this in the project root to deploy it to prod.
 npx sst deploy --stage production
 ```
 
-Make sure to set your secret for prod as well.
-
-```bash
-sst secret set StripeSecretKey <YOUR_STRIPE_SECRET_TEST_KEY> --stage production
-```
 
 ---
 
