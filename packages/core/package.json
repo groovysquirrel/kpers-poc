@@ -1,0 +1,21 @@
+{
+  "name": "@notes/core",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "sst shell vitest"
+  },
+  "exports": {
+    "./*": [
+      "./src/*/index.ts",
+      "./src/*.ts"
+    ]
+  },
+  "dependencies": {
+    "sst": "*",
+    "vite": "7.1.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.141",
+    "vitest": "^3.2.4"
+  }
+}

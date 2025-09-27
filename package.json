@@ -1,0 +1,20 @@
+{
+  "name": "kpers-poc",
+  "version": "0.0.0",
+  "description": "Knowledge Persistence and Retrieval POC built with SST",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/groovysquirrel/kpers-poc.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "sst": "^3"
+  }
+}
