@@ -12,9 +12,7 @@ export const api = new sst.aws.ApiGatewayV2("Api", {
       },
     }
   },
-  domain: {
-    name: "kpersPOC-api.patternsatscale.com"
-  },
+  domain: $app.stage === "production" ? "kpersPOC-api.patternsatscale.com" : undefined
 });
 
 api.route("GET /notes", "packages/functions/src/list.main");

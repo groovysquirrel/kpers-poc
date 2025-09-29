@@ -10,9 +10,7 @@ export const frontend = new sst.aws.StaticSite("Frontend", {
     output: "dist",
     command: "npm run build",
   },
-  domain: {
-    name: "kpersPOC-web.patternsatscale.com"
-  },
+  domain: $app.stage === "production" ? "kpersPOC.patternsatscale.com" : undefined,
   environment: {
     VITE_REGION: region,
     VITE_API_URL: api.url,
