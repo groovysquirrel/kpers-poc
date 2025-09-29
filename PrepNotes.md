@@ -10,11 +10,11 @@ npm dedupe
 
 aws cognito-idp sign-up \
   --region us-east-1 \
-  --client-id 3g5nihjigitali734dj0mp4s7i \
+  --client-id 7t2ums0i7rfabvdlsj2fpep8m7 \
   --username justin@patternsatscale.com \
   --password Passw0rd!
 
 aws cognito-idp admin-confirm-sign-up \
   --region us-east-1 \
-  --user-pool-id us-east-1_UOHRisGkU \
+  --user-pool-id us-east-1_M1giOjn5M \
   --username justin@patternsatscale.com

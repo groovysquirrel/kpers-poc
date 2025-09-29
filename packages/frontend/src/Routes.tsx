@@ -8,11 +8,13 @@ import Settings from "./containers/Settings.tsx";
 import NotFound from "./containers/NotFound.tsx";
 import AuthenticatedRoute from "./components/AuthenticatedRoute.tsx";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute.tsx";
+import DashboardPage from "./pages/Dashboard/DashboardPage.tsx";
 
 export default function Links() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<AuthenticatedRoute><DashboardPage /></AuthenticatedRoute>} />
+      <Route path="/dashboard" element={<AuthenticatedRoute><DashboardPage /></AuthenticatedRoute>} />
       <Route
         path="/login"
         element={
@@ -29,30 +31,9 @@ export default function Links() {
           </UnauthenticatedRoute>
         }
       />
-      <Route
-        path="/settings"
-        element={
-          <AuthenticatedRoute>
-            <Settings />
-          </AuthenticatedRoute>
-        }
-      />
-      <Route
-        path="/notes/new"
-        element={
-          <AuthenticatedRoute>
-            <NewNote />
-          </AuthenticatedRoute>
-        }
-      />
-      <Route
-        path="/notes/:id"
-        element={
-          <AuthenticatedRoute>
-            <Notes />
-          </AuthenticatedRoute>
-        }
-      />
+      <Route path="/settings" element={<AuthenticatedRoute><Settings /></AuthenticatedRoute>} />
+      <Route path="/notes/new" element={<AuthenticatedRoute><NewNote /></AuthenticatedRoute>} />
+      <Route path="/notes/:id" element={<AuthenticatedRoute><Notes /></AuthenticatedRoute>} />
       {/* Finally, catch all unmatched routes */}
       <Route path="*" element={<NotFound />} />;
     </Routes>

@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "5.2.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
+    "@mui/icons-material": "7.3.2",
+    "@mui/material": "7.3.2",
     "amazon-cognito-identity-js": "^6.3.5",
     "aws-amplify": "^5.3.18",
     "bootstrap": "^5.3.3",
