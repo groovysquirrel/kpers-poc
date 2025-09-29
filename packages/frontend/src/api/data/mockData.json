@@ -1,0 +1,166 @@
+{
+  "managers": [
+    {
+      "id": "1",
+      "firstName": "Manager",
+      "lastName": "One",
+      "company": "Company1",
+      "phone": "111-111-1111",
+      "email": "email1@company1.com",
+      "status": "Active",
+      "marketValue": 15000000,
+      "asOfDate": "2025-01-15"
+    },
+    {
+      "id": "2", 
+      "firstName": "Manager",
+      "lastName": "Two",
+      "company": "Company2",
+      "phone": "222-222-2222",
+      "email": "email2@company2.com",
+      "status": "Active",
+      "marketValue": 25000000,
+      "asOfDate": "2025-01-15"
+    },
+    {
+      "id": "3",
+      "firstName": "Manager", 
+      "lastName": "Three",
+      "company": "Company3",
+      "phone": "333-333-3333",
+      "email": "email3@company3.com",
+      "status": "Probation",
+      "marketValue": 8000000,
+      "asOfDate": "2025-01-15"
+    },
+    {
+      "id": "4",
+      "firstName": "Manager",
+      "lastName": "Four", 
+      "company": "Company4",
+      "phone": "444-444-4444",
+      "email": "email4@company4.com",
+      "status": "Active",
+      "marketValue": 32000000,
+      "asOfDate": "2025-01-15"
+    },
+    {
+      "id": "5",
+      "firstName": "Manager",
+      "lastName": "Five",
+      "company": "Company5", 
+      "phone": "555-555-5555",
+      "email": "email5@company5.com",
+      "status": "Terminated",
+      "marketValue": 0,
+      "asOfDate": "2025-01-15"
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "managerId": "2",
+      "date": "2025-08-18",
+      "type": "Q-Meeting: Call",
+      "staffAttending": ["Staff Three", "Staff Two", "Staff Five"],
+      "comments": "Quarterly performance review call"
+    },
+    {
+      "id": "2", 
+      "managerId": "5",
+      "date": "2025-09-18",
+      "type": "DD Call",
+      "staffAttending": ["Staff One", "Staff Four", "Staff Five"],
+      "comments": "Due diligence call for new investment opportunity"
+    },
+    {
+      "id": "3",
+      "managerId": "3", 
+      "date": "2025-08-25",
+      "type": "DD Mtg KPERS Office",
+      "staffAttending": ["Staff Three", "Staff One", "Staff Two", "Staff Four"],
+      "comments": "Due diligence meeting at KPERS office"
+    },
+    {
+      "id": "4",
+      "managerId": "1",
+      "date": "2025-09-09", 
+      "type": "Q-Meeting: In KPERS Office",
+      "staffAttending": ["Staff One", "Staff Two", "Staff Five"],
+      "comments": "Quarterly meeting at KPERS office"
+    },
+    {
+      "id": "5",
+      "managerId": "4",
+      "date": "2025-09-19",
+      "type": "Email/Letter", 
+      "staffAttending": ["Staff Three", "Staff Two", "Staff Five", "Staff Four"],
+      "comments": "Risk assessment email correspondence"
+    }
+  ],
+  "meetingNotes": [
+    {
+      "id": "1",
+      "eventId": "1",
+      "managerId": "2",
+      "date": "2025-08-18",
+      "title": "Notes",
+      "content": "To: Notes for event 1 - Quarterly performance exceeded expectations. Discussed new investment opportunities in emerging markets.",
+      "createdBy": "lwehrly"
+    },
+    {
+      "id": "2",
+      "eventId": "2", 
+      "managerId": "5",
+      "date": "2025-09-18",
+      "title": "Notes",
+      "content": "To: Notes for event 2 - Due diligence completed. Identified potential risks in technology sector investments.",
+      "createdBy": "lwehrly"
+    },
+    {
+      "id": "3",
+      "eventId": "3",
+      "managerId": "3",
+      "date": "2025-08-25", 
+      "title": "Notes",
+      "content": "To: Notes for event 3 - Performance below benchmark. Action plan developed to address underperformance.",
+      "createdBy": "lwehrly"
+    },
+    {
+      "id": "4",
+      "eventId": "4",
+      "managerId": "1", 
+      "date": "2025-09-09",
+      "title": "Notes",
+      "content": "To: Notes for event 4 - Strategy alignment confirmed. Portfolio rebalancing recommended.",
+      "createdBy": "lwehrly"
+    },
+    {
+      "id": "5",
+      "eventId": "5",
+      "managerId": "4",
+      "date": "2025-09-19",
+      "title": "Notes", 
+      "content": "To: Notes for event 5 - Risk assessment completed. Compliance requirements updated.",
+      "createdBy": "lwehrly"
+    }
+  ],
+  "staff": [
+    { "id": "1", "name": "Staff One", "role": "Investment Analyst" },
+    { "id": "2", "name": "Staff Two", "role": "Portfolio Manager" },
+    { "id": "3", "name": "Staff Three", "role": "Risk Manager" },
+    { "id": "4", "name": "Staff Four", "role": "Compliance Officer" },
+    { "id": "5", "name": "Staff Five", "role": "Senior Analyst" }
+  ],
+  "eventTypes": [
+    { "id": "1", "name": "Q-Meeting: Call" },
+    { "id": "2", "name": "Q-Meeting: In KPERS Office" },
+    { "id": "3", "name": "Q-Meeting: In Mgr Office" },
+    { "id": "4", "name": "DD Call" },
+    { "id": "5", "name": "Other Contact" },
+    { "id": "6", "name": "Email/Letter" },
+    { "id": "7", "name": "DD Mtg KPERS Office" },
+    { "id": "8", "name": "DD Mtg Manager's Office" },
+    { "id": "9", "name": "Other DD Call" }
+  ]
+}

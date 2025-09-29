@@ -1,0 +1,46 @@
+/* Manager Detail Page Styles */
+
+.manager-detail-page {
+  padding: 24px;
+}
+
+.manager-detail-page .MuiCard-root {
+  height: 100%;
+}
+
+.manager-detail-page .MuiCardContent-root {
+  padding: 16px;
+}
+
+.manager-detail-page .MuiTabs-root {
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.manager-detail-page .MuiTab-root {
+  text-transform: none;
+  font-weight: 500;
+}
+
+.manager-detail-page .MuiTableRow-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.manager-detail-page .MuiTableCell-root {
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.manager-detail-page .MuiTableHead-root .MuiTableCell-root {
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .manager-detail-page {
+    padding: 16px;
+  }
+  
+  .manager-detail-page .MuiTableContainer-root {
+    overflow-x: auto;
+  }
+}

@@ -1,87 +1,122 @@
-import { Fragment } from "react";
-import { List, ListItemButton, ListItemIcon, ListItemText, Divider, Tooltip } from "@mui/material";
+
+import { List, ListItemButton, ListItemIcon, ListItemText, Divider, Tooltip, Box } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import EventIcon from "@mui/icons-material/Event";
 import DescriptionIcon from "@mui/icons-material/Description";
-import GavelIcon from "@mui/icons-material/Gavel";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./SidebarNav.css";
 
 export default function SidebarNav({ expanded }: { expanded: boolean }) {
   const nav = useNavigate();
+  const location = useLocation();
   const go = (path: string) => () => nav(path);
 
-  // Keep this in sync with Drawer collapsed width so icons do not shift
-  const ICON_GUTTER = 48; // Match AppShell collapsed width
-
-  const Item = ({ icon, text, onClick, disabled }: { icon: JSX.Element; text: string; onClick?: () => void; disabled?: boolean }) => (
-    <Tooltip title={!expanded ? text : ""} placement="right">
-      <span>
-        <ListItemButton 
-          onClick={onClick} 
-          disabled={disabled}
-          sx={{ 
-            minHeight: 48, // Consistent height
-            justifyContent: "flex-start", // Keep start alignment in both states so icon x-position is stable
-            px: 1.5, // Slight left padding; text spacing handled by ListItemIcon minWidth
-          }}
-        >
-          <ListItemIcon sx={{ 
-            minWidth: ICON_GUTTER, // Fixed gutter equals collapsed drawer width
-            display: "flex",
-            justifyContent: "center", // Center icon within gutter so x-position matches both states
-          }}>
-            {icon}
-          </ListItemIcon>
-          <ListItemText 
-            primary={text} 
+  const Item = ({ icon, text, onClick, disabled, path }: { 
+    icon: JSX.Element; 
+    text: string; 
+    onClick?: () => void; 
+    disabled?: boolean;
+    path: string;
+  }) => {
+    const isActive = location.pathname === path;
+    
+    return (
+      <Tooltip 
+        title={!expanded ? text : ""} 
+        placement="right"
+        classes={{ tooltip: "sidebar-nav-tooltip" }}
+      >
+        <span>
+          <ListItemButton 
+            onClick={onClick} 
+            disabled={disabled}
+            className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
             sx={{ 
-              opacity: expanded ? 1 : 0,
-              transition: "opacity 0.2s ease-in-out",
-              whiteSpace: "nowrap",
-              pr: 1, // a little right padding to avoid edge clipping
-            }} 
-          />
-        </ListItemButton>
-      </span>
-    </Tooltip>
-  );
+              minHeight: 48,
+              justifyContent: "flex-start",
+              px: 1,
+              py: 1,
+            }}
+          >
+            <ListItemIcon className="sidebar-nav-icon">
+              {icon}
+            </ListItemIcon>
+            <ListItemText 
+              primary={text} 
+              className={`sidebar-nav-text ${expanded ? 'fade-in' : 'fade-out'}`}
+              sx={{ 
+                opacity: expanded ? 1 : 0,
+                pr: 1,
+                ml: 1,
+              }} 
+            />
+          </ListItemButton>
+        </span>
+      </Tooltip>
+    );
+  };
 
   return (
-    <Fragment>
-      <List subheader={undefined}>
-        <Item icon={<DashboardIcon />} text="Dashboard" onClick={go("/dashboard")} />
+    <Box className="sidebar-nav-container">
+      <List className="sidebar-nav-list">
+        <Item 
+          icon={<DashboardIcon />} 
+          text="Dashboard" 
+          onClick={go("/dashboard")} 
+          path="/dashboard"
+        />
+        
+        <Divider className="sidebar-nav-divider" />
+        
+        <Item 
+          icon={<PeopleAltIcon />} 
+          text="Managers" 
+          onClick={go("/managers")} 
+          path="/managers"
+        />
+        
+        <Item 
+          icon={<EventIcon />} 
+          text="Events" 
+          onClick={go("/events")} 
+          path="/events"
+        />
+        
+        <Item 
+          icon={<DescriptionIcon />} 
+          text="Documents" 
+          onClick={go("/documents")} 
+          path="/documents"
+        />
+        
+        <Item 
+          icon={<SearchIcon />} 
+          text="Search" 
+          onClick={go("/search")} 
+          path="/search"
+        />
+        
+        <Divider className="sidebar-nav-divider" />
+        
+        <Item 
+          icon={<AdminPanelSettingsIcon />} 
+          text="Admin" 
+          onClick={go("/admin")} 
+          path="/admin"
+        />
+        
+        <Item 
+          icon={<SettingsIcon />} 
+          text="Settings" 
+          onClick={go("/settings")} 
+          path="/settings"
+        />
       </List>
-      <Divider />
-      <List>
-        <Item icon={<PeopleAltIcon />} text="Managers" onClick={go("/managers")} />
-      </List>
-      <Divider />
-      <List>
-        <Item icon={<EventIcon />} text="Create Event" onClick={go("/events/new")} />
-        <Item icon={<EventIcon />} text="Browse Events" onClick={go("/events")} />
-      </List>
-      <Divider />
-      <List>
-        <Item icon={<DescriptionIcon />} text="Add Notes to Event" disabled onClick={go("/events")} />
-        <Item icon={<DescriptionIcon />} text="Add Memos" disabled />
-        <Item icon={<DescriptionIcon />} text="Add Documents" disabled />
-        <Item icon={<DescriptionIcon />} text="Import/Rename Q-Reports" disabled />
-      </List>
-      <Divider />
-      <List>
-        <Item icon={<GavelIcon />} text="Probation – Create" disabled />
-        <Item icon={<GavelIcon />} text="Probation – Update" disabled />
-        <Item icon={<GavelIcon />} text="Terminated Checklist" disabled />
-      </List>
-      <Divider />
-      <List>
-        <Item icon={<AdminPanelSettingsIcon />} text="Admin" onClick={go("/admin")} />
-        <Item icon={<SettingsIcon />} text="Settings" onClick={go("/settings")} />
-      </List>
-    </Fragment>
+    </Box>
   );
 }
 

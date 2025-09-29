@@ -1,0 +1,67 @@
+/* Managers Page Styles */
+
+.managers-page {
+  padding: 24px;
+}
+
+.managers-page .MuiTableRow-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.managers-page .MuiTableCell-root {
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.managers-page .MuiTableHead-root .MuiTableCell-root {
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.managers-page .MuiChip-root {
+  font-weight: 500;
+}
+
+/* Pagination controls styling */
+.managers-page .MuiTablePagination-root {
+  border-top: 1px solid rgba(224, 224, 224, 1);
+  padding: 8px 16px;
+}
+
+.managers-page .MuiTablePagination-toolbar {
+  padding: 0;
+  min-height: 40px;
+}
+
+.managers-page .MuiTablePagination-selectLabel,
+.managers-page .MuiTablePagination-displayedRows {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.managers-page .MuiTablePagination-select {
+  margin: 0 8px;
+}
+
+.managers-page .MuiTablePagination-actions {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .managers-page {
+    padding: 16px;
+  }
+  
+  .managers-page .MuiTableContainer-root {
+    overflow-x: auto;
+  }
+  
+  .managers-page .MuiTablePagination-root {
+    padding: 8px;
+  }
+  
+  .managers-page .MuiTablePagination-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

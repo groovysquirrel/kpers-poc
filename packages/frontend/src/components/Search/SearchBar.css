@@ -1,0 +1,57 @@
+/* Search Bar Component Styles */
+
+.search-bar {
+  width: 100%;
+}
+
+.search-bar .MuiPaper-root {
+  border-radius: 8px;
+  border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.search-bar .MuiTextField-root {
+  margin: 0;
+}
+
+.search-bar .MuiInputBase-root {
+  border-radius: 6px;
+}
+
+.search-bar .MuiChip-root {
+  margin: 2px;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-bar .MuiChip-root:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar .MuiIconButton-root {
+  transition: all 0.2s ease-in-out;
+}
+
+.search-bar .MuiIconButton-root:hover {
+  transform: scale(1.05);
+}
+
+/* Loading state */
+.search-bar .MuiCircularProgress-root {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-bar .MuiBox-root {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .search-bar .MuiIconButton-root {
+    align-self: stretch;
+  }
+  
+  .search-bar .MuiBox-root:last-child {
+    margin-top: 8px;
+  }
+}

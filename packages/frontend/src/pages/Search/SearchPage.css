@@ -1,0 +1,25 @@
+/* Search Page Styles */
+
+.search-page {
+  padding: 24px;
+}
+
+.search-page .MuiTypography-h4 {
+  margin-bottom: 16px;
+}
+
+.search-page .MuiTypography-body1 {
+  margin-bottom: 24px;
+  max-width: 600px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-page {
+    padding: 16px;
+  }
+  
+  .search-page .MuiTypography-h4 {
+    font-size: 1.75rem;
+  }
+}

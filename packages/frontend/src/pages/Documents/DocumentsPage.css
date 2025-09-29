@@ -1,0 +1,33 @@
+.documents-page {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.documents-page .MuiTableContainer-root {
+  max-height: 600px;
+}
+
+.documents-page .MuiTableRow-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.documents-page .MuiChip-root {
+  font-size: 0.75rem;
+}
+
+.documents-page .MuiIconButton-root {
+  padding: 4px;
+}
+
+.documents-page .MuiDialogContent-root {
+  padding-top: 16px;
+}
+
+.documents-page .MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.documents-page .MuiFormControl-root {
+  margin-bottom: 16px;
+}

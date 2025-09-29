@@ -1,0 +1,59 @@
+/* Search Results Component Styles */
+
+.search-results {
+  width: 100%;
+}
+
+.search-results .MuiPaper-root {
+  border-radius: 8px;
+  border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.search-results .MuiListItem-root {
+  padding: 16px;
+}
+
+.search-results .MuiListItem-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.search-results .MuiListItemIcon-root {
+  min-width: 40px;
+}
+
+.search-results .MuiChip-root {
+  margin: 2px;
+}
+
+.search-results .MuiDivider-root {
+  margin: 0;
+}
+
+.search-results .MuiPagination-root {
+  margin: 16px 0;
+}
+
+/* Loading state */
+.search-results .MuiCircularProgress-root {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* Alert styling */
+.search-results .MuiAlert-root {
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-results .MuiListItem-root {
+    padding: 12px;
+  }
+  
+  .search-results .MuiListItemIcon-root {
+    min-width: 32px;
+  }
+  
+  .search-results .MuiChip-root {
+    font-size: 0.75rem;
+  }
+}

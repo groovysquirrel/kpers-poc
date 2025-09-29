@@ -1,0 +1,49 @@
+/* Event Create Page Styles */
+
+.event-create-page {
+  padding: 24px;
+}
+
+.event-create-page .MuiFormControl-root {
+  margin: 0;
+}
+
+.event-create-page .MuiTextField-root {
+  margin: 0;
+}
+
+.event-create-page .MuiChip-root {
+  margin: 2px;
+}
+
+.event-create-page .MuiAutocomplete-root {
+  margin: 0;
+}
+
+.event-create-page .MuiDivider-root {
+  margin: 24px 0;
+}
+
+/* Form grid adjustments */
+.event-create-page .MuiBox-root {
+  gap: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .event-create-page {
+    padding: 16px;
+  }
+  
+  .event-create-page .MuiBox-root {
+    gap: 16px;
+  }
+  
+  .event-create-page .MuiButton-root {
+    width: 100%;
+  }
+  
+  .event-create-page .MuiBox-root:last-child {
+    flex-direction: column;
+  }
+}

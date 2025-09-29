@@ -90,22 +90,49 @@ PUT `/api/users/:id/role` (role: Admin)
 
 ## Data Models
 
+Based on actual sample data from the legacy system:
+
 ```ts
 export interface Manager {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  phone: string;
+  email: string;
   status: 'Active' | 'Terminated' | 'Probation';
-  marketValue?: number;        // USD
-  asOfDate?: string;           // ISO
+  marketValue: number;         // USD
+  asOfDate: string;           // ISO
 }
 
 export interface EventRecord {
   id: string;
   managerId: string;
   date: string;                // ISO
-  type: 'Meeting' | 'Memo' | 'Report';
-  staffAttending?: string[];
-  comments?: string;
+  type: string;                // Event type from EventTypes table
+  staffAttending: string[];    // Array of staff member names
+  comments: string;
+}
+
+export interface MeetingNote {
+  id: string;
+  eventId: string;
+  managerId: string;
+  date: string;                // ISO
+  title: string;
+  content: string;
+  createdBy: string;
+}
+
+export interface StaffMember {
+  id: string;
+  name: string;
+  role: string;
+}
+
+export interface EventType {
+  id: string;
+  name: string;
 }
 
 export interface DocumentItem {

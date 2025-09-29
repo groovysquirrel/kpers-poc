@@ -2,11 +2,11 @@ import { PropsWithChildren, useMemo, useState, useEffect } from "react";
 import { Box, CssBaseline, Drawer, IconButton, Toolbar, AppBar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SidebarNav from "../components/navigation/SidebarNav";
+import "../components/navigation/SidebarNav.css";
 
 const COLLAPSE_KEY = "ui.sidebar.expanded";
-const DRAWER_WIDTH_EXPANDED = 284; // Slightly wider so long labels (e.g., Q-Reports) don't clip
-const DRAWER_WIDTH_COLLAPSED = 48; // Bring icons closer to the left
-const ICON_GUTTER = 37; // Keep hamburger aligned with sidebar icons
+const DRAWER_WIDTH_EXPANDED = 200; // Slightly wider so long labels (e.g., Q-Reports) don't clip
+const DRAWER_WIDTH_COLLAPSED = 80; // Wider collapsed state for better icon spacing
 
 /**
  * AppShell
@@ -49,13 +49,13 @@ export default function AppShell({ children }: PropsWithChildren) {
           {/* Toggle to collapse/expand the sidebar
               The Box ensures the hamburger sits on the same x-position as the sidebar icons.
           */}
-          <Box sx={{ width: ICON_GUTTER, display: "flex", justifyContent: "center" }}>
+          <Box className="hamburger-container">
             <IconButton color="inherit" edge="start" onClick={() => setExpanded((v) => !v)}>
               <MenuIcon />
             </IconButton>
           </Box>
           <Typography variant="h6" noWrap component="div">
-            KPERS – Manager Dashboard
+            KPERS Fund Manager Relations Tool
           </Typography>
         </Toolbar>
       </AppBar>
