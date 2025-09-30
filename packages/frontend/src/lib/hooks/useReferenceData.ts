@@ -32,13 +32,14 @@ export function useReferenceData(): UseReferenceDataReturn {
     setError(null);
     
     try {
-      const [eventTypesData, staffData] = await Promise.all([
+      const [eventTypesData, staffResponse] = await Promise.all([
         client.getEventTypes(),
         client.getStaff()
       ]);
       
       setEventTypes(eventTypesData);
-      setStaff(staffData);
+      // Extract items array from staff response
+      setStaff(staffResponse.items || []);
     } catch (err: any) {
       setError(err.message || 'Failed to fetch reference data');
       console.error('Error fetching reference data:', err);

@@ -14,10 +14,15 @@ import { api as fakeApi } from './mock/mockApi';
 import { managersService } from './services/managers';
 import { eventsService } from './services/events';
 import { eventTypesService } from './services/event-types';
+import { documentsService } from './services/documents';
+import { documentTypesService } from './services/document-types';
+import { notesService } from './services/notes';
+import { noteTypesService } from './services/note-types';
+import { staffService } from './services/staff';
+import { performanceMetricsService } from './services/performance-metrics';
 import {
   Manager,
   EventRecord,
-  DocumentItem,
   User,
   EventCreate,
   EventUpdate,
@@ -26,8 +31,6 @@ import {
   Role,
   Note,
   NoteType,
-  NoteCreateForm,
-  NoteUpdateForm
 } from '../types/domain';
 
 // Configuration
@@ -258,8 +261,7 @@ class ApiClient {
         return await fakeApi.getDocuments(params);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await documentsService.list(params);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -267,47 +269,55 @@ class ApiClient {
   }
 
   async createDocument(documentData: {
-    managerId: string;
     eventId?: string;
+    documentTypeId: string;
     filename: string;
-    contentType: string;
-    size: number;
-  }): Promise<{ uploadUrl: string; document: DocumentItem }> {
+    date: string;
+    url?: string;
+    author?: string;
+    description?: string;
+  }): Promise<any> {
     try {
       if (API_CONFIG.useFakeApi) {
-        return await fakeApi.createDocument(documentData);
+        // Fake API has a different signature, adapt it
+        return await fakeApi.createDocument(documentData as any);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await documentsService.create(documentData);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
     }
   }
 
-  async updateDocument(id: string, updates: Partial<DocumentItem>): Promise<DocumentItem> {
+  async updateDocument(id: string, updates: Partial<{
+    eventId: string;
+    documentTypeId: string;
+    filename: string;
+    date: string;
+    url: string;
+    author: string;
+    description: string;
+  }>): Promise<any> {
     try {
       if (API_CONFIG.useFakeApi) {
-        return await fakeApi.updateDocument(id, updates);
+        return await fakeApi.updateDocument(id, updates as any);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await documentsService.update(id, updates);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
     }
   }
 
-  async getDocument(id: string): Promise<DocumentItem> {
+  async getDocument(id: string): Promise<any> {
     try {
       if (API_CONFIG.useFakeApi) {
         return await fakeApi.getDocument(id);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await documentsService.get(id);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -320,11 +330,78 @@ class ApiClient {
         return await fakeApi.deleteDocument(id);
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      const result = await documentsService.delete(id);
+      return { ok: result.ok };
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  // -----------------------------
+  // Document Types
+  // -----------------------------
+  async getDocumentTypes(): Promise<any[]> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        // Fake API doesn't have document types, return empty array
+        return [];
+      }
+      
+      return await documentTypesService.list();
+    } catch (error) {
+      handleApiError(error);
+      return [] as any;
+    }
+  }
+
+  async createDocumentType(data: {
+    name: string;
+    description?: string;
+    isActive?: boolean;
+    displayOrder?: number;
+  }): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support document type creation');
+      }
+      
+      return await documentTypesService.create(data);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async updateDocumentType(id: string, updates: Partial<{
+    name: string;
+    description: string;
+    isActive: boolean;
+    displayOrder: number;
+  }>): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support document type updates');
+      }
+      
+      return await documentTypesService.update(id, updates);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async deleteDocumentType(id: string): Promise<{ ok: boolean }> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support document type deletion');
+      }
+
+      const result = await documentTypesService.delete(id);
+      return { ok: result.ok };
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
     }
   }
 
@@ -346,8 +423,7 @@ class ApiClient {
         return await fakeApi.getNotes(params);
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await notesService.list(params);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -360,36 +436,51 @@ class ApiClient {
         return await fakeApi.getNote(id);
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await notesService.get(id) as any;
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
     }
   }
 
-  async createNote(noteData: NoteCreateForm): Promise<Note> {
+  async createNote(noteData: {
+    title: string;
+    content: string;
+    type: string;
+    eventId?: string;
+    author: string;
+    filename?: string;
+    date: string;
+    url?: string;
+  }): Promise<Note> {
     try {
       if (API_CONFIG.useFakeApi) {
-        return await fakeApi.createNote(noteData);
+        return await fakeApi.createNote(noteData as any);
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await notesService.create(noteData) as any;
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
     }
   }
 
-  async updateNote(id: string, updates: NoteUpdateForm): Promise<Note> {
+  async updateNote(id: string, updates: Partial<{
+    title: string;
+    content: string;
+    type: string;
+    eventId: string;
+    author: string;
+    filename: string;
+    date: string;
+    url: string;
+  }>): Promise<Note> {
     try {
       if (API_CONFIG.useFakeApi) {
-        return await fakeApi.updateNote(id, updates);
+        return await fakeApi.updateNote(id, updates as any);
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await notesService.update(id, updates) as any;
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -402,8 +493,8 @@ class ApiClient {
         return await fakeApi.deleteNote(id);
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      const result = await notesService.delete(id);
+      return { ok: result.ok };
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -419,11 +510,60 @@ class ApiClient {
         return await fakeApi.getNoteTypes();
       }
 
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      return await noteTypesService.list() as any;
     } catch (error) {
       handleApiError(error);
       return [] as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async createNoteType(data: {
+    name: string;
+    description?: string;
+    isActive?: boolean;
+    displayOrder?: number;
+  }): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support note type creation');
+      }
+      
+      return await noteTypesService.create(data);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async updateNoteType(id: string, updates: Partial<{
+    name: string;
+    description: string;
+    isActive: boolean;
+    displayOrder: number;
+  }>): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support note type updates');
+      }
+      
+      return await noteTypesService.update(id, updates);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async deleteNoteType(id: string): Promise<{ ok: boolean }> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support note type deletion');
+      }
+
+      const result = await noteTypesService.delete(id);
+      return { ok: result.ok };
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
     }
   }
 
@@ -443,8 +583,116 @@ class ApiClient {
         return await fakeApi.search(params);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Client-side search implementation (POC)
+      // Fetches from all endpoints and filters client-side
+      const query = params.q.toLowerCase();
+      const typeFilter = params.types ? params.types.split(',') : ['manager', 'event', 'note', 'document'];
+      const results: any[] = [];
+      
+      // Search managers
+      if (typeFilter.includes('manager')) {
+        const managersResponse = await managersService.list({ pageSize: 100 });
+        managersResponse.items.forEach((manager: any) => {
+          const searchText = `${manager.firstName} ${manager.lastName} ${manager.company} ${manager.email}`.toLowerCase();
+          if (searchText.includes(query)) {
+            results.push({
+              id: `manager-${manager.id}`,
+              type: 'manager',
+              title: `${manager.firstName} ${manager.lastName}`,
+              snippet: `${manager.company} - ${manager.status}`,
+              metadata: {
+                company: manager.company,
+                status: manager.status,
+                email: manager.email
+              }
+            });
+          }
+        });
+      }
+      
+      // Search events
+      if (typeFilter.includes('event')) {
+        const eventsResponse = await eventsService.list({ pageSize: 100 });
+        eventsResponse.items.forEach((event: any) => {
+          const searchText = `${event.type} ${event.comments} ${event.staffAttending.join(' ')}`.toLowerCase();
+          if (searchText.includes(query)) {
+            results.push({
+              id: `event-${event.id}`,
+              type: 'event',
+              title: `${event.type} - ${event.date}`,
+              snippet: event.comments || 'No comments',
+              metadata: {
+                date: event.date,
+                type: event.type,
+                managerId: event.managerId
+              }
+            });
+          }
+        });
+      }
+      
+      // Search notes
+      if (typeFilter.includes('note')) {
+        const notesResponse = await notesService.list({ pageSize: 100 });
+        notesResponse.items.forEach((note: any) => {
+          const searchText = `${note.title} ${note.content} ${note.author}`.toLowerCase();
+          if (searchText.includes(query)) {
+            results.push({
+              id: `note-${note.id}`,
+              type: 'note',
+              title: note.title,
+              snippet: note.content.substring(0, 200),
+              metadata: {
+                author: note.author,
+                date: note.date,
+                type: note.type
+              }
+            });
+          }
+        });
+      }
+      
+      // Search documents
+      if (typeFilter.includes('document')) {
+        const documentsResponse = await documentsService.list({ pageSize: 100 });
+        documentsResponse.items.forEach((doc: any) => {
+          const searchText = `${doc.filename} ${doc.author} ${doc.description}`.toLowerCase();
+          if (searchText.includes(query)) {
+            results.push({
+              id: `document-${doc.id}`,
+              type: 'document',
+              title: doc.filename,
+              snippet: doc.description || 'No description',
+              metadata: {
+                author: doc.author,
+                date: doc.date,
+                url: doc.url
+              }
+            });
+          }
+        });
+      }
+      
+      // Sort by relevance (simple: check if query is in title)
+      results.sort((a, b) => {
+        const aInTitle = a.title.toLowerCase().includes(query) ? 0 : 1;
+        const bInTitle = b.title.toLowerCase().includes(query) ? 0 : 1;
+        return aInTitle - bInTitle;
+      });
+      
+      // Implement simple pagination
+      const page = params.page || 1;
+      const pageSize = params.pageSize || 25;
+      const startIndex = (page - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+      const paginatedResults = results.slice(startIndex, endIndex);
+      
+      return {
+        items: paginatedResults,
+        page,
+        pageSize,
+        total: results.length
+      };
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -514,14 +762,174 @@ class ApiClient {
     }
   }
 
-  async getStaff() {
+  async getStaff(params: {
+    isActive?: boolean;
+    page?: number;
+    pageSize?: number;
+  } = {}) {
     try {
-      // Staff API not implemented yet in backend, use fake data for now
-      // TODO: Replace with real API call when staff service is ready
-      return await fakeApi.getStaff();
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getStaff();
+      }
+      
+      return await staffService.list(params);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async getStaffMember(id: string): Promise<StaffMember> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support getting individual staff');
+      }
+      
+      return await staffService.get(id) as any;
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async createStaffMember(data: {
+    firstName: string;
+    lastName: string;
+    email?: string;
+    title?: string;
+    isActive?: boolean;
+  }): Promise<StaffMember> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.createStaff(data as any);
+      }
+      
+      return await staffService.create(data) as any;
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async updateStaffMember(id: string, updates: Partial<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    title: string;
+    isActive: boolean;
+  }>): Promise<StaffMember> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.updateStaff(id, updates as any);
+      }
+      
+      return await staffService.update(id, updates) as any;
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async deleteStaffMember(id: string): Promise<{ ok: boolean }> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        await fakeApi.deleteStaff(id);
+        return { ok: true };
+      }
+
+      const result = await staffService.delete(id);
+      return { ok: result.ok };
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  // -----------------------------
+  // Performance Metrics
+  // -----------------------------
+  async getPerformanceMetrics(params: {
+    managerId?: string;
+    metricYear?: number;
+    page?: number;
+    pageSize?: number;
+  } = {}): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        // Fake API doesn't have performance metrics, return empty array
+        return { items: [], page: 1, pageSize: 25, total: 0 };
+      }
+      
+      return await performanceMetricsService.list(params);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async getPerformanceMetric(id: string): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support performance metrics');
+      }
+      
+      return await performanceMetricsService.get(id);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async createPerformanceMetric(data: {
+    managerId: string;
+    metricYear: number;
+    returnRate?: number;
+    marketValue?: number;
+    asOfDate: string;
+    notes?: string;
+  }): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support performance metric creation');
+      }
+      
+      return await performanceMetricsService.create(data);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async updatePerformanceMetric(id: string, updates: Partial<{
+    metricYear: number;
+    returnRate: number;
+    marketValue: number;
+    asOfDate: string;
+    notes: string;
+  }>): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support performance metric updates');
+      }
+      
+      return await performanceMetricsService.update(id, updates);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
+    }
+  }
+
+  async deletePerformanceMetric(id: string): Promise<{ ok: boolean }> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        throw new Error('Fake API does not support performance metric deletion');
+      }
+
+      const result = await performanceMetricsService.delete(id);
+      return { ok: result.ok };
+    } catch (error) {
+      handleApiError(error);
+      return {} as any;
     }
   }
 

@@ -46,14 +46,32 @@ async function createTableAndSeed(): Promise<void> {
   console.log(`[PerformanceMetrics] Seeded ${defaults.length} performance metrics`);
 }
 
-async function selectPerformanceMetrics(): Promise<PerformanceMetricRow[]> {
-  const sql = `
+async function selectPerformanceMetrics(managerId?: string, metricYear?: number): Promise<PerformanceMetricRow[]> {
+  let sql = `
     SELECT id, manager_id, metric_year, return_rate, market_value, as_of_date, notes, created_at, updated_at
     FROM performance_metrics 
-    ORDER BY as_of_date DESC, metric_year DESC
   `;
   
-  const result = await db.query(sql);
+  const params: QueryParameter[] = [];
+  const conditions: string[] = [];
+  
+  if (managerId) {
+    conditions.push(`manager_id = :managerId`);
+    params.push({ name: "managerId", value: managerId });
+  }
+  
+  if (metricYear) {
+    conditions.push(`metric_year = :metricYear`);
+    params.push({ name: "metricYear", value: metricYear, type: "long" });
+  }
+  
+  if (conditions.length > 0) {
+    sql += `WHERE ${conditions.join(' AND ')} `;
+  }
+  
+  sql += `ORDER BY as_of_date DESC, metric_year DESC`;
+  
+  const result = params.length > 0 ? await db.query(sql, params) : await db.query(sql);
   
   if (!result.records || result.records.length === 0) {
     return [];
@@ -75,12 +93,19 @@ async function selectPerformanceMetrics(): Promise<PerformanceMetricRow[]> {
   return metrics;
 }
 
-export const main = handler(async () => {
+export const main = handler(async (event) => {
   console.log("[PerformanceMetrics] List - Starting");
+  
+  // Extract query parameters
+  const managerId = event.queryStringParameters?.managerId;
+  const metricYearStr = event.queryStringParameters?.metricYear;
+  const metricYear = metricYearStr ? parseInt(metricYearStr, 10) : undefined;
+  
+  console.log(`[PerformanceMetrics] Filters - managerId: ${managerId}, metricYear: ${metricYear}`);
 
   try {
     // Try to select performance metrics directly (normal case - table exists)
-    const metrics = await selectPerformanceMetrics();
+    const metrics = await selectPerformanceMetrics(managerId, metricYear);
     console.log(`[PerformanceMetrics] List - Returning ${metrics.length} performance metrics`);
     return JSON.stringify(metrics);
   } catch (err: any) {
@@ -90,7 +115,7 @@ export const main = handler(async () => {
       await createTableAndSeed();
       
       // Retry the select
-      const metrics = await selectPerformanceMetrics();
+      const metrics = await selectPerformanceMetrics(managerId, metricYear);
       console.log(`[PerformanceMetrics] List - Returning ${metrics.length} performance metrics (after create+seed)`);
       return JSON.stringify(metrics);
     }

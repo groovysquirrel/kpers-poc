@@ -47,6 +47,7 @@ import { Manager } from "../../types/domain";
 import { useManagers } from "../../lib/hooks/useManagers";
 import { useDocuments } from "../../lib/hooks/useDocuments";
 import { useEvents } from "../../lib/hooks/useEvents";
+import { useDocumentTypes } from "../../lib/hooks/useDocumentTypes";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorAlert from "../../components/ErrorAlert";
 import DocumentForm from "../../components/forms/DocumentForm";
@@ -92,6 +93,13 @@ export default function DocumentsPage() {
   // Fetch events for the form
   const { events } = useEvents({ autoFetch: true });
 
+  // Fetch document types for dropdown
+  const {
+    documentTypes,
+    loading: documentTypesLoading,
+    error: documentTypesError
+  } = useDocumentTypes();
+
   // Build a manager id -> manager object map for O(1) lookups
   const managerLookup = useMemo(() => {
     const lookup: Record<string, Manager> = {};
@@ -105,9 +113,9 @@ export default function DocumentsPage() {
   const filteredDocuments = useMemo(() => {
     let filtered = documents;
     
-    // Apply type filter
+    // Apply document type filter
     if (typeFilter) {
-      filtered = filtered.filter(doc => doc.contentType === typeFilter);
+      filtered = filtered.filter(doc => doc.documentTypeId === typeFilter);
     }
     
     // Apply manager filter
@@ -136,8 +144,8 @@ export default function DocumentsPage() {
   }, [documents, searchTerm, typeFilter, managerFilter, managerLookup]);
 
   // Loading and error states
-  const isLoading = managersLoading || documentsLoading;
-  const hasError = managersError || documentsError;
+  const isLoading = managersLoading || documentsLoading || documentTypesLoading;
+  const hasError = managersError || documentsError || documentTypesError;
 
   const handleViewDocument = useCallback((documentId: string) => {
     // For now, just log - in real implementation, this would open the document
@@ -275,7 +283,7 @@ export default function DocumentsPage() {
         </Box>
         <ErrorAlert
           title="Failed to load documents"
-          message={managersError || 'An unexpected error occurred'}
+          message={managersError || documentsError || documentTypesError || 'An unexpected error occurred'}
         />
       </Box>
     );
@@ -321,10 +329,11 @@ export default function DocumentsPage() {
               onChange={(e) => setTypeFilter(e.target.value)}
             >
               <MenuItem value="">All Types</MenuItem>
-              <MenuItem value="Memo">Memo</MenuItem>
-              <MenuItem value="Note">Note</MenuItem>
-              <MenuItem value="Report">Report</MenuItem>
-              <MenuItem value="Document">Document</MenuItem>
+              {documentTypes.map((docType) => (
+                <MenuItem key={docType.id} value={docType.id}>
+                  {docType.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 

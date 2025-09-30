@@ -53,6 +53,9 @@ import { Manager, MeetingNote, ProbationChecklistItem } from "../../types/domain
 import { useManagers } from "../../lib/hooks/useManagers";
 import { useEvents } from "../../lib/hooks/useEvents";
 import { useProbation } from "../../lib/hooks/useProbation";
+import { useNotes } from "../../lib/hooks/useNotes";
+import { useDocuments } from "../../lib/hooks/useDocuments";
+import { usePerformanceMetrics } from "../../lib/hooks/usePerformanceMetrics";
 import ManagerForm from "../../components/forms/ManagerForm";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorAlert from "../../components/ErrorAlert";
@@ -108,7 +111,37 @@ export default function ManagerDetailPage() {
     error: eventsError 
   } = useEvents({
     managerId: id,
-    autoFetch: !!id  // Now enabled with real API
+    autoFetch: !!id
+  });
+
+  // Fetch notes for this manager
+  const {
+    notes,
+    loading: notesLoading,
+    error: notesError
+  } = useNotes({
+    managerId: id,
+    autoFetch: !!id
+  });
+
+  // Fetch documents for this manager
+  const {
+    documents,
+    loading: documentsLoading,
+    error: documentsError
+  } = useDocuments({
+    managerId: id,
+    autoFetch: !!id
+  });
+
+  // Fetch performance metrics for this manager
+  const {
+    metrics,
+    loading: metricsLoading,
+    error: metricsError
+  } = usePerformanceMetrics({
+    managerId: id,
+    autoFetch: !!id
   });
 
   // Probation management hook
@@ -123,13 +156,6 @@ export default function ManagerDetailPage() {
   const manager: Manager | undefined = useMemo(() => {
     return managers.find(m => m.id === id);
   }, [managers, id]);
-
-  // Mock notes data (since we don't have a notes API yet)
-  const notes: MeetingNote[] = useMemo(() => {
-    // For now, return empty array since we don't have notes API
-    // This will be replaced when notes API is implemented
-    return [];
-  }, []);
 
   // Loading and error states
   // Only block on managers loading, not events (events API not ready yet)
@@ -523,42 +549,161 @@ export default function ManagerDetailPage() {
           <Typography variant="h6" gutterBottom>
             Meeting Notes
           </Typography>
-          {notes.map((note) => (
-            <Paper key={note.id} sx={{ p: 2, mb: 2 }}>
-              <Typography variant="subtitle2" gutterBottom>
-                {note.title} - {formatDate(note.date)}
+          {notesLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+              <LoadingSpinner message="Loading notes..." />
+            </Box>
+          ) : notesError ? (
+            <ErrorAlert 
+              title="Failed to load notes"
+              message={notesError}
+              severity="warning"
+            />
+          ) : notes.length === 0 ? (
+            <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1, textAlign: 'center' }}>
+              <Typography color="text.secondary">
+                No notes recorded yet
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Created by: {note.createdBy}
-              </Typography>
-              <Divider sx={{ my: 1 }} />
-              <Typography variant="body1">
-                {note.content}
-              </Typography>
-            </Paper>
-          ))}
+            </Box>
+          ) : (
+            notes.map((note) => (
+              <Paper key={note.id} sx={{ p: 2, mb: 2 }}>
+                <Typography variant="subtitle2" gutterBottom>
+                  {note.title} - {note.date ? formatDate(note.date) : 'N/A'}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Created by: {note.createdBy}
+                </Typography>
+                <Divider sx={{ my: 1 }} />
+                <Typography variant="body1">
+                  {note.content}
+                </Typography>
+                {note.url && (
+                  <Box sx={{ mt: 1 }}>
+                    <Typography variant="caption" color="text.secondary">
+                      <a href={note.url} target="_blank" rel="noopener noreferrer">
+                        View attachment
+                      </a>
+                    </Typography>
+                  </Box>
+                )}
+              </Paper>
+            ))
+          )}
         </TabPanel>
 
         <TabPanel value={tabValue} index={2}>
           <Typography variant="h6" gutterBottom>
-            Performance Data
+            Performance Metrics
           </Typography>
-          <Box sx={{ height: 300, bgcolor: 'action.hover', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography color="text.secondary">
-              Performance chart placeholder
-            </Typography>
-          </Box>
+          {metricsLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+              <LoadingSpinner message="Loading performance metrics..." />
+            </Box>
+          ) : metricsError ? (
+            <ErrorAlert 
+              title="Failed to load performance metrics"
+              message={metricsError}
+              severity="warning"
+            />
+          ) : metrics.length === 0 ? (
+            <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1, textAlign: 'center' }}>
+              <Typography color="text.secondary">
+                No performance metrics recorded yet
+              </Typography>
+            </Box>
+          ) : (
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Year</TableCell>
+                    <TableCell align="right">Return Rate (%)</TableCell>
+                    <TableCell align="right">Market Value</TableCell>
+                    <TableCell>As of Date</TableCell>
+                    <TableCell>Notes</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {metrics.map((metric) => (
+                    <TableRow key={metric.id}>
+                      <TableCell>{metric.metricYear}</TableCell>
+                      <TableCell align="right">
+                        {metric.returnRate !== undefined ? `${metric.returnRate.toFixed(2)}%` : 'N/A'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {metric.marketValue !== undefined ? formatCurrency(metric.marketValue) : 'N/A'}
+                      </TableCell>
+                      <TableCell>{formatDate(metric.asOfDate)}</TableCell>
+                      <TableCell>{metric.notes || '-'}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </TabPanel>
 
         <TabPanel value={tabValue} index={3}>
           <Typography variant="h6" gutterBottom>
             Documents
           </Typography>
-          <Box sx={{ height: 200, bgcolor: 'action.hover', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography color="text.secondary">
-              Document library placeholder
-            </Typography>
-          </Box>
+          {documentsLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+              <LoadingSpinner message="Loading documents..." />
+            </Box>
+          ) : documentsError ? (
+            <ErrorAlert 
+              title="Failed to load documents"
+              message={documentsError}
+              severity="warning"
+            />
+          ) : documents.length === 0 ? (
+            <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1, textAlign: 'center' }}>
+              <Typography color="text.secondary">
+                No documents uploaded yet
+              </Typography>
+            </Box>
+          ) : (
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Filename</TableCell>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Author</TableCell>
+                    <TableCell>Description</TableCell>
+                    <TableCell>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {documents.map((doc: any) => (
+                    <TableRow key={doc.id}>
+                      <TableCell>
+                        {doc.url ? (
+                          <a href={doc.url} target="_blank" rel="noopener noreferrer">
+                            {doc.filename}
+                          </a>
+                        ) : (
+                          doc.filename
+                        )}
+                      </TableCell>
+                      <TableCell>{formatDate(doc.date)}</TableCell>
+                      <TableCell>{doc.author || '-'}</TableCell>
+                      <TableCell>{doc.description || '-'}</TableCell>
+                      <TableCell>
+                        {doc.url && (
+                          <Button size="small" href={doc.url} target="_blank" rel="noopener noreferrer">
+                            Download
+                          </Button>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </TabPanel>
 
         {manager.status === 'Probation' && (

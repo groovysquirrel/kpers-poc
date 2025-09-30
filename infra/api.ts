@@ -18,12 +18,7 @@ export const api = new sst.aws.ApiGatewayV2("Api", {
   domain: $app.stage === "production" ? "kpersPOC-api.patternsatscale.com" : undefined
 });
 
-// Notes routes (legacy)
-api.route("GET /notes", "packages/functions/src/list.main");
-api.route("POST /notes", "packages/functions/src/create.main");
-api.route("GET /notes/{id}", "packages/functions/src/get.main");
-api.route("PUT /notes/{id}", "packages/functions/src/update.main");
-api.route("DELETE /notes/{id}", "packages/functions/src/delete.main");
+
 
 // Managers routes
 api.route("GET /managers", "packages/functions/src/managers/list.main");
@@ -61,11 +56,11 @@ api.route("PUT /note-types/{id}", "packages/functions/src/note-types/update.main
 api.route("DELETE /note-types/{id}", "packages/functions/src/note-types/delete.main");
 
 // Notes routes (new)
-api.route("GET /api/notes", "packages/functions/src/notes/list.main");
-api.route("GET /api/notes/{id}", "packages/functions/src/notes/get.main");
-api.route("POST /api/notes", "packages/functions/src/notes/create.main");
-api.route("PUT /api/notes/{id}", "packages/functions/src/notes/update.main");
-api.route("DELETE /api/notes/{id}", "packages/functions/src/notes/delete.main");
+api.route("GET /notes", "packages/functions/src/notes/list.main");
+api.route("GET /notes/{id}", "packages/functions/src/notes/get.main");
+api.route("POST /notes", "packages/functions/src/notes/create.main");
+api.route("PUT /notes/{id}", "packages/functions/src/notes/update.main");
+api.route("DELETE /notes/{id}", "packages/functions/src/notes/delete.main");
 
 // Performance Metrics routes
 api.route("GET /performance-metrics", "packages/functions/src/performance-metrics/list.main");

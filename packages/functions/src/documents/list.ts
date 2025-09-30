@@ -47,14 +47,60 @@ async function createTableAndSeed(): Promise<void> {
   console.log(`[Documents] Seeded ${defaults.length} documents`);
 }
 
-async function selectDocuments(): Promise<DocumentRow[]> {
-  const sql = `
-    SELECT id, event_id, document_type_id, filename, date, url, author, description, created_at, updated_at
-    FROM documents 
-    ORDER BY date DESC, created_at DESC
-  `;
+async function selectDocuments(eventId?: string, managerId?: string, documentTypeId?: string): Promise<DocumentRow[]> {
+  let sql: string;
+  const params: QueryParameter[] = [];
   
-  const result = await db.query(sql);
+  if (managerId) {
+    // Join with events table to filter by manager_id
+    sql = `
+      SELECT d.id, d.event_id, d.document_type_id, d.filename, d.date, d.url, d.author, d.description, d.created_at, d.updated_at
+      FROM documents d
+      INNER JOIN events e ON d.event_id = e.id
+      WHERE e.manager_id = :managerId
+    `;
+    params.push({ name: "managerId", value: managerId });
+    
+    if (documentTypeId) {
+      sql += ` AND d.document_type_id = :documentTypeId`;
+      params.push({ name: "documentTypeId", value: documentTypeId });
+    }
+    
+    sql += ` ORDER BY d.date DESC, d.created_at DESC`;
+  } else if (eventId) {
+    // Filter by event_id
+    sql = `
+      SELECT id, event_id, document_type_id, filename, date, url, author, description, created_at, updated_at
+      FROM documents 
+      WHERE event_id = :eventId
+    `;
+    params.push({ name: "eventId", value: eventId });
+    
+    if (documentTypeId) {
+      sql += ` AND document_type_id = :documentTypeId`;
+      params.push({ name: "documentTypeId", value: documentTypeId });
+    }
+    
+    sql += ` ORDER BY date DESC, created_at DESC`;
+  } else if (documentTypeId) {
+    // Filter by document_type_id only
+    sql = `
+      SELECT id, event_id, document_type_id, filename, date, url, author, description, created_at, updated_at
+      FROM documents 
+      WHERE document_type_id = :documentTypeId
+      ORDER BY date DESC, created_at DESC
+    `;
+    params.push({ name: "documentTypeId", value: documentTypeId });
+  } else {
+    // No filters - return all documents
+    sql = `
+      SELECT id, event_id, document_type_id, filename, date, url, author, description, created_at, updated_at
+      FROM documents 
+      ORDER BY date DESC, created_at DESC
+    `;
+  }
+  
+  const result = params.length > 0 ? await db.query(sql, params) : await db.query(sql);
   
   if (!result.records || result.records.length === 0) {
     return [];
@@ -77,12 +123,19 @@ async function selectDocuments(): Promise<DocumentRow[]> {
   return documents;
 }
 
-export const main = handler(async () => {
+export const main = handler(async (event) => {
   console.log("[Documents] List - Starting");
+  
+  // Extract query parameters
+  const eventId = event.queryStringParameters?.eventId;
+  const managerId = event.queryStringParameters?.managerId;
+  const documentTypeId = event.queryStringParameters?.documentTypeId;
+  
+  console.log(`[Documents] Filters - eventId: ${eventId}, managerId: ${managerId}, documentTypeId: ${documentTypeId}`);
 
   try {
     // Try to select documents directly (normal case - table exists)
-    const documents = await selectDocuments();
+    const documents = await selectDocuments(eventId, managerId, documentTypeId);
     console.log(`[Documents] List - Returning ${documents.length} documents`);
     return JSON.stringify(documents);
   } catch (err: any) {
@@ -92,7 +145,7 @@ export const main = handler(async () => {
       await createTableAndSeed();
       
       // Retry the select
-      const documents = await selectDocuments();
+      const documents = await selectDocuments(eventId, managerId, documentTypeId);
       console.log(`[Documents] List - Returning ${documents.length} documents (after create+seed)`);
       return JSON.stringify(documents);
     }

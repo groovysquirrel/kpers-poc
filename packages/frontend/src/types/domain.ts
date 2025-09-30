@@ -88,6 +88,20 @@ export interface NoteType {
   id: string;
   name: string;
   description?: string;
+  isActive: boolean;
+  displayOrder?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DocumentType {
+  id: string;
+  name: string;
+  description?: string;
+  isActive: boolean;
+  displayOrder?: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Note {
@@ -100,6 +114,10 @@ export interface Note {
   staffId?: string;          // Optional association with staff member
   documentId?: string;       // Optional association with document
   createdBy: string;
+  author?: string;           // Author name
+  filename?: string;         // Optional filename
+  date?: string;             // ISO date string
+  url?: string;              // Optional URL
   createdAt: string;         // ISO date string
   updatedAt: string;         // ISO date string
   tags?: string[];           // Optional tags for categorization

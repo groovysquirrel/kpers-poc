@@ -11,8 +11,10 @@
 export { managersService } from './managers';
 export { eventsService } from './events';
 export { eventTypesService } from './event-types';
-
-// TODO: Export other services as they are implemented
-// export { notesService } from './notes';
-// export { documentsService } from './documents';
+export { documentsService } from './documents';
+export { documentTypesService } from './document-types';
+export { notesService } from './notes';
+export { noteTypesService } from './note-types';
+export { staffService } from './staff';
+export { performanceMetricsService } from './performance-metrics';
 

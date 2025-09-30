@@ -38,8 +38,9 @@ export function useStaff(params: UseStaffParams = {}): UseStaffReturn {
     setError(null);
     
     try {
-      const staffData = await client.getStaff();
-      setStaff(staffData);
+      const response = await client.getStaff();
+      // Extract items array from response
+      setStaff(response.items || []);
     } catch (err: any) {
       setError(err.message || 'Failed to fetch staff');
       console.error('Error fetching staff:', err);
