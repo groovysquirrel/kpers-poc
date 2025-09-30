@@ -18,11 +18,16 @@ function App() {
     onLoad();
   }, []);
 
-  async function onLoad() {
+  // Fetch user info whenever authentication status changes
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadUserInfo();
+    }
+  }, [isAuthenticated]);
+
+  async function loadUserInfo() {
     try {
-      const session = await Auth.currentSession();
       const user = await Auth.currentAuthenticatedUser();
-      userHasAuthenticated(true);
       
       // Extract user information from Cognito
       setUserInfo({
@@ -36,13 +41,23 @@ function App() {
         onError(error);
       }
       // Set mock user info for development
-      if (!isAuthenticated) {
-        setUserInfo({
-          email: "demo.user@kpers.gov",
-          firstName: "Demo",
-          lastName: "User",
-          role: "Editor"
-        });
+      setUserInfo({
+        email: "demo.user@kpers.gov",
+        firstName: "Demo",
+        lastName: "User",
+        role: "Editor"
+      });
+    }
+  }
+
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+      // User info will be loaded by the useEffect hook
+    } catch (error) {
+      if (error !== "No current user") {
+        onError(error);
       }
     }
 

@@ -30,20 +30,22 @@ const DRAWER_WIDTH_COLLAPSED = 80; // Wider collapsed state for better icon spac
 /**
  * AppShell
  *
- * Provides the common layout for all authenticated pages:
- * - Top AppBar with user profile and logout
- * - Responsive navigation drawer (collapsible on desktop, slide-out on mobile)
+ * Provides the common layout for all pages:
+ * - Top AppBar with application title
+ * - Responsive navigation drawer (only when authenticated)
+ * - User profile dropdown with settings and logout (only when authenticated)
  * - Main content area for page rendering
  *
  * Features:
- * - Desktop: Permanent drawer with expand/collapse via icon hover
- * - Mobile: Temporary drawer triggered by hamburger menu
- * - User profile dropdown with settings and logout
+ * - Desktop: Permanent drawer with expand/collapse via icon hover (authenticated only)
+ * - Mobile: Temporary drawer triggered by hamburger menu (authenticated only)
+ * - User profile dropdown with settings and logout (authenticated only)
  * - Persists sidebar state in localStorage
+ * - Clean login/signup view without navigation elements when not authenticated
  */
 export default function AppShell({ children }: PropsWithChildren) {
   const navigate = useNavigate();
-  const { userInfo, handleLogout } = useAppContext();
+  const { isAuthenticated, userInfo, handleLogout } = useAppContext();
   const [expanded, setExpanded] = useState<boolean>(false);
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -118,23 +120,26 @@ export default function AppShell({ children }: PropsWithChildren) {
       {/* Top AppBar */}
       <AppBar position="fixed" sx={{ zIndex: (t) => t.zIndex.drawer + 1 }}>
         <Toolbar>
-          {/* Mobile hamburger menu */}
-          <IconButton
-            color="inherit"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-            aria-label="open navigation menu"
-          >
-            <MenuIcon />
-          </IconButton>
+          {/* Mobile hamburger menu - only show when authenticated */}
+          {isAuthenticated && (
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: 'none' } }}
+              aria-label="open navigation menu"
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             KPERS Fund Manager Relations Tool
           </Typography>
 
-          {/* User Profile */}
-          <Button
+          {/* User Profile - only show when authenticated */}
+          {isAuthenticated && (
+            <Button
             color="inherit"
             onClick={handleMenuOpen}
             aria-label="user menu"
@@ -175,9 +180,11 @@ export default function AppShell({ children }: PropsWithChildren) {
               )}
             </Stack>
           </Button>
+          )}
 
-          {/* User Dropdown Menu */}
-          <Menu
+          {/* User Dropdown Menu - only show when authenticated */}
+          {isAuthenticated && (
+            <Menu
             anchorEl={anchorEl}
             open={menuOpen}
             onClose={handleMenuClose}
@@ -226,11 +233,13 @@ export default function AppShell({ children }: PropsWithChildren) {
               Logout
             </MenuItem>
           </Menu>
+          )}
         </Toolbar>
       </AppBar>
 
-      {/* Mobile Drawer - temporary overlay */}
-      <Drawer
+      {/* Mobile Drawer - temporary overlay - only show when authenticated */}
+      {isAuthenticated && (
+        <Drawer
         variant="temporary"
         open={mobileOpen}
         onClose={handleDrawerToggle}
@@ -248,9 +257,11 @@ export default function AppShell({ children }: PropsWithChildren) {
         <Toolbar />
         <SidebarNav expanded={true} />
       </Drawer>
+      )}
 
-      {/* Desktop Drawer - permanent, collapsible with hover */}
-      <Drawer
+      {/* Desktop Drawer - permanent, collapsible with hover - only show when authenticated */}
+      {isAuthenticated && (
+        <Drawer
         variant="permanent"
         sx={{
           display: { xs: 'none', md: 'block' },
@@ -268,6 +279,7 @@ export default function AppShell({ children }: PropsWithChildren) {
         <Toolbar />
         <SidebarNav expanded={expanded} />
       </Drawer>
+      )}
 
       {/* Main Content Area */}
       <Box 
@@ -276,7 +288,11 @@ export default function AppShell({ children }: PropsWithChildren) {
           flexGrow: 1, 
           p: 3, 
           transition: "padding 200ms ease-in-out",
-          width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` }
+          // Only apply drawer offset when authenticated
+          width: { 
+            xs: '100%', 
+            md: isAuthenticated ? `calc(100% - ${drawerWidth}px)` : '100%' 
+          }
         }}
       >
         <Toolbar /> {/* Spacer for fixed AppBar */}
