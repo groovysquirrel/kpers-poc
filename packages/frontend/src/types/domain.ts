@@ -84,6 +84,27 @@ export interface DocumentItem {
   createdAt: string;           // ISO
 }
 
+export interface NoteType {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  type: string;              // Note type ID
+  managerId?: string;        // Optional association with manager
+  eventId?: string;          // Optional association with event
+  staffId?: string;          // Optional association with staff member
+  documentId?: string;       // Optional association with document
+  createdBy: string;
+  createdAt: string;         // ISO date string
+  updatedAt: string;         // ISO date string
+  tags?: string[];           // Optional tags for categorization
+}
+
 export interface User {
   id: string;
   email: string;
@@ -130,6 +151,22 @@ export interface SearchResult {
   title: string;
   snippet?: string;
   metadata?: Record<string, unknown>;
+}
+
+// Note form types
+export interface NoteCreateForm {
+  title: string;
+  content: string;
+  type: string;              // Note type ID
+  managerId?: string;        // Optional association with manager
+  eventId?: string;          // Optional association with event
+  staffId?: string;          // Optional association with staff member
+  documentId?: string;       // Optional association with document
+  tags?: string[];
+}
+
+export interface NoteUpdateForm extends Partial<NoteCreateForm> {
+  id: string;
 }
 
 // Form types

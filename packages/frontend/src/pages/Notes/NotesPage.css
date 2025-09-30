@@ -1,0 +1,28 @@
+.notes-page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.notes-page .MuiTableCell-root {
+  vertical-align: top;
+}
+
+.notes-page .MuiTableCell-root:first-child {
+  max-width: 400px;
+}
+
+.notes-page .MuiTypography-caption {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Make table rows appear clickable */
+.notes-page .MuiTableRow-root {
+  transition: background-color 0.2s ease;
+}
+
+.notes-page .MuiTableRow-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}

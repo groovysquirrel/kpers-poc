@@ -9,6 +9,10 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "Documents": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
     "Frontend": {
       "type": "sst.aws.StaticSite"
       "url": string
@@ -17,13 +21,20 @@ declare module "sst" {
       "id": string
       "type": "sst.aws.CognitoIdentityPool"
     }
-    "Notes": {
-      "name": string
-      "type": "sst.aws.Dynamo"
+    "KPERSPOCMySQL": {
+      "clusterArn": string
+      "database": string
+      "host": string
+      "password": string
+      "port": number
+      "reader": string
+      "secretArn": string
+      "type": "sst.aws.Aurora"
+      "username": string
     }
-    "Uploads": {
-      "name": string
-      "type": "sst.aws.Bucket"
+    "MySQLVpc": {
+      "bastion": string
+      "type": "sst.aws.Vpc"
     }
     "UserPool": {
       "id": string

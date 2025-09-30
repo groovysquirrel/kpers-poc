@@ -4,6 +4,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import EventIcon from "@mui/icons-material/Event";
 import DescriptionIcon from "@mui/icons-material/Description";
+import NoteIcon from "@mui/icons-material/Note";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -85,17 +86,24 @@ export default function SidebarNav({ expanded }: { expanded: boolean }) {
           path="/events"
         />
         
-        <Item 
-          icon={<DescriptionIcon />} 
-          text="Documents" 
-          onClick={go("/documents")} 
+        <Item
+          icon={<DescriptionIcon />}
+          text="Documents"
+          onClick={go("/documents")}
           path="/documents"
         />
-        
-        <Item 
-          icon={<SearchIcon />} 
-          text="Search" 
-          onClick={go("/search")} 
+
+        <Item
+          icon={<NoteIcon />}
+          text="Notes"
+          onClick={go("/notes")}
+          path="/notes"
+        />
+
+        <Item
+          icon={<SearchIcon />}
+          text="Search"
+          onClick={go("/search")}
           path="/search"
         />
         

@@ -53,7 +53,7 @@ export default function SearchResults({
       case 'document':
         return <DocumentIcon />;
       default:
-        return <DescriptionIcon />;
+        return <PersonIcon />;
     }
   };
 
@@ -78,7 +78,7 @@ export default function SearchResults({
     return snippet.substring(0, maxLength) + '...';
   };
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 

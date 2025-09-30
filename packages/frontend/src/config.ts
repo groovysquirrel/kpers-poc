@@ -16,6 +16,13 @@ const config = {
     APP_CLIENT_ID: import.meta.env.VITE_USER_POOL_CLIENT_ID,
     IDENTITY_POOL_ID: import.meta.env.VITE_IDENTITY_POOL_ID,
   },
+  mysql: {
+    HOST: import.meta.env.VITE_MYSQL_HOST,
+    PORT: import.meta.env.VITE_MYSQL_PORT,
+    USERNAME: import.meta.env.VITE_MYSQL_USERNAME,
+    PASSWORD: import.meta.env.VITE_MYSQL_PASSWORD,
+    DATABASE: import.meta.env.VITE_MYSQL_DATABASE,
+  },
 };
 
 export default config;

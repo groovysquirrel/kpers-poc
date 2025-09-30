@@ -11,16 +11,20 @@
  */
 
 import { api as fakeApi } from './fakeApi';
-import { 
-  Manager, 
-  EventRecord, 
+import {
+  Manager,
+  EventRecord,
   DocumentItem,
   User,
   EventCreate,
   EventUpdate,
   StaffMember,
   Permission,
-  Role
+  Role,
+  Note,
+  NoteType,
+  NoteCreateForm,
+  NoteUpdateForm
 } from '../types/domain';
 
 // Configuration
@@ -324,12 +328,111 @@ class ApiClient {
       if (API_CONFIG.useFakeApi) {
         return await fakeApi.deleteDocument(id);
       }
-      
+
       // TODO: Replace with real API call
       throw new Error('Real API not implemented yet');
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  // -----------------------------
+  // Notes
+  // -----------------------------
+  async getNotes(params: {
+    q?: string;
+    type?: string;
+    managerId?: string;
+    eventId?: string;
+    staffId?: string;
+    documentId?: string;
+    page?: number;
+    pageSize?: number;
+  } = {}): Promise<any> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getNotes(params);
+      }
+
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async getNote(id: string): Promise<Note> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getNote(id);
+      }
+
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async createNote(noteData: NoteCreateForm): Promise<Note> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.createNote(noteData);
+      }
+
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async updateNote(id: string, updates: NoteUpdateForm): Promise<Note> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.updateNote(id, updates);
+      }
+
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async deleteNote(id: string): Promise<{ ok: boolean }> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.deleteNote(id);
+      }
+
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  // -----------------------------
+  // Note Types
+  // -----------------------------
+  async getNoteTypes(): Promise<NoteType[]> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getNoteTypes();
+      }
+
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return [] as any; // This will never be reached since handleApiError throws
     }
   }
 
@@ -604,6 +707,31 @@ class ApiClient {
    */
   isUsingFakeApi(): boolean {
     return API_CONFIG.useFakeApi;
+  }
+
+  /**
+   * Enable error simulation in fake API (for testing)
+   */
+  enableErrorSimulation(): void {
+    if (API_CONFIG.useFakeApi) {
+      fakeApi.enableErrorSimulation();
+    }
+  }
+
+  /**
+   * Disable error simulation in fake API
+   */
+  disableErrorSimulation(): void {
+    if (API_CONFIG.useFakeApi) {
+      fakeApi.disableErrorSimulation();
+    }
+  }
+
+  /**
+   * Check if error simulation is enabled
+   */
+  isErrorSimulationEnabled(): boolean {
+    return API_CONFIG.useFakeApi && fakeApi.isErrorSimulationEnabled();
   }
 }
 

@@ -11,7 +11,7 @@ export default $config({
   async run() {
     await import("./infra/api");
     const web = await import("./infra/web");
-    await import("./infra/storage");
+    const mysql = await import("./infra/storage");
     const auth = await import("./infra/auth");
 
     return {
@@ -20,6 +20,11 @@ export default $config({
       Region: aws.getRegionOutput().name,
       IdentityPool: auth.identityPool.id,
       UserPoolClient: auth.userPoolClient.id,
+      "MySQL Host": mysql.mysql.host,
+      "MySQL Port": mysql.mysql.port,
+      "MySQL Username": mysql.mysql.username,
+      "MySQL Password": mysql.mysql.password,
+      "MySQL Database": mysql.mysql.database,
     };
   },
 });

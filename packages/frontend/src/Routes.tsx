@@ -10,6 +10,7 @@ import EventsPage from "./pages/Events/EventsPage.tsx";
 import EventCreatePage from "./pages/Events/EventCreatePage.tsx";
 import SearchPage from "./pages/Search/SearchPage.tsx";
 import DocumentsPage from "./pages/Documents/DocumentsPage.tsx";
+import NotesPage from "./pages/Notes/NotesPage.tsx";
 import AdminPage from "./pages/Admin/AdminPage.tsx";
 import SettingsPage from "./pages/Settings/SettingsPage.tsx";
 
@@ -23,6 +24,7 @@ export default function Links() {
       <Route path="/events" element={<AuthenticatedRoute><EventsPage /></AuthenticatedRoute>} />
       <Route path="/events/new" element={<AuthenticatedRoute><EventCreatePage /></AuthenticatedRoute>} />
       <Route path="/documents" element={<AuthenticatedRoute><DocumentsPage /></AuthenticatedRoute>} />
+      <Route path="/notes" element={<AuthenticatedRoute><NotesPage /></AuthenticatedRoute>} />
       <Route path="/search" element={<AuthenticatedRoute><SearchPage /></AuthenticatedRoute>} />
       <Route path="/admin" element={<AuthenticatedRoute><AdminPage /></AuthenticatedRoute>} />
       <Route

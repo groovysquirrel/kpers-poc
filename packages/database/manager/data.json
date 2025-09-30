@@ -1,0 +1,36 @@
+[
+    {
+      "id": "1",
+      "first_name": "Manager",
+      "last_name": "One",
+      "company": "Company1",
+      "phone": "111-111-1111",
+      "email": "email1@company1.com",
+      "status": "Active",
+      "market_value": 15000000,
+      "as_of_date": "2025-01-15"
+    },
+    {
+      "id": "2",
+      "first_name": "Manager",
+      "last_name": "Two",
+      "company": "Company2",
+      "phone": "222-222-2222",
+      "email": "email2@company2.com",
+      "status": "Active",
+      "market_value": 25000000,
+      "as_of_date": "2025-01-15"
+    },
+    {
+      "id": "3",
+      "first_name": "Manager",
+      "last_name": "Three",
+      "company": "Company3",
+      "phone": "333-333-3333",
+      "email": "email3@company3.com",
+      "status": "Probation",
+      "market_value": 8000000,
+      "as_of_date": "2025-01-15"
+    }
+  ]
+  

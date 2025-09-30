@@ -1,12 +1,13 @@
 // Create an S3 bucket
-export const bucket = new sst.aws.Bucket("Uploads");
+export const bucket = new sst.aws.Bucket("Documents");
 
-// Create the DynamoDB table
-export const table = new sst.aws.Dynamo("Notes", {
-  fields: {
-    userId: "string",
-    noteId: "string",
-  },
-  primaryIndex: { hashKey: "userId", rangeKey: "noteId" },
+export const vpc = new sst.aws.Vpc("MySQLVpc", {
+  nat: "ec2",
+  bastion: true,
 });
 
+export const mysql = new sst.aws.Aurora("KPERSPOCMySQL", {
+  engine: "mysql",
+  dataApi: true,
+  vpc,
+});

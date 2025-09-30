@@ -1,0 +1,66 @@
+[
+  {
+    "id": "1",
+    "name": "Q-Meeting: Call",
+    "description": "Quarterly meeting via phone call",
+    "is_active": true,
+    "display_order": 1
+  },
+  {
+    "id": "2",
+    "name": "Q-Meeting: In KPERS Office",
+    "description": "Quarterly meeting at KPERS office",
+    "is_active": true,
+    "display_order": 2
+  },
+  {
+    "id": "3",
+    "name": "Q-Meeting: In Mgr Office",
+    "description": "Quarterly meeting at manager's office",
+    "is_active": true,
+    "display_order": 3
+  },
+  {
+    "id": "4",
+    "name": "DD Call",
+    "description": "Due diligence phone call",
+    "is_active": true,
+    "display_order": 4
+  },
+  {
+    "id": "5",
+    "name": "Other Contact",
+    "description": "Other types of contact",
+    "is_active": true,
+    "display_order": 5
+  },
+  {
+    "id": "6",
+    "name": "Email/Letter",
+    "description": "Email or letter correspondence",
+    "is_active": true,
+    "display_order": 6
+  },
+  {
+    "id": "7",
+    "name": "DD Mtg KPERS Office",
+    "description": "Due diligence meeting at KPERS office",
+    "is_active": true,
+    "display_order": 7
+  },
+  {
+    "id": "8",
+    "name": "DD Mtg Manager's Office",
+    "description": "Due diligence meeting at manager's office",
+    "is_active": true,
+    "display_order": 8
+  },
+  {
+    "id": "9",
+    "name": "Other DD Call",
+    "description": "Other due diligence calls",
+    "is_active": true,
+    "display_order": 9
+  }
+]
+

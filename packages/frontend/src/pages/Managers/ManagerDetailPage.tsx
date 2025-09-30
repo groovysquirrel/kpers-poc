@@ -30,26 +30,20 @@ import {
   TableRow,
   Card,
   CardContent,
-  Grid,
   IconButton,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Checkbox,
-  FormControlLabel,
   List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction
 } from "@mui/material";
 import { ArrowBack as BackIcon, Edit as EditIcon, Warning as WarningIcon, CheckCircle as CheckIcon } from "@mui/icons-material";
-import { Manager, EventRecord, MeetingNote, ProbationDetails, ProbationChecklistItem } from "../../types/domain";
+import { Manager, MeetingNote, ProbationChecklistItem } from "../../types/domain";
 import { useManagers } from "../../lib/hooks/useManagers";
 import { useEvents } from "../../lib/hooks/useEvents";
 import { useProbation } from "../../lib/hooks/useProbation";
@@ -134,7 +128,7 @@ export default function ManagerDetailPage() {
   const isLoading = managersLoading || eventsLoading || probationLoading;
   const hasError = managersError || eventsError || probationError;
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   }, []);
 
@@ -352,78 +346,79 @@ export default function ManagerDetailPage() {
       </Box>
 
       {/* Summary Cards */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                Status
-              </Typography>
-              <Chip 
-                label={manager.status} 
-                color={getStatusColor(manager.status) as any}
-                size="medium"
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                Market Value
-              </Typography>
-              <Typography variant="h6">
-                {manager.status === 'Terminated' ? 'N/A' : formatCurrency(manager.marketValue)}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                As of Date
-              </Typography>
-              <Typography variant="h6">
-                {formatDate(manager.asOfDate)}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                Total Events
-              </Typography>
-              <Typography variant="h6">
-                {events.length}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: 'repeat(4, 1fr)' },
+        gap: 2,
+        mb: 3
+      }}>
+        <Card>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom>
+              Status
+            </Typography>
+            <Chip
+              label={manager.status}
+              color={getStatusColor(manager.status) as any}
+              size="medium"
+            />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom>
+              Market Value
+            </Typography>
+            <Typography variant="h6">
+              {manager.status === 'Terminated' ? 'N/A' : formatCurrency(manager.marketValue)}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom>
+              As of Date
+            </Typography>
+            <Typography variant="h6">
+              {formatDate(manager.asOfDate)}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom>
+              Total Events
+            </Typography>
+            <Typography variant="h6">
+              {events.length}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
 
       {/* Contact Information */}
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="h6" gutterBottom>
           Contact Information
         </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+        <Box sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+          gap: 2
+        }}>
+          <Box>
             <Typography variant="body2" color="text.secondary">
               Email
             </Typography>
             <Typography variant="body1">{manager.email}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box>
             <Typography variant="body2" color="text.secondary">
               Phone
             </Typography>
             <Typography variant="body1">{manager.phone}</Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Paper>
 
       {/* Tabs */}

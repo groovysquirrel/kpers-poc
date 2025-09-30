@@ -12,11 +12,10 @@
  */
 
 import mockData from './data/mockData.json';
-import { 
-  Manager, 
-  EventRecord, 
-  MeetingNote, 
-  StaffMember, 
+import {
+  Manager,
+  EventRecord,
+  StaffMember,
   EventType,
   DocumentItem,
   User,
@@ -24,7 +23,11 @@ import {
   EventCreate,
   EventUpdate,
   Permission,
-  Role
+  Role,
+  Note,
+  NoteType,
+  NoteCreateForm,
+  NoteUpdateForm
 } from '../types/domain';
 
 // Types for API responses
@@ -51,16 +54,77 @@ export interface ApiError {
 // Simulate network delay
 const delay = (ms: number = 300) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Simulate API errors (5% chance)
-const shouldSimulateError = () => Math.random() < 0.05;
+// Simulate API errors (configurable)
+const shouldSimulateError = (simulateErrors: boolean = false) => {
+  return simulateErrors && Math.random() < 0.05;
+};
 
 class FakeApiService {
+  private simulateErrors: boolean = false;
+
+  constructor(simulateErrors: boolean = false) {
+    this.simulateErrors = simulateErrors;
+  }
+
   private managers: Manager[] = mockData.managers as Manager[];
   private events: EventRecord[] = mockData.events as EventRecord[];
-  private notes: MeetingNote[] = mockData.meetingNotes as MeetingNote[];
   private staff: StaffMember[] = mockData.staff as StaffMember[];
   private eventTypes: EventType[] = mockData.eventTypes as EventType[];
   private documents: DocumentItem[] = [];
+  private notes: Note[] = [
+    {
+      id: '1',
+      title: 'Vanguard Performance Review',
+      content: 'Conducted quarterly review of Vanguard\'s performance metrics. Overall portfolio showing 8.5% YTD returns, which exceeds benchmark by 1.2%. No significant concerns noted.',
+      type: '1', // Manager Note
+      managerId: '1',
+      createdBy: '2', // Editor user
+      createdAt: '2024-01-15T10:30:00Z',
+      updatedAt: '2024-01-15T10:30:00Z',
+      tags: ['quarterly', 'performance', 'review']
+    },
+    {
+      id: '2',
+      title: 'Meeting with BlackRock Team',
+      content: 'Discussed new ESG investment strategies. Team presented compelling research on sustainable energy funds. Need to follow up on due diligence documentation.',
+      type: '2', // Event Note
+      eventId: '1',
+      managerId: '2',
+      createdBy: '2',
+      createdAt: '2024-01-20T14:15:00Z',
+      updatedAt: '2024-01-20T14:15:00Z',
+      tags: ['ESG', 'strategy', 'due diligence']
+    },
+    {
+      id: '3',
+      title: 'Staff Training Session',
+      content: 'Completed training on new risk assessment framework. All investment analysts now certified. Next session scheduled for Q2.',
+      type: '3', // Staff Note
+      staffId: '1',
+      createdBy: '1', // Admin user
+      createdAt: '2024-01-25T09:00:00Z',
+      updatedAt: '2024-01-25T09:00:00Z',
+      tags: ['training', 'certification', 'risk assessment']
+    },
+    {
+      id: '4',
+      title: 'Q4 2023 Performance Summary',
+      content: 'Final performance numbers for Q4: Total portfolio return of 6.8%, with fixed income outperforming expectations. Detailed breakdown attached.',
+      type: '4', // Document Note
+      documentId: '1',
+      createdBy: '3', // Viewer user
+      createdAt: '2024-01-30T16:45:00Z',
+      updatedAt: '2024-01-30T16:45:00Z',
+      tags: ['Q4', 'performance', 'summary']
+    }
+  ];
+  private noteTypes: NoteType[] = [
+    { id: '1', name: 'Manager Note', description: 'Notes related to fund managers' },
+    { id: '2', name: 'Event Note', description: 'Notes related to specific events' },
+    { id: '3', name: 'Staff Note', description: 'Notes related to staff members' },
+    { id: '4', name: 'Document Note', description: 'Notes related to documents' },
+    { id: '5', name: 'General Note', description: 'General purpose notes' }
+  ];
   private users: User[] = [
     { 
       id: '1', 
@@ -111,7 +175,7 @@ class FakeApiService {
   } = {}): Promise<PaginatedResponse<Manager>> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -151,7 +215,7 @@ class FakeApiService {
   async getManager(id: string): Promise<Manager> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -174,7 +238,7 @@ class FakeApiService {
   }): Promise<Manager> {
     await delay(800);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -196,7 +260,7 @@ class FakeApiService {
   async updateManager(id: string, updates: Partial<Manager>): Promise<Manager> {
     await delay(600);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -226,7 +290,7 @@ class FakeApiService {
   } = {}): Promise<PaginatedResponse<EventRecord>> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -269,7 +333,7 @@ class FakeApiService {
   async createEvent(eventData: EventCreate): Promise<EventRecord> {
     await delay(500); // Longer delay for create operations
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -303,7 +367,7 @@ class FakeApiService {
   } = {}): Promise<PaginatedResponse<EventRecord>> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -348,7 +412,7 @@ class FakeApiService {
   async getEvent(id: string): Promise<EventRecord> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -362,7 +426,7 @@ class FakeApiService {
   async updateEvent(id: string, eventData: EventUpdate): Promise<EventRecord> {
     await delay(500);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -383,7 +447,7 @@ class FakeApiService {
   async deleteEvent(id: string): Promise<{ ok: boolean }> {
     await delay(500);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -408,7 +472,7 @@ class FakeApiService {
   } = {}): Promise<PaginatedResponse<DocumentItem>> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -460,7 +524,7 @@ class FakeApiService {
   }): Promise<{ uploadUrl: string; document: DocumentItem }> {
     await delay(1000); // Longer delay for file operations
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -486,7 +550,7 @@ class FakeApiService {
   async updateDocument(id: string, updates: Partial<DocumentItem>): Promise<DocumentItem> {
     await delay(600);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -502,7 +566,7 @@ class FakeApiService {
   async getDocument(id: string): Promise<DocumentItem> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -515,8 +579,8 @@ class FakeApiService {
 
   async deleteDocument(id: string): Promise<{ ok: boolean }> {
     await delay(500);
-    
-    if (shouldSimulateError()) {
+
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -527,6 +591,166 @@ class FakeApiService {
 
     this.documents.splice(docIndex, 1);
     return { ok: true };
+  }
+
+  // -----------------------------
+  // Notes API Methods
+  // -----------------------------
+  async getNotes(params: {
+    q?: string;
+    type?: string;
+    managerId?: string;
+    eventId?: string;
+    staffId?: string;
+    documentId?: string;
+    page?: number;
+    pageSize?: number;
+  } = {}): Promise<PaginatedResponse<Note>> {
+    await delay();
+
+    if (shouldSimulateError(this.simulateErrors)) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    let filtered = [...this.notes];
+
+    // Text search
+    if (params.q) {
+      const searchTerm = params.q.toLowerCase();
+      filtered = filtered.filter(note =>
+        note.title.toLowerCase().includes(searchTerm) ||
+        note.content.toLowerCase().includes(searchTerm) ||
+        (note.tags && note.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+      );
+    }
+
+    // Type filter
+    if (params.type) {
+      filtered = filtered.filter(note => note.type === params.type);
+    }
+
+    // Manager filter
+    if (params.managerId) {
+      filtered = filtered.filter(note => note.managerId === params.managerId);
+    }
+
+    // Event filter
+    if (params.eventId) {
+      filtered = filtered.filter(note => note.eventId === params.eventId);
+    }
+
+    // Staff filter
+    if (params.staffId) {
+      filtered = filtered.filter(note => note.staffId === params.staffId);
+    }
+
+    // Document filter
+    if (params.documentId) {
+      filtered = filtered.filter(note => note.documentId === params.documentId);
+    }
+
+    // Pagination
+    const page = params.page || 1;
+    const pageSize = params.pageSize || 25;
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedItems = filtered.slice(startIndex, endIndex);
+
+    return {
+      items: paginatedItems,
+      page,
+      pageSize,
+      total: filtered.length
+    };
+  }
+
+  async getNote(id: string): Promise<Note> {
+    await delay();
+
+    if (shouldSimulateError(this.simulateErrors)) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    const note = this.notes.find(n => n.id === id);
+    if (!note) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'Note not found' };
+    }
+
+    return note;
+  }
+
+  async createNote(noteData: NoteCreateForm): Promise<Note> {
+    await delay(500);
+
+    if (shouldSimulateError(this.simulateErrors)) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    const newNote: Note = {
+      id: Date.now().toString(),
+      title: noteData.title,
+      content: noteData.content,
+      type: noteData.type,
+      managerId: noteData.managerId,
+      eventId: noteData.eventId,
+      staffId: noteData.staffId,
+      documentId: noteData.documentId,
+      tags: noteData.tags,
+      createdBy: '1', // Default to admin user for now
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    this.notes.unshift(newNote);
+    return newNote;
+  }
+
+  async updateNote(id: string, updates: NoteUpdateForm): Promise<Note> {
+    await delay(500);
+
+    if (shouldSimulateError(this.simulateErrors)) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    const noteIndex = this.notes.findIndex(n => n.id === id);
+    if (noteIndex === -1) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'Note not found' };
+    }
+
+    const updatedNote = {
+      ...this.notes[noteIndex],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+
+    this.notes[noteIndex] = updatedNote;
+    return updatedNote;
+  }
+
+  async deleteNote(id: string): Promise<{ ok: boolean }> {
+    await delay(500);
+
+    if (shouldSimulateError(this.simulateErrors)) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    const noteIndex = this.notes.findIndex(n => n.id === id);
+    if (noteIndex === -1) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'Note not found' };
+    }
+
+    this.notes.splice(noteIndex, 1);
+    return { ok: true };
+  }
+
+  async getNoteTypes(): Promise<NoteType[]> {
+    await delay();
+
+    if (shouldSimulateError(this.simulateErrors)) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    return this.noteTypes;
   }
 
   // -----------------------------
@@ -542,7 +766,7 @@ class FakeApiService {
   }): Promise<PaginatedResponse<SearchResult>> {
     await delay(400); // Search takes a bit longer
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -621,7 +845,7 @@ class FakeApiService {
             title: `${note.title} - ${managerName}`,
             snippet: note.content.replace(/<[^>]*>/g, '').substring(0, 200),
             metadata: {
-              date: note.date,
+              date: note.createdAt,
               manager: managerName,
               createdBy: note.createdBy
             }
@@ -689,7 +913,7 @@ class FakeApiService {
   async getMe(): Promise<User> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -700,7 +924,7 @@ class FakeApiService {
   async getUser(id: string): Promise<User> {
     await delay();
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -714,7 +938,7 @@ class FakeApiService {
   async updateUserRole(id: string, role: 'Viewer' | 'Editor' | 'Administrator'): Promise<User> {
     await delay(500);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -765,7 +989,7 @@ class FakeApiService {
   }): Promise<User> {
     await delay(800);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -788,7 +1012,7 @@ class FakeApiService {
   async updateUser(id: string, updates: Partial<User>): Promise<User> {
     await delay(600);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -815,7 +1039,7 @@ class FakeApiService {
   async deleteUser(id: string): Promise<void> {
     await delay(500);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -841,7 +1065,7 @@ class FakeApiService {
   }): Promise<StaffMember> {
     await delay(800);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
 
@@ -859,7 +1083,7 @@ class FakeApiService {
   async updateStaff(id: string, updates: Partial<StaffMember>): Promise<StaffMember> {
     await delay(600);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -879,7 +1103,7 @@ class FakeApiService {
   async deleteStaff(id: string): Promise<void> {
     await delay(500);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -917,7 +1141,7 @@ class FakeApiService {
   async getPermissions(): Promise<Permission[]> {
     await delay(200);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
@@ -927,11 +1151,32 @@ class FakeApiService {
   async getRoles(): Promise<Role[]> {
     await delay(200);
     
-    if (shouldSimulateError()) {
+    if (shouldSimulateError(this.simulateErrors)) {
       throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
     }
     
     return [...this.roles];
+  }
+
+  /**
+   * Enable error simulation for testing
+   */
+  enableErrorSimulation(): void {
+    this.simulateErrors = true;
+  }
+
+  /**
+   * Disable error simulation
+   */
+  disableErrorSimulation(): void {
+    this.simulateErrors = false;
+  }
+
+  /**
+   * Check if error simulation is enabled
+   */
+  isErrorSimulationEnabled(): boolean {
+    return this.simulateErrors;
   }
 
   /**
@@ -940,12 +1185,24 @@ class FakeApiService {
   resetData(): void {
     this.managers = [...mockData.managers] as Manager[];
     this.events = [...mockData.events] as EventRecord[];
-    this.notes = [...mockData.meetingNotes] as MeetingNote[];
+    // Convert MeetingNote objects to Note objects for compatibility
+    this.notes = mockData.meetingNotes.map((meetingNote: any) => ({
+      id: meetingNote.id,
+      title: meetingNote.title,
+      content: meetingNote.content,
+      type: '2', // Default to Event Note type
+      eventId: meetingNote.eventId,
+      managerId: meetingNote.managerId,
+      createdBy: meetingNote.createdBy,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      tags: []
+    })) as Note[];
     this.staff = [...mockData.staff] as StaffMember[];
     this.eventTypes = [...mockData.eventTypes] as EventType[];
     this.documents = [];
   }
 }
 
-// Export singleton instance
-export const api = new FakeApiService();
+// Export singleton instance (error simulation disabled by default)
+export const api = new FakeApiService(false);

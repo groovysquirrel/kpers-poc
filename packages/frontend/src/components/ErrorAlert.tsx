@@ -7,7 +7,7 @@
  * - Accessible error states
  */
 
-import { Alert, AlertTitle, Button, Box } from '@mui/material';
+import { Alert, AlertTitle, Button } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 
 interface ErrorAlertProps {
@@ -46,4 +46,5 @@ export default function ErrorAlert({
     </Alert>
   );
 }
+
 
