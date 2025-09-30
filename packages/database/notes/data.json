@@ -1,0 +1,200 @@
+[
+  {
+    "id": "note-001",
+    "event_id": "evt-001",
+    "note_type_id": "note-type-2",
+    "subject": "Stellar Capital Q1 2023 - Exceptional Performance",
+    "content": "Stellar continues to impress. Thomas Blackwood presented comprehensive strategy update. Portfolio up 15.2% YTD significantly outperforming benchmark. Investment thesis sound, risk management appears robust. No concerns at this time. Top performer in our portfolio.",
+    "author": "Michael Rodriguez",
+    "filename": null,
+    "date": "2023-03-15",
+    "url": null
+  },
+  {
+    "id": "note-002",
+    "event_id": "evt-009",
+    "note_type_id": "note-type-2",
+    "subject": "URGENT: Harbor Ridge Emergency Meeting - Watchlist",
+    "content": "Serious concerns about Harbor Ridge performance. Down 8.3% YTD while benchmark +5.2%. Management appears complacent. Portfolio concentration too high in underperforming sectors. Placing on formal watchlist. Requiring monthly reporting and quarterly improvement reviews.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2023-10-25",
+    "url": null
+  },
+  {
+    "id": "note-003",
+    "event_id": "evt-013",
+    "note_type_id": "note-type-3",
+    "subject": "RED FLAG: Stellar CEO Sudden Departure",
+    "content": "INTERNAL CONCERN: Thomas Blackwood sudden sabbatical highly unusual. Email vague - personal reasons. No timeline for return. This is suspicious timing. Recommend immediate DD call to understand situation.",
+    "author": "David Thompson",
+    "filename": null,
+    "date": "2024-02-05",
+    "url": null
+  },
+  {
+    "id": "note-004",
+    "event_id": "evt-019",
+    "note_type_id": "note-type-3",
+    "subject": "CRISIS: Stellar Capital Whistleblower Allegations",
+    "content": "HIGHLY CONFIDENTIAL: Received anonymous whistleblower report alleging systematic late trading at Stellar Capital. Report detailed and specific. Alleges Blackwood personally directed improper trading practices. Immediate investigation required. Coordinating with legal counsel.",
+    "author": "David Thompson",
+    "filename": null,
+    "date": "2024-04-22",
+    "url": null
+  },
+  {
+    "id": "note-005",
+    "event_id": "evt-020",
+    "note_type_id": "note-type-3",
+    "subject": "Stellar Investigation - Evidence Summary",
+    "content": "PRIVILEGED: Investigation findings devastating. Systematic pattern of improper trading over 2+ years. Estimated KPERS losses potentially $8-12M. Evidence includes timestamped records, email communications showing knowledge of impropriety. Blackwood clearly orchestrated scheme. Recommend immediate redemption freeze.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2024-05-02",
+    "url": null
+  },
+  {
+    "id": "note-006",
+    "event_id": "evt-024",
+    "note_type_id": "note-type-2",
+    "subject": "Stellar Redemption Freeze - Legal Position",
+    "content": "Formal meeting to document redemption freeze. Evidence of fraud is overwhelming. Blackwood has resigned and lawyered up. Our legal team confident we have strong case but recovery uncertain. This is worst manager failure in KPERS history. Full board briefing scheduled.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2024-06-18",
+    "url": null
+  },
+  {
+    "id": "note-007",
+    "event_id": "evt-025",
+    "note_type_id": "note-type-3",
+    "subject": "Cascade Capital - SEC Charges Filed",
+    "content": "SEC has filed formal charges against Cascade Capital for systematic misrepresentation of fund assets. Inflated asset values by approximately 20%. Multiple clients affected. This is serious fraud. Immediate termination recommended.",
+    "author": "David Thompson",
+    "filename": null,
+    "date": "2024-07-10",
+    "url": null
+  },
+  {
+    "id": "note-008",
+    "event_id": "evt-034",
+    "note_type_id": "note-type-3",
+    "subject": "Stellar Capital Final - Total Loss",
+    "content": "Devastating final outcome. Federal prosecutors filed criminal charges. Firm declared insolvent. Zero recovery expected. Total loss approximately $52M. This is catastrophic failure. Extensive review underway of how this happened under our watch.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2024-11-05",
+    "url": null
+  },
+  {
+    "id": "note-009",
+    "event_id": "evt-038",
+    "note_type_id": "note-type-2",
+    "subject": "Quantum Asset Management - Outstanding 2024",
+    "content": "Year-end review with Rachel Morrison. Quantum delivered another exceptional year - up 14.2%, beat benchmark by 3.8%. Third consecutive year of strong outperformance. In stark contrast to Stellar and Cascade failures, Quantum demonstrates what great management looks like. Our best performer.",
+    "author": "Lisa Martinez",
+    "filename": null,
+    "date": "2024-12-15",
+    "url": null
+  },
+  {
+    "id": "note-010",
+    "event_id": "evt-039",
+    "note_type_id": "note-type-2",
+    "subject": "Northpoint Turnaround Success Story",
+    "content": "Year-end review shows remarkable Northpoint recovery. From -4.2% in 2023 to +15.7% in 2024. Richard Armstrong executed textbook turnaround. This is proof that not all underperformance leads to termination. When management responds appropriately, recovery is possible.",
+    "author": "Michael Rodriguez",
+    "filename": null,
+    "date": "2024-12-18",
+    "url": null
+  },
+  {
+    "id": "note-011",
+    "event_id": "evt-042",
+    "note_type_id": "note-type-2",
+    "subject": "Harbor Ridge - Probation Removal Recommendation",
+    "content": "Review of Harbor Ridge probation status. Performance has been consistently strong for four quarters. New management team proven and stable. All concerns from late 2023 have been fully addressed. Strong recommendation to remove from probation. This is success story we needed.",
+    "author": "Michael Rodriguez",
+    "filename": null,
+    "date": "2025-02-12",
+    "url": null
+  },
+  {
+    "id": "note-012",
+    "event_id": "evt-043",
+    "note_type_id": "note-type-2",
+    "subject": "Summit Peak CRITICAL - Final Warning",
+    "content": "CRITICAL meeting with Patricia Hughes. Performance remains terrible. No improvement despite promises. Giving 6-month improvement plan but frankly have little confidence. If no significant improvement by August 2025, termination will be recommended.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2025-02-20",
+    "url": null
+  },
+  {
+    "id": "note-013",
+    "event_id": "evt-048",
+    "note_type_id": "note-type-2",
+    "subject": "Harbor Ridge Probation Lifted - Success!",
+    "content": "Wonderful meeting to officially remove Harbor Ridge from probation. Marcus Wellington demonstrated complete turnaround. This proves that probation can work when manager responds appropriately. In contrast to Summit Peak, Harbor Ridge is model for redemption.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2025-04-22",
+    "url": null
+  },
+  {
+    "id": "note-014",
+    "event_id": "evt-049",
+    "note_type_id": "note-type-2",
+    "subject": "Summit Peak Placed on Probation - Last Chance",
+    "content": "Difficult meeting placing Summit Peak on probation. No improvement since February warning. 90-day probation period is final chance. If no dramatic improvement, termination certain. Patricia Hughes seemed resigned to outcome.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2025-05-15",
+    "url": null
+  },
+  {
+    "id": "note-015",
+    "event_id": "evt-054",
+    "note_type_id": "note-type-2",
+    "subject": "Summit Peak - Termination Recommendation Prepared",
+    "content": "90-day probation review. No meaningful improvement. Patricia Hughes has not executed required changes. Performance -1.8% YTD vs +8.2% benchmark. Staff recommends termination. This relationship has failed.",
+    "author": "Michael Rodriguez",
+    "filename": null,
+    "date": "2025-08-20",
+    "url": null
+  },
+  {
+    "id": "note-016",
+    "event_id": "evt-056",
+    "note_type_id": "note-type-2",
+    "subject": "Quantum Q3 2025 - Outstanding Year Continues",
+    "content": "Q3 review with Quantum. Up 15.8% YTD - best year yet. Board approved allocation increase to $50M. Quantum now centerpiece of manager portfolio. After Stellar disaster, this demonstrates value of consistent excellence.",
+    "author": "Lisa Martinez",
+    "filename": null,
+    "date": "2025-09-18",
+    "url": null
+  },
+  {
+    "id": "note-017",
+    "event_id": null,
+    "note_type_id": "note-type-3",
+    "subject": "Portfolio Review Post-Crisis - Lessons Learned",
+    "content": "After Stellar and Cascade catastrophes, extensive review of procedures. Key lessons: Enhanced background checks, independent verification of performance, more frequent on-site visits, closer compliance monitoring. These failures cost $58M. Cannot happen again.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2025-01-30",
+    "url": null
+  },
+  {
+    "id": "note-018",
+    "event_id": null,
+    "note_type_id": "note-type-3",
+    "subject": "2025 Mid-Year Portfolio Assessment",
+    "content": "Mid-year portfolio review shows recovery from 2024 disasters. Total portfolio +9.2% YTD vs +6.8% benchmark. Strong performers offsetting weak ones. Two managers on probation. But overall portfolio healthy. Enhanced DD paying off.",
+    "author": "Sarah Chen",
+    "filename": null,
+    "date": "2025-06-30",
+    "url": null
+  }
+]

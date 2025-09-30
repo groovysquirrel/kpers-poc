@@ -1,42 +1,458 @@
 [
   {
-    "id": "1",
-    "manager_id": "1",
+    "id": "evt-001",
+    "manager_id": "mgr-1",
     "event_type_id": "1",
-    "event_date": "2025-09-15",
-    "staff_attending": "John Smith;Jane Doe",
-    "comments": "Quarterly review meeting - discussed portfolio performance and strategy"
+    "event_date": "2023-03-15",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Q1 2023 quarterly review - Stellar Capital reporting strong performance, up 15.2% YTD"
   },
   {
-    "id": "2",
-    "manager_id": "2",
-    "event_type_id": "4",
-    "event_date": "2025-09-20",
-    "staff_attending": "Sarah Johnson",
-    "comments": "Due diligence call - reviewed investment strategy"
+    "id": "evt-002",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2023-03-20",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Q1 quarterly call with Quantum - consistent performance, discussed tech sector positioning"
   },
   {
-    "id": "3",
-    "manager_id": "1",
-    "event_type_id": "7",
-    "event_date": "2025-08-10",
-    "staff_attending": "John Smith;Michael Brown;Jane Doe",
-    "comments": "On-site due diligence visit - reviewed operations and compliance"
-  },
-  {
-    "id": "4",
-    "manager_id": "3",
+    "id": "evt-003",
+    "manager_id": "mgr-3",
     "event_type_id": "2",
-    "event_date": "2025-08-25",
-    "staff_attending": "Alice Cooper;Bob Jones",
-    "comments": "Quarterly meeting at KPERS office - discussed market outlook"
+    "event_date": "2023-04-10",
+    "staff_attending": "Michael Rodriguez;Robert Kim",
+    "comments": "Harbor Ridge in-office meeting - discussed underperformance issues, management changes planned"
   },
   {
-    "id": "5",
-    "manager_id": "2",
+    "id": "evt-004",
+    "manager_id": "mgr-1",
+    "event_type_id": "1",
+    "event_date": "2023-06-15",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Q2 2023 review - Stellar continuing strong momentum, +22% YTD"
+  },
+  {
+    "id": "evt-005",
+    "manager_id": "mgr-8",
+    "event_type_id": "3",
+    "event_date": "2023-07-20",
+    "staff_attending": "David Thompson;Robert Kim;Jennifer Park",
+    "comments": "On-site DD at Cascade Capital - operational review, compliance procedures documented"
+  },
+  {
+    "id": "evt-006",
+    "manager_id": "mgr-9",
+    "event_type_id": "1",
+    "event_date": "2023-09-12",
+    "staff_attending": "Lisa Martinez",
+    "comments": "Northpoint Q3 call - portfolio repositioning after disappointing H1 results"
+  },
+  {
+    "id": "evt-007",
+    "manager_id": "mgr-1",
+    "event_type_id": "1",
+    "event_date": "2023-09-18",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Q3 review Stellar Capital - exceptional performance continues, +31% YTD"
+  },
+  {
+    "id": "evt-008",
+    "manager_id": "mgr-11",
+    "event_type_id": "1",
+    "event_date": "2023-10-05",
+    "staff_attending": "Jennifer Park",
+    "comments": "Legacy Wealth quarterly - steady conservative returns, no major concerns"
+  },
+  {
+    "id": "evt-009",
+    "manager_id": "mgr-3",
+    "event_type_id": "7",
+    "event_date": "2023-10-25",
+    "staff_attending": "Sarah Chen;Michael Rodriguez;David Thompson",
+    "comments": "CRITICAL: Harbor Ridge emergency meeting - significant underperformance, placed on watchlist"
+  },
+  {
+    "id": "evt-010",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2023-12-08",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Quantum Q4 review - strong year-end performance, +18.5% for year"
+  },
+  {
+    "id": "evt-011",
+    "manager_id": "mgr-1",
+    "event_type_id": "1",
+    "event_date": "2023-12-15",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Stellar year-end review - outstanding 2023 performance, +28.7% for year"
+  },
+  {
+    "id": "evt-012",
+    "manager_id": "mgr-4",
+    "event_type_id": "7",
+    "event_date": "2024-01-15",
+    "staff_attending": "Robert Kim;Jennifer Park",
+    "comments": "New manager due diligence - Pinnacle Investments, reviewing track record and team"
+  },
+  {
+    "id": "evt-013",
+    "manager_id": "mgr-1",
     "event_type_id": "6",
-    "event_date": "2025-07-14",
+    "event_date": "2024-02-05",
     "staff_attending": null,
-    "comments": "Email correspondence regarding fund performance report"
+    "comments": "Email from Stellar - CEO Thomas Blackwood announces unexpected sabbatical, COO taking over"
+  },
+  {
+    "id": "evt-014",
+    "manager_id": "mgr-1",
+    "event_type_id": "4",
+    "event_date": "2024-02-12",
+    "staff_attending": "Sarah Chen;Michael Rodriguez;David Thompson",
+    "comments": "URGENT DD call - discussing leadership transition at Stellar, requesting documentation"
+  },
+  {
+    "id": "evt-015",
+    "manager_id": "mgr-8",
+    "event_type_id": "6",
+    "event_date": "2024-03-01",
+    "staff_attending": null,
+    "comments": "Cascade Capital notification - SEC informal inquiry initiated, limited details provided"
+  },
+  {
+    "id": "evt-016",
+    "manager_id": "mgr-1",
+    "event_type_id": "1",
+    "event_date": "2024-03-15",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Q1 2024 review - performance declining, -5.2% YTD, concerns about strategy changes"
+  },
+  {
+    "id": "evt-017",
+    "manager_id": "mgr-3",
+    "event_type_id": "2",
+    "event_date": "2024-03-20",
+    "staff_attending": "Michael Rodriguez;Lisa Martinez",
+    "comments": "Harbor Ridge improvement meeting - new PM hired, performance stabilizing"
+  },
+  {
+    "id": "evt-018",
+    "manager_id": "mgr-8",
+    "event_type_id": "4",
+    "event_date": "2024-04-08",
+    "staff_attending": "Sarah Chen;David Thompson",
+    "comments": "Emergency call with Cascade - SEC inquiry escalating to formal investigation"
+  },
+  {
+    "id": "evt-019",
+    "manager_id": "mgr-1",
+    "event_type_id": "6",
+    "event_date": "2024-04-22",
+    "staff_attending": null,
+    "comments": "BREAKING: Anonymous whistleblower report alleges trade timing irregularities at Stellar Capital"
+  },
+  {
+    "id": "evt-020",
+    "manager_id": "mgr-1",
+    "event_type_id": "7",
+    "event_date": "2024-05-02",
+    "staff_attending": "Sarah Chen;Michael Rodriguez;David Thompson;Robert Kim",
+    "comments": "CRISIS MEETING: Emergency on-site investigation at Stellar, reviewing trade records and compliance"
+  },
+  {
+    "id": "evt-021",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2024-05-15",
+    "staff_attending": "Lisa Martinez",
+    "comments": "Quantum Q1 review - steady performance amid market volatility, +4.2% YTD"
+  },
+  {
+    "id": "evt-022",
+    "manager_id": "mgr-1",
+    "event_type_id": "4",
+    "event_date": "2024-05-20",
+    "staff_attending": "Sarah Chen;David Thompson",
+    "comments": "Stellar follow-up call - internal investigation underway, CEO Blackwood resignation announced"
+  },
+  {
+    "id": "evt-023",
+    "manager_id": "mgr-10",
+    "event_type_id": "7",
+    "event_date": "2024-06-05",
+    "staff_attending": "Robert Kim;Jennifer Park",
+    "comments": "Summit Peak due diligence - new manager evaluation, reviewing strategy and team depth"
+  },
+  {
+    "id": "evt-024",
+    "manager_id": "mgr-1",
+    "event_type_id": "2",
+    "event_date": "2024-06-18",
+    "staff_attending": "Sarah Chen;Michael Rodriguez;David Thompson",
+    "comments": "FORMAL MEETING: Evidence of systematic late trading discovered, redemption freeze initiated"
+  },
+  {
+    "id": "evt-025",
+    "manager_id": "mgr-8",
+    "event_type_id": "6",
+    "event_date": "2024-07-10",
+    "staff_attending": null,
+    "comments": "Cascade Capital - SEC charges filed for misrepresentation of assets, termination recommended"
+  },
+  {
+    "id": "evt-026",
+    "manager_id": "mgr-3",
+    "event_type_id": "1",
+    "event_date": "2024-07-15",
+    "staff_attending": "Michael Rodriguez;Lisa Martinez",
+    "comments": "Harbor Ridge Q2 review - turnaround gaining traction, +8.1% for quarter"
+  },
+  {
+    "id": "evt-027",
+    "manager_id": "mgr-1",
+    "event_type_id": "6",
+    "event_date": "2024-08-01",
+    "staff_attending": null,
+    "comments": "Legal notice - Stellar Capital fraud investigation, potential criminal referrals, assets frozen"
+  },
+  {
+    "id": "evt-028",
+    "manager_id": "mgr-8",
+    "event_type_id": "2",
+    "event_date": "2024-08-15",
+    "staff_attending": "Sarah Chen;David Thompson",
+    "comments": "TERMINATION MEETING: Cascade Capital relationship terminated, redemption process initiated"
+  },
+  {
+    "id": "evt-029",
+    "manager_id": "mgr-9",
+    "event_type_id": "1",
+    "event_date": "2024-09-10",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Northpoint Q3 call - impressive recovery, new strategy paying off, +12.4% YTD"
+  },
+  {
+    "id": "evt-030",
+    "manager_id": "mgr-6",
+    "event_type_id": "8",
+    "event_date": "2024-09-20",
+    "staff_attending": "Michael Rodriguez;Robert Kim",
+    "comments": "Meridian on-site DD - fee structure concerns, communication lapses, performance lagging"
+  },
+  {
+    "id": "evt-031",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2024-09-25",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Quantum Q3 review - consistent outperformance continues, +11.8% YTD"
+  },
+  {
+    "id": "evt-032",
+    "manager_id": "mgr-3",
+    "event_type_id": "3",
+    "event_date": "2024-10-08",
+    "staff_attending": "Michael Rodriguez;Jennifer Park",
+    "comments": "Harbor Ridge manager office visit - impressive turnaround, strong new leadership team"
+  },
+  {
+    "id": "evt-033",
+    "manager_id": "mgr-6",
+    "event_type_id": "2",
+    "event_date": "2024-10-22",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "PROBATION NOTICE: Meridian placed on formal probation - must address fees and performance"
+  },
+  {
+    "id": "evt-034",
+    "manager_id": "mgr-1",
+    "event_type_id": "6",
+    "event_date": "2024-11-05",
+    "staff_attending": null,
+    "comments": "FINAL NOTICE: Stellar Capital criminal charges filed, firm declared insolvent, total loss"
+  },
+  {
+    "id": "evt-035",
+    "manager_id": "mgr-10",
+    "event_type_id": "1",
+    "event_date": "2024-11-12",
+    "staff_attending": "Lisa Martinez;Robert Kim",
+    "comments": "Summit Peak quarterly - consistent underperformance, -3.2% YTD, management concerns"
+  },
+  {
+    "id": "evt-036",
+    "manager_id": "mgr-8",
+    "event_type_id": "6",
+    "event_date": "2024-11-30",
+    "staff_attending": null,
+    "comments": "Cascade liquidation complete - recovered 78% of assets, significant loss realized"
+  },
+  {
+    "id": "evt-037",
+    "manager_id": "mgr-4",
+    "event_type_id": "1",
+    "event_date": "2024-12-10",
+    "staff_attending": "Lisa Martinez",
+    "comments": "Pinnacle year-end review - volatile but positive year, +9.3% for 2024"
+  },
+  {
+    "id": "evt-038",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2024-12-15",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Quantum year-end - another strong year, +14.2% for 2024, beat benchmark by 3.8%"
+  },
+  {
+    "id": "evt-039",
+    "manager_id": "mgr-9",
+    "event_type_id": "1",
+    "event_date": "2024-12-18",
+    "staff_attending": "Michael Rodriguez;Jennifer Park",
+    "comments": "Northpoint year-end - remarkable turnaround story, +15.7% for 2024 after poor 2023"
+  },
+  {
+    "id": "evt-040",
+    "manager_id": "mgr-5",
+    "event_type_id": "7",
+    "event_date": "2025-01-15",
+    "staff_attending": "Robert Kim;Jennifer Park;David Thompson",
+    "comments": "RedStone initial due diligence - new manager candidate, innovative growth strategy"
+  },
+  {
+    "id": "evt-041",
+    "manager_id": "mgr-6",
+    "event_type_id": "4",
+    "event_date": "2025-01-28",
+    "staff_attending": "Michael Rodriguez",
+    "comments": "Meridian probation review call - fee concessions agreed, performance improving slightly"
+  },
+  {
+    "id": "evt-042",
+    "manager_id": "mgr-3",
+    "event_type_id": "1",
+    "event_date": "2025-02-12",
+    "staff_attending": "Michael Rodriguez;Lisa Martinez",
+    "comments": "Harbor Ridge probation review - excellent progress, considering removal from probation"
+  },
+  {
+    "id": "evt-043",
+    "manager_id": "mgr-10",
+    "event_type_id": "2",
+    "event_date": "2025-02-20",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Summit Peak CRITICAL meeting - persistent underperformance, 6-month improvement plan required"
+  },
+  {
+    "id": "evt-044",
+    "manager_id": "mgr-7",
+    "event_type_id": "1",
+    "event_date": "2025-03-10",
+    "staff_attending": "Lisa Martinez",
+    "comments": "Apex Strategic quarterly - solid performance but governance concerns flagged by compliance"
+  },
+  {
+    "id": "evt-045",
+    "manager_id": "mgr-1",
+    "event_type_id": "6",
+    "event_date": "2025-03-15",
+    "staff_attending": null,
+    "comments": "TERMINATED: Formal termination of Stellar Capital relationship, case referred to authorities"
+  },
+  {
+    "id": "evt-046",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2025-03-18",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Quantum Q1 2025 - strong start to year, +6.2% YTD, portfolio well-positioned"
+  },
+  {
+    "id": "evt-047",
+    "manager_id": "mgr-12",
+    "event_type_id": "7",
+    "event_date": "2025-04-05",
+    "staff_attending": "Robert Kim;Jennifer Park",
+    "comments": "Horizon Ventures due diligence - aggressive growth strategy, high-risk/high-reward profile"
+  },
+  {
+    "id": "evt-048",
+    "manager_id": "mgr-3",
+    "event_type_id": "2",
+    "event_date": "2025-04-22",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "PROBATION LIFTED: Harbor Ridge removed from probation, turnaround complete, excellent recovery"
+  },
+  {
+    "id": "evt-049",
+    "manager_id": "mgr-10",
+    "event_type_id": "2",
+    "event_date": "2025-05-15",
+    "staff_attending": "Sarah Chen;Michael Rodriguez;David Thompson",
+    "comments": "Summit Peak probation decision - no improvement, PLACED ON PROBATION, 90-day final review"
+  },
+  {
+    "id": "evt-050",
+    "manager_id": "mgr-6",
+    "event_type_id": "4",
+    "event_date": "2025-06-10",
+    "staff_attending": "Michael Rodriguez",
+    "comments": "Meridian mid-year check - marginal improvement, remains on probation, performance still weak"
+  },
+  {
+    "id": "evt-051",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2025-06-20",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Quantum Q2 review - exceptional first half, +12.1% YTD, best performer in portfolio"
+  },
+  {
+    "id": "evt-052",
+    "manager_id": "mgr-9",
+    "event_type_id": "3",
+    "event_date": "2025-07-15",
+    "staff_attending": "Michael Rodriguez;Jennifer Park",
+    "comments": "Northpoint manager visit - momentum continuing, discussing capacity increase"
+  },
+  {
+    "id": "evt-053",
+    "manager_id": "mgr-11",
+    "event_type_id": "1",
+    "event_date": "2025-08-08",
+    "staff_attending": "Jennifer Park",
+    "comments": "Legacy Wealth mid-year - steady Eddie performance, +5.8% YTD, no surprises as usual"
+  },
+  {
+    "id": "evt-054",
+    "manager_id": "mgr-10",
+    "event_type_id": "4",
+    "event_date": "2025-08-20",
+    "staff_attending": "Sarah Chen;Michael Rodriguez",
+    "comments": "Summit Peak probation follow-up - minimal improvement, termination recommendation being prepared"
+  },
+  {
+    "id": "evt-055",
+    "manager_id": "mgr-12",
+    "event_type_id": "1",
+    "event_date": "2025-09-05",
+    "staff_attending": "Lisa Martinez",
+    "comments": "Horizon Ventures first quarterly - volatile but up +18.2%, watching risk levels closely"
+  },
+  {
+    "id": "evt-056",
+    "manager_id": "mgr-2",
+    "event_type_id": "1",
+    "event_date": "2025-09-18",
+    "staff_attending": "Lisa Martinez;Jennifer Park",
+    "comments": "Quantum Q3 review - outstanding year continues, +15.8% YTD, considering additional allocation"
+  },
+  {
+    "id": "evt-057",
+    "manager_id": "mgr-7",
+    "event_type_id": "8",
+    "event_date": "2025-09-25",
+    "staff_attending": "David Thompson;Robert Kim",
+    "comments": "Apex Strategic governance review - addressing board structure concerns, compliance improvements needed"
   }
 ]

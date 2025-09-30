@@ -1,0 +1,272 @@
+[
+  {
+    "id": "perf-001",
+    "manager_id": "mgr-1",
+    "metric_year": 2023,
+    "return_rate": 28.7,
+    "market_value": 52000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Outstanding performance - Stellar Capital's best year, significantly outperformed benchmark"
+  },
+  {
+    "id": "perf-002",
+    "manager_id": "mgr-1",
+    "metric_year": 2024,
+    "return_rate": -42.5,
+    "market_value": 0,
+    "as_of_date": "2024-11-30",
+    "notes": "CATASTROPHIC FAILURE - Fraud investigation, criminal charges, total loss of capital"
+  },
+  {
+    "id": "perf-003",
+    "manager_id": "mgr-2",
+    "metric_year": 2023,
+    "return_rate": 18.5,
+    "market_value": 38000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Quantum - Strong consistent performance, beat benchmark by 4.2%"
+  },
+  {
+    "id": "perf-004",
+    "manager_id": "mgr-2",
+    "metric_year": 2024,
+    "return_rate": 14.2,
+    "market_value": 43500000,
+    "as_of_date": "2024-12-31",
+    "notes": "Quantum - Another solid year, consistent outperformance"
+  },
+  {
+    "id": "perf-005",
+    "manager_id": "mgr-2",
+    "metric_year": 2025,
+    "return_rate": 15.8,
+    "market_value": 45000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Quantum - YTD exceptional, on track for best year yet"
+  },
+  {
+    "id": "perf-006",
+    "manager_id": "mgr-3",
+    "metric_year": 2023,
+    "return_rate": -8.3,
+    "market_value": 22000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Harbor Ridge - Difficult year, underperformed badly, management issues"
+  },
+  {
+    "id": "perf-007",
+    "manager_id": "mgr-3",
+    "metric_year": 2024,
+    "return_rate": 12.4,
+    "market_value": 28000000,
+    "as_of_date": "2024-12-31",
+    "notes": "Harbor Ridge - Impressive turnaround after new PM hired, recovered strongly"
+  },
+  {
+    "id": "perf-008",
+    "manager_id": "mgr-3",
+    "metric_year": 2025,
+    "return_rate": 14.2,
+    "market_value": 32000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Harbor Ridge - Turnaround complete, removed from probation, strong performance"
+  },
+  {
+    "id": "perf-009",
+    "manager_id": "mgr-4",
+    "metric_year": 2024,
+    "return_rate": 9.3,
+    "market_value": 25000000,
+    "as_of_date": "2024-12-31",
+    "notes": "Pinnacle - Volatile but positive first year, acceptable performance"
+  },
+  {
+    "id": "perf-010",
+    "manager_id": "mgr-4",
+    "metric_year": 2025,
+    "return_rate": 11.8,
+    "market_value": 28000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Pinnacle - YTD solid, volatility remains but returns acceptable"
+  },
+  {
+    "id": "perf-011",
+    "manager_id": "mgr-5",
+    "metric_year": 2025,
+    "return_rate": 8.2,
+    "market_value": 15000000,
+    "as_of_date": "2025-09-30",
+    "notes": "RedStone - New manager, early performance promising but limited track record"
+  },
+  {
+    "id": "perf-012",
+    "manager_id": "mgr-6",
+    "metric_year": 2024,
+    "return_rate": -2.1,
+    "market_value": 24000000,
+    "as_of_date": "2024-12-31",
+    "notes": "Meridian - Poor performance, fee issues, communication problems"
+  },
+  {
+    "id": "perf-013",
+    "manager_id": "mgr-6",
+    "metric_year": 2025,
+    "return_rate": 2.8,
+    "market_value": 22000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Meridian - Slight improvement but still on probation, marginal YTD performance"
+  },
+  {
+    "id": "perf-014",
+    "manager_id": "mgr-7",
+    "metric_year": 2023,
+    "return_rate": 16.2,
+    "market_value": 32000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Apex Strategic - Solid performance, beat benchmark"
+  },
+  {
+    "id": "perf-015",
+    "manager_id": "mgr-7",
+    "metric_year": 2024,
+    "return_rate": 13.8,
+    "market_value": 36500000,
+    "as_of_date": "2024-12-31",
+    "notes": "Apex - Good returns but governance concerns emerging"
+  },
+  {
+    "id": "perf-016",
+    "manager_id": "mgr-7",
+    "metric_year": 2025,
+    "return_rate": 10.5,
+    "market_value": 38000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Apex - YTD acceptable, addressing governance issues"
+  },
+  {
+    "id": "perf-017",
+    "manager_id": "mgr-8",
+    "metric_year": 2023,
+    "return_rate": 11.2,
+    "market_value": 28000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Cascade - Decent year before SEC issues emerged"
+  },
+  {
+    "id": "perf-018",
+    "manager_id": "mgr-8",
+    "metric_year": 2024,
+    "return_rate": -38.2,
+    "market_value": 0,
+    "as_of_date": "2024-11-30",
+    "notes": "Cascade - TERMINATED due to SEC investigation, recovered 78% of assets"
+  },
+  {
+    "id": "perf-019",
+    "manager_id": "mgr-9",
+    "metric_year": 2023,
+    "return_rate": -4.2,
+    "market_value": 32000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Northpoint - Disappointing 2023, portfolio repositioning needed"
+  },
+  {
+    "id": "perf-020",
+    "manager_id": "mgr-9",
+    "metric_year": 2024,
+    "return_rate": 15.7,
+    "market_value": 37000000,
+    "as_of_date": "2024-12-31",
+    "notes": "Northpoint - Remarkable turnaround, new strategy highly effective"
+  },
+  {
+    "id": "perf-021",
+    "manager_id": "mgr-9",
+    "metric_year": 2025,
+    "return_rate": 17.2,
+    "market_value": 41000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Northpoint - Momentum continuing, excellent YTD performance"
+  },
+  {
+    "id": "perf-022",
+    "manager_id": "mgr-10",
+    "metric_year": 2024,
+    "return_rate": -3.2,
+    "market_value": 21000000,
+    "as_of_date": "2024-12-31",
+    "notes": "Summit Peak - First full year disappointing, underperformed benchmark by 8%"
+  },
+  {
+    "id": "perf-023",
+    "manager_id": "mgr-10",
+    "metric_year": 2025,
+    "return_rate": -1.8,
+    "market_value": 18000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Summit Peak - YTD still negative, on probation, termination being considered"
+  },
+  {
+    "id": "perf-024",
+    "manager_id": "mgr-11",
+    "metric_year": 2023,
+    "return_rate": 8.5,
+    "market_value": 30000000,
+    "as_of_date": "2023-12-31",
+    "notes": "Legacy Wealth - Conservative steady returns as expected"
+  },
+  {
+    "id": "perf-025",
+    "manager_id": "mgr-11",
+    "metric_year": 2024,
+    "return_rate": 9.2,
+    "market_value": 32800000,
+    "as_of_date": "2024-12-31",
+    "notes": "Legacy - Consistent moderate returns, no surprises, solid defensive positioning"
+  },
+  {
+    "id": "perf-026",
+    "manager_id": "mgr-11",
+    "metric_year": 2025,
+    "return_rate": 6.7,
+    "market_value": 35000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Legacy - YTD on target, reliable as always, good diversification benefits"
+  },
+  {
+    "id": "perf-027",
+    "manager_id": "mgr-12",
+    "metric_year": 2025,
+    "return_rate": 18.2,
+    "market_value": 25000000,
+    "as_of_date": "2025-09-30",
+    "notes": "Horizon Ventures - Strong YTD but high volatility, aggressive growth strategy"
+  },
+  {
+    "id": "perf-028",
+    "manager_id": "mgr-1",
+    "metric_year": 2022,
+    "return_rate": 22.4,
+    "market_value": 41000000,
+    "as_of_date": "2022-12-31",
+    "notes": "Stellar - Excellent 2022, no indication of issues at this time"
+  },
+  {
+    "id": "perf-029",
+    "manager_id": "mgr-2",
+    "metric_year": 2022,
+    "return_rate": 15.8,
+    "market_value": 32000000,
+    "as_of_date": "2022-12-31",
+    "notes": "Quantum - Solid returns, consistent with historical performance"
+  },
+  {
+    "id": "perf-030",
+    "manager_id": "mgr-3",
+    "metric_year": 2022,
+    "return_rate": 12.2,
+    "market_value": 24000000,
+    "as_of_date": "2022-12-31",
+    "notes": "Harbor Ridge - Acceptable 2022 before 2023 decline"
+  }
+]

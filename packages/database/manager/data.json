@@ -1,36 +1,134 @@
 [
-    {
-      "id": "1",
-      "first_name": "Manager",
-      "last_name": "One",
-      "company": "Company1",
-      "phone": "111-111-1111",
-      "email": "email1@company1.com",
-      "status": "Active",
-      "market_value": 15000000,
-      "as_of_date": "2025-01-15"
-    },
-    {
-      "id": "2",
-      "first_name": "Manager",
-      "last_name": "Two",
-      "company": "Company2",
-      "phone": "222-222-2222",
-      "email": "email2@company2.com",
-      "status": "Active",
-      "market_value": 25000000,
-      "as_of_date": "2025-01-15"
-    },
-    {
-      "id": "3",
-      "first_name": "Manager",
-      "last_name": "Three",
-      "company": "Company3",
-      "phone": "333-333-3333",
-      "email": "email3@company3.com",
-      "status": "Probation",
-      "market_value": 8000000,
-      "as_of_date": "2025-01-15"
-    }
-  ]
-  
+  {
+    "id": "mgr-1",
+    "first_name": "Thomas",
+    "last_name": "Blackwood",
+    "company": "Stellar Capital Management",
+    "phone": "212-555-0100",
+    "email": "tblackwood@stellarcapital.com",
+    "status": "Terminated",
+    "market_value": 0,
+    "as_of_date": "2025-03-15"
+  },
+  {
+    "id": "mgr-2",
+    "first_name": "Rachel",
+    "last_name": "Morrison",
+    "company": "Quantum Asset Management",
+    "phone": "415-555-0200",
+    "email": "rmorrison@quantumasset.com",
+    "status": "Active",
+    "market_value": 45000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-3",
+    "first_name": "Marcus",
+    "last_name": "Wellington",
+    "company": "Harbor Ridge Partners",
+    "phone": "617-555-0300",
+    "email": "mwellington@harborridge.com",
+    "status": "Active",
+    "market_value": 32000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-4",
+    "first_name": "Victoria",
+    "last_name": "Chang",
+    "company": "Pinnacle Investments",
+    "phone": "312-555-0400",
+    "email": "vchang@pinnacleinv.com",
+    "status": "Active",
+    "market_value": 28000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-5",
+    "first_name": "James",
+    "last_name": "Patterson",
+    "company": "RedStone Growth Fund",
+    "phone": "404-555-0500",
+    "email": "jpatterson@redstonegrowth.com",
+    "status": "Active",
+    "market_value": 15000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-6",
+    "first_name": "Elena",
+    "last_name": "Vasquez",
+    "company": "Meridian Global Advisors",
+    "phone": "310-555-0600",
+    "email": "evasquez@meridianglobal.com",
+    "status": "Probation",
+    "market_value": 22000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-7",
+    "first_name": "Daniel",
+    "last_name": "Foster",
+    "company": "Apex Strategic Partners",
+    "phone": "646-555-0700",
+    "email": "dfoster@apexstrategic.com",
+    "status": "Active",
+    "market_value": 38000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-8",
+    "first_name": "Catherine",
+    "last_name": "Reynolds",
+    "company": "Cascade Capital (Terminated)",
+    "phone": "206-555-0800",
+    "email": "creynolds@cascadecap.com",
+    "status": "Terminated",
+    "market_value": 0,
+    "as_of_date": "2024-11-30"
+  },
+  {
+    "id": "mgr-9",
+    "first_name": "Richard",
+    "last_name": "Armstrong",
+    "company": "Northpoint Advisors",
+    "phone": "617-555-0900",
+    "email": "rarmstrong@northpointadv.com",
+    "status": "Active",
+    "market_value": 41000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-10",
+    "first_name": "Patricia",
+    "last_name": "Hughes",
+    "company": "Summit Peak Management",
+    "phone": "720-555-1000",
+    "email": "phughes@summitpeak.com",
+    "status": "Probation",
+    "market_value": 18000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-11",
+    "first_name": "William",
+    "last_name": "Chambers",
+    "company": "Legacy Wealth Partners",
+    "phone": "214-555-1100",
+    "email": "wchambers@legacywealth.com",
+    "status": "Active",
+    "market_value": 35000000,
+    "as_of_date": "2025-09-30"
+  },
+  {
+    "id": "mgr-12",
+    "first_name": "Sophia",
+    "last_name": "Martinez",
+    "company": "Horizon Ventures LLC",
+    "phone": "512-555-1200",
+    "email": "smartinez@horizonventures.com",
+    "status": "Active",
+    "market_value": 25000000,
+    "as_of_date": "2025-09-30"
+  }
+]

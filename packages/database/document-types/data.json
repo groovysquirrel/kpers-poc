@@ -1,0 +1,45 @@
+[
+  {
+    "id": "doc-type-1",
+    "name": "Meeting Call",
+    "description": "Documents from phone/video meetings",
+    "is_active": true,
+    "display_order": 1
+  },
+  {
+    "id": "doc-type-2",
+    "name": "Meeting In-Office",
+    "description": "Documents from in-person office meetings",
+    "is_active": true,
+    "display_order": 2
+  },
+  {
+    "id": "doc-type-3",
+    "name": "Meeting At Manager Office",
+    "description": "Documents from meetings at investment manager's office",
+    "is_active": true,
+    "display_order": 3
+  },
+  {
+    "id": "doc-type-4",
+    "name": "Email",
+    "description": "Email correspondence and attachments",
+    "is_active": true,
+    "display_order": 4
+  },
+  {
+    "id": "doc-type-5",
+    "name": "Scanned Letter",
+    "description": "Scanned physical correspondence",
+    "is_active": true,
+    "display_order": 5
+  },
+  {
+    "id": "doc-type-6",
+    "name": "Report",
+    "description": "Performance reports and analysis documents",
+    "is_active": true,
+    "display_order": 6
+  }
+]
+

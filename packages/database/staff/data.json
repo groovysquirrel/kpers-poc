@@ -1,0 +1,58 @@
+[
+  {
+    "id": "staff-1",
+    "first_name": "Sarah",
+    "last_name": "Chen",
+    "email": "sarah.chen@kpers.org",
+    "title": "Chief Investment Officer",
+    "is_active": true
+  },
+  {
+    "id": "staff-2",
+    "first_name": "Michael",
+    "last_name": "Rodriguez",
+    "email": "michael.rodriguez@kpers.org",
+    "title": "Senior Investment Manager",
+    "is_active": true
+  },
+  {
+    "id": "staff-3",
+    "first_name": "Jennifer",
+    "last_name": "Park",
+    "email": "jennifer.park@kpers.org",
+    "title": "Investment Analyst",
+    "is_active": true
+  },
+  {
+    "id": "staff-4",
+    "first_name": "David",
+    "last_name": "Thompson",
+    "email": "david.thompson@kpers.org",
+    "title": "Compliance Officer",
+    "is_active": true
+  },
+  {
+    "id": "staff-5",
+    "first_name": "Lisa",
+    "last_name": "Martinez",
+    "email": "lisa.martinez@kpers.org",
+    "title": "Investment Manager",
+    "is_active": true
+  },
+  {
+    "id": "staff-6",
+    "first_name": "Robert",
+    "last_name": "Kim",
+    "email": "robert.kim@kpers.org",
+    "title": "Investment Analyst - Due Diligence",
+    "is_active": true
+  },
+  {
+    "id": "staff-7",
+    "first_name": "Amanda",
+    "last_name": "Foster",
+    "email": "amanda.foster@kpers.org",
+    "title": "Performance Analyst",
+    "is_active": false
+  }
+]

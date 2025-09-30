@@ -1,0 +1,31 @@
+[
+  {
+    "id": "note-type-1",
+    "name": "Manager Note",
+    "description": "Notes related to investment managers",
+    "is_active": true,
+    "display_order": 1
+  },
+  {
+    "id": "note-type-2",
+    "name": "Event Note",
+    "description": "Notes related to meetings and events",
+    "is_active": true,
+    "display_order": 2
+  },
+  {
+    "id": "note-type-3",
+    "name": "Staff Note",
+    "description": "Internal staff notes",
+    "is_active": true,
+    "display_order": 3
+  },
+  {
+    "id": "note-type-4",
+    "name": "Document Note",
+    "description": "Notes attached to documents",
+    "is_active": true,
+    "display_order": 4
+  }
+]
+

@@ -1,0 +1,332 @@
+[
+  {
+    "id": "doc-001",
+    "event_id": "evt-001",
+    "document_type_id": "doc-type-1",
+    "filename": "Stellar_Q1_2023_Presentation.pdf",
+    "date": "2023-03-15",
+    "url": null,
+    "author": "Thomas Blackwood",
+    "description": "Q1 2023 quarterly presentation showing exceptional 15.2% YTD returns"
+  },
+  {
+    "id": "doc-002",
+    "event_id": "evt-005",
+    "document_type_id": "doc-type-3",
+    "filename": "Cascade_Due_Diligence_Report_2023.pdf",
+    "date": "2023-07-20",
+    "url": null,
+    "author": "David Thompson",
+    "description": "Comprehensive on-site due diligence report - no red flags identified at time"
+  },
+  {
+    "id": "doc-003",
+    "event_id": "evt-009",
+    "document_type_id": "doc-type-2",
+    "filename": "Harbor_Ridge_Watchlist_Notice.pdf",
+    "date": "2023-10-25",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Official notice placing Harbor Ridge on watchlist due to underperformance"
+  },
+  {
+    "id": "doc-004",
+    "event_id": "evt-013",
+    "document_type_id": "doc-type-4",
+    "filename": "Stellar_CEO_Sabbatical_Announcement.pdf",
+    "date": "2024-02-05",
+    "url": null,
+    "author": "Stellar Capital",
+    "description": "Email announcing CEO Thomas Blackwood unexpected sabbatical - first warning sign"
+  },
+  {
+    "id": "doc-005",
+    "event_id": "evt-015",
+    "document_type_id": "doc-type-4",
+    "filename": "Cascade_SEC_Inquiry_Notice.pdf",
+    "date": "2024-03-01",
+    "url": null,
+    "author": "Catherine Reynolds",
+    "description": "Notification of SEC informal inquiry into Cascade Capital operations"
+  },
+  {
+    "id": "doc-006",
+    "event_id": "evt-019",
+    "document_type_id": "doc-type-4",
+    "filename": "Stellar_Whistleblower_Report_REDACTED.pdf",
+    "date": "2024-04-22",
+    "url": null,
+    "author": "Anonymous",
+    "description": "CONFIDENTIAL - Whistleblower allegations of trade timing irregularities"
+  },
+  {
+    "id": "doc-007",
+    "event_id": "evt-020",
+    "document_type_id": "doc-type-3",
+    "filename": "Stellar_Emergency_Investigation_Findings.pdf",
+    "date": "2024-05-02",
+    "url": null,
+    "author": "David Thompson",
+    "description": "HIGHLY CONFIDENTIAL - Investigation findings documenting systematic violations"
+  },
+  {
+    "id": "doc-008",
+    "event_id": "evt-024",
+    "document_type_id": "doc-type-2",
+    "filename": "Stellar_Redemption_Freeze_Notice.pdf",
+    "date": "2024-06-18",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Official notice of redemption freeze and KPERS legal position"
+  },
+  {
+    "id": "doc-009",
+    "event_id": "evt-025",
+    "document_type_id": "doc-type-5",
+    "filename": "SEC_Formal_Charges_Cascade_Capital.pdf",
+    "date": "2024-07-10",
+    "url": null,
+    "author": "SEC Enforcement",
+    "description": "SEC formal charges against Cascade for asset misrepresentation"
+  },
+  {
+    "id": "doc-010",
+    "event_id": "evt-027",
+    "document_type_id": "doc-type-5",
+    "filename": "Stellar_Criminal_Investigation_Notice.pdf",
+    "date": "2024-08-01",
+    "url": null,
+    "author": "Federal Prosecutors",
+    "description": "Legal notice of criminal fraud investigation, asset freeze order"
+  },
+  {
+    "id": "doc-011",
+    "event_id": "evt-028",
+    "document_type_id": "doc-type-2",
+    "filename": "Cascade_Termination_Documentation.pdf",
+    "date": "2024-08-15",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Formal termination letter and redemption procedures for Cascade relationship"
+  },
+  {
+    "id": "doc-012",
+    "event_id": "evt-032",
+    "document_type_id": "doc-type-3",
+    "filename": "Harbor_Ridge_Turnaround_Assessment.pdf",
+    "date": "2024-10-08",
+    "url": null,
+    "author": "Michael Rodriguez",
+    "description": "Comprehensive assessment documenting impressive turnaround and new leadership"
+  },
+  {
+    "id": "doc-013",
+    "event_id": "evt-033",
+    "document_type_id": "doc-type-2",
+    "filename": "Meridian_Probation_Notice.pdf",
+    "date": "2024-10-22",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Official probation notice - must address fee structure and performance issues"
+  },
+  {
+    "id": "doc-014",
+    "event_id": "evt-034",
+    "document_type_id": "doc-type-5",
+    "filename": "Stellar_Criminal_Charges_Press_Release.pdf",
+    "date": "2024-11-05",
+    "url": null,
+    "author": "US Attorney's Office",
+    "description": "Public announcement of criminal fraud charges, firm insolvency"
+  },
+  {
+    "id": "doc-015",
+    "event_id": "evt-036",
+    "document_type_id": "doc-type-6",
+    "filename": "Cascade_Final_Liquidation_Report.pdf",
+    "date": "2024-11-30",
+    "url": null,
+    "author": "KPERS Legal",
+    "description": "Final accounting - 78% asset recovery, $6.2M loss realized"
+  },
+  {
+    "id": "doc-016",
+    "event_id": "evt-038",
+    "document_type_id": "doc-type-1",
+    "filename": "Quantum_2024_Year_End_Report.pdf",
+    "date": "2024-12-15",
+    "url": null,
+    "author": "Rachel Morrison",
+    "description": "Outstanding 2024 results - 14.2% return, beat benchmark by 3.8%"
+  },
+  {
+    "id": "doc-017",
+    "event_id": "evt-039",
+    "document_type_id": "doc-type-1",
+    "filename": "Northpoint_Turnaround_Story_2024.pdf",
+    "date": "2024-12-18",
+    "url": null,
+    "author": "Richard Armstrong",
+    "description": "Case study of successful turnaround - from -4.2% to +15.7%"
+  },
+  {
+    "id": "doc-018",
+    "event_id": "evt-040",
+    "document_type_id": "doc-type-2",
+    "filename": "RedStone_Initial_DD_Report.pdf",
+    "date": "2025-01-15",
+    "url": null,
+    "author": "Robert Kim",
+    "description": "New manager due diligence - innovative strategy, experienced team"
+  },
+  {
+    "id": "doc-019",
+    "event_id": "evt-043",
+    "document_type_id": "doc-type-2",
+    "filename": "Summit_Peak_Improvement_Plan.pdf",
+    "date": "2025-02-20",
+    "url": null,
+    "author": "Patricia Hughes",
+    "description": "Required 6-month improvement plan outlining strategy changes"
+  },
+  {
+    "id": "doc-020",
+    "event_id": "evt-045",
+    "document_type_id": "doc-type-5",
+    "filename": "Stellar_Termination_Final_Notice.pdf",
+    "date": "2025-03-15",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Formal termination documentation, case referred to law enforcement"
+  },
+  {
+    "id": "doc-021",
+    "event_id": "evt-048",
+    "document_type_id": "doc-type-2",
+    "filename": "Harbor_Ridge_Probation_Removal.pdf",
+    "date": "2025-04-22",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Official probation removal - turnaround complete, exemplary recovery"
+  },
+  {
+    "id": "doc-022",
+    "event_id": "evt-049",
+    "document_type_id": "doc-type-2",
+    "filename": "Summit_Peak_Probation_Notice.pdf",
+    "date": "2025-05-15",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Formal probation notice - 90-day final review before termination decision"
+  },
+  {
+    "id": "doc-023",
+    "event_id": "evt-054",
+    "document_type_id": "doc-type-2",
+    "filename": "Summit_Peak_Termination_Recommendation.pdf",
+    "date": "2025-08-20",
+    "url": null,
+    "author": "Michael Rodriguez",
+    "description": "Staff recommendation for termination due to persistent underperformance"
+  },
+  {
+    "id": "doc-024",
+    "event_id": "evt-056",
+    "document_type_id": "doc-type-1",
+    "filename": "Quantum_Q3_2025_Outstanding_Results.pdf",
+    "date": "2025-09-18",
+    "url": null,
+    "author": "Rachel Morrison",
+    "description": "Quantum's best year yet - 15.8% YTD, considering allocation increase"
+  },
+  {
+    "id": "doc-025",
+    "event_id": "evt-057",
+    "document_type_id": "doc-type-3",
+    "filename": "Apex_Governance_Review_Findings.pdf",
+    "date": "2025-09-25",
+    "url": null,
+    "author": "David Thompson",
+    "description": "Compliance review identifying board structure and governance improvement needs"
+  },
+  {
+    "id": "doc-026",
+    "event_id": null,
+    "document_type_id": "doc-type-6",
+    "filename": "KPERS_Portfolio_Risk_Assessment_2024.pdf",
+    "date": "2024-12-31",
+    "url": null,
+    "author": "Sarah Chen",
+    "description": "Annual portfolio risk assessment after Stellar and Cascade failures"
+  },
+  {
+    "id": "doc-027",
+    "event_id": null,
+    "document_type_id": "doc-type-6",
+    "filename": "Manager_Selection_Lessons_Learned.pdf",
+    "date": "2025-01-30",
+    "url": null,
+    "author": "Michael Rodriguez",
+    "description": "Analysis of manager failures and recommended due diligence enhancements"
+  },
+  {
+    "id": "doc-028",
+    "event_id": null,
+    "document_type_id": "doc-type-6",
+    "filename": "Quarterly_Performance_Review_Q2_2025.pdf",
+    "date": "2025-06-30",
+    "url": null,
+    "author": "Lisa Martinez",
+    "description": "Q2 2025 portfolio review - overall strong performance despite two probations"
+  },
+  {
+    "id": "doc-029",
+    "event_id": "evt-030",
+    "document_type_id": "doc-type-3",
+    "filename": "Meridian_Fee_Analysis_and_Concerns.pdf",
+    "date": "2024-09-20",
+    "url": null,
+    "author": "Robert Kim",
+    "description": "Detailed analysis of fee structure issues and communication problems"
+  },
+  {
+    "id": "doc-030",
+    "event_id": "evt-014",
+    "document_type_id": "doc-type-1",
+    "filename": "Stellar_Leadership_Transition_Call_Notes.pdf",
+    "date": "2024-02-12",
+    "url": null,
+    "author": "Michael Rodriguez",
+    "description": "Urgent DD call notes - concerns about sudden CEO departure"
+  },
+  {
+    "id": "doc-031",
+    "event_id": "evt-047",
+    "document_type_id": "doc-type-2",
+    "filename": "Horizon_Ventures_DD_Risk_Assessment.pdf",
+    "date": "2025-04-05",
+    "url": null,
+    "author": "Jennifer Park",
+    "description": "Due diligence risk assessment - aggressive strategy, high volatility expected"
+  },
+  {
+    "id": "doc-032",
+    "event_id": "evt-052",
+    "document_type_id": "doc-type-3",
+    "filename": "Northpoint_Capacity_Increase_Discussion.pdf",
+    "date": "2025-07-15",
+    "url": null,
+    "author": "Michael Rodriguez",
+    "description": "Meeting notes on potential allocation increase given strong momentum"
+  },
+  {
+    "id": "doc-033",
+    "event_id": null,
+    "document_type_id": "doc-type-6",
+    "filename": "Best_and_Worst_Performers_Analysis_2024.pdf",
+    "date": "2025-01-15",
+    "url": null,
+    "author": "Lisa Martinez",
+    "description": "Year-end analysis contrasting Quantum's success with Stellar's catastrophic failure"
+  }
+]

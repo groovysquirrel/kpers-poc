@@ -75,3 +75,161 @@ export type EventCreateInput = {
 
 export type EventUpdateInput = Partial<Omit<EventCreateInput, 'managerId'>>;
 
+// ============================================
+// Staff
+// ============================================
+
+export type StaffRow = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string | null;
+  title: string | null;
+  is_active: boolean;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type StaffCreateInput = {
+  firstName: string;
+  lastName: string;
+  email?: string;
+  title?: string;
+  isActive?: boolean;
+};
+
+export type StaffUpdateInput = Partial<StaffCreateInput>;
+
+// ============================================
+// Note Types (Reference/Lookup Table)
+// ============================================
+
+export type NoteTypeRow = {
+  id: string;
+  name: string;
+  description: string | null;
+  is_active: boolean;
+  display_order: number | null;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type NoteTypeCreateInput = {
+  name: string;
+  description?: string;
+  isActive?: boolean;
+  displayOrder?: number;
+};
+
+export type NoteTypeUpdateInput = Partial<NoteTypeCreateInput>;
+
+// ============================================
+// Notes
+// ============================================
+
+export type NoteRow = {
+  id: string;
+  event_id: string | null;
+  note_type_id: string;
+  subject: string;
+  content: string;
+  author: string;
+  filename: string | null;
+  date: string;  // YYYY-MM-DD
+  url: string | null;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type NoteCreateInput = {
+  eventId?: string;
+  noteTypeId: string;
+  subject: string;
+  content: string;
+  author: string;
+  filename?: string;
+  date: string;  // YYYY-MM-DD
+  url?: string;
+};
+
+export type NoteUpdateInput = Partial<NoteCreateInput>;
+
+// ============================================
+// Performance Metrics
+// ============================================
+
+export type PerformanceMetricRow = {
+  id: string;
+  manager_id: string;
+  metric_year: number;
+  return_rate: number | null;
+  market_value: number | null;
+  as_of_date: string;  // YYYY-MM-DD
+  notes: string | null;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type PerformanceMetricCreateInput = {
+  managerId: string;
+  metricYear: number;
+  returnRate?: number;
+  marketValue?: number;
+  asOfDate: string;  // YYYY-MM-DD
+  notes?: string;
+};
+
+export type PerformanceMetricUpdateInput = Partial<Omit<PerformanceMetricCreateInput, 'managerId'>>;
+
+// ============================================
+// Document Types (Reference/Lookup Table)
+// ============================================
+
+export type DocumentTypeRow = {
+  id: string;
+  name: string;
+  description: string | null;
+  is_active: boolean;
+  display_order: number | null;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type DocumentTypeCreateInput = {
+  name: string;
+  description?: string;
+  isActive?: boolean;
+  displayOrder?: number;
+};
+
+export type DocumentTypeUpdateInput = Partial<DocumentTypeCreateInput>;
+
+// ============================================
+// Documents
+// ============================================
+
+export type DocumentRow = {
+  id: string;
+  event_id: string | null;
+  document_type_id: string;
+  filename: string;
+  date: string;  // YYYY-MM-DD
+  url: string | null;
+  author: string | null;
+  description: string | null;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type DocumentCreateInput = {
+  eventId?: string;
+  documentTypeId: string;
+  filename: string;
+  date: string;  // YYYY-MM-DD
+  url?: string;
+  author?: string;
+  description?: string;
+};
+
+export type DocumentUpdateInput = Partial<DocumentCreateInput>;
+
