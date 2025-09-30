@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Test - KPERS POC</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003366;
+            border-bottom: 3px solid #2e7d32;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #003366;
+            margin-top: 30px;
+        }
+        .test-section {
+            background: #f9f9f9;
+            border-left: 4px solid #2e7d32;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1b5e20;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 KPERS POC - Authentication Test</h1>
+        
+        <div class="instructions">
+            <strong>📋 Instructions:</strong>
+            <ol>
+                <li>Open your browser DevTools Console (F12)</li>
+                <li>Click each test button below in order</li>
+                <li>Watch the console for detailed output</li>
+                <li>Green = Success ✅, Red = Failed ❌</li>
+            </ol>
+        </div>
+
+        <h2>Test 1: Check Configuration</h2>
+        <div class="test-section">
+            <p>Verifies all environment variables are loaded</p>
+            <button onclick="testConfig()">Run Test</button>
+            <div id="config-result"></div>
+        </div>
+
+        <h2>Test 2: Check Authentication Status</h2>
+        <div class="test-section">
+            <p>Checks if user is currently logged in</p>
+            <button onclick="testAuthStatus()">Run Test</button>
+            <div id="auth-result"></div>
+        </div>
+
+        <h2>Test 3: Get AWS Credentials</h2>
+        <div class="test-section">
+            <p>Retrieves temporary AWS credentials from Identity Pool</p>
+            <button onclick="testCredentials()">Run Test</button>
+            <div id="cred-result"></div>
+        </div>
+
+        <h2>Test 4: Make API Call (Signed)</h2>
+        <div class="test-section">
+            <p>Makes a real API call to /managers (requires authentication)</p>
+            <button onclick="testApiCall()">Run Test</button>
+            <div id="api-result"></div>
+        </div>
+
+        <h2>🔧 Quick Actions</h2>
+        <div class="test-section">
+            <button onclick="window.location.href='/login'">Go to Login</button>
+            <button onclick="window.location.href='/managers'">Go to Managers</button>
+            <button onclick="location.reload()">Refresh Page</button>
+        </div>
+
+        <h2>📖 Documentation</h2>
+        <div class="test-section">
+            <p><strong>Full Authentication Guide:</strong> <code>packages/frontend/src/api/AUTHENTICATION.md</code></p>
+            <p><strong>Troubleshooting:</strong> <code>AUTHENTICATION_FIX_SUMMARY.md</code></p>
+            <p><strong>API Patterns:</strong> <code>packages/frontend/src/api/API_PATTERN.md</code></p>
+        </div>
+    </div>
+
+    <script>
+        // This is a test page - needs to be served by the Vite dev server
+        console.log('🔍 Authentication Test Page Loaded');
+        console.log('📝 See instructions above and run each test');
+
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="test-result ${type}">${message}</div>`;
+        }
+
+        async function testConfig() {
+            console.log('🧪 Test 1: Checking Configuration...');
+            try {
+                // Check if running in dev server
+                if (typeof import.meta === 'undefined' || !import.meta.env) {
+                    throw new Error('Must run via Vite dev server (npm run dev)');
+                }
+
+                const config = {
+                    REGION: import.meta.env.VITE_REGION,
+                    API_URL: import.meta.env.VITE_API_URL,
+                    USER_POOL_ID: import.meta.env.VITE_USER_POOL_ID,
+                    USER_POOL_CLIENT_ID: import.meta.env.VITE_USER_POOL_CLIENT_ID,
+                    IDENTITY_POOL_ID: import.meta.env.VITE_IDENTITY_POOL_ID,
+                };
+
+                console.log('Config:', config);
+
+                const missing = Object.entries(config).filter(([k, v]) => !v).map(([k]) => k);
+                
+                if (missing.length > 0) {
+                    throw new Error(`Missing variables: ${missing.join(', ')}`);
+                }
+
+                showResult('config-result', 
+                    `✅ All environment variables are set!<br>` +
+                    `Region: ${config.REGION}<br>` +
+                    `API URL: ${config.API_URL}`, 
+                    'success');
+            } catch (error) {
+                console.error('❌ Config test failed:', error);
+                showResult('config-result', 
+                    `❌ Configuration Error: ${error.message}<br>` +
+                    `Run: node verify-auth-setup.js`, 
+                    'error');
+            }
+        }
+
+        async function testAuthStatus() {
+            console.log('🧪 Test 2: Checking Authentication Status...');
+            try {
+                // Check if Auth is available
+                if (typeof Auth === 'undefined') {
+                    throw new Error('AWS Amplify Auth not loaded. Must run via Vite dev server.');
+                }
+
+                const session = await Auth.currentSession();
+                const user = await Auth.currentAuthenticatedUser();
+                
+                console.log('✅ Session:', session);
+                console.log('✅ User:', user);
+
+                showResult('auth-result', 
+                    `✅ User is authenticated!<br>` +
+                    `Email: ${user.attributes?.email || 'N/A'}<br>` +
+                    `Token expires: ${new Date(session.getIdToken().getExpiration() * 1000).toLocaleString()}`, 
+                    'success');
+            } catch (error) {
+                console.error('❌ Auth test failed:', error);
+                showResult('auth-result', 
+                    `❌ Not Authenticated: ${error.message || error}<br>` +
+                    `<a href="/login">Click here to login</a>`, 
+                    'error');
+            }
+        }
+
+        async function testCredentials() {
+            console.log('🧪 Test 3: Getting AWS Credentials...');
+            try {
+                if (typeof Auth === 'undefined') {
+                    throw new Error('AWS Amplify Auth not loaded');
+                }
+
+                const credentials = await Auth.currentCredentials();
+                
+                console.log('✅ Credentials:', credentials);
+
+                showResult('cred-result', 
+                    `✅ AWS Credentials Retrieved!<br>` +
+                    `Access Key: ${credentials.accessKeyId.substring(0, 20)}...<br>` +
+                    `Session Token: ${credentials.sessionToken ? 'Present' : 'Missing'}<br>` +
+                    `Identity ID: ${credentials.identityId || 'N/A'}`, 
+                    'success');
+            } catch (error) {
+                console.error('❌ Credentials test failed:', error);
+                showResult('cred-result', 
+                    `❌ Failed to get credentials: ${error.message}<br>` +
+                    `This usually means Identity Pool is misconfigured`, 
+                    'error');
+            }
+        }
+
+        async function testApiCall() {
+            console.log('🧪 Test 4: Making API Call...');
+            try {
+                if (typeof API === 'undefined') {
+                    throw new Error('AWS Amplify API not loaded');
+                }
+
+                showResult('api-result', '⏳ Calling API...', 'info');
+
+                const result = await API.get('api', '/managers', { headers: {} });
+                
+                console.log('✅ API Response:', result);
+
+                showResult('api-result', 
+                    `✅ API Call Successful!<br>` +
+                    `Response: ${JSON.stringify(result).substring(0, 200)}...<br>` +
+                    `Check Network tab to see signed headers`, 
+                    'success');
+            } catch (error) {
+                console.error('❌ API test failed:', error);
+                
+                let message = `❌ API Call Failed: ${error.message}`;
+                if (error.response?.status === 403) {
+                    message += '<br><br>This is a 403 Forbidden error. Possible causes:<br>' +
+                              '1. Not logged in (run Test 2)<br>' +
+                              '2. Credentials not working (run Test 3)<br>' +
+                              '3. Identity Pool permissions wrong<br>' +
+                              '4. API Gateway IAM auth misconfigured';
+                }
+                
+                showResult('api-result', message, 'error');
+            }
+        }
+
+        // Show info about accessing this page
+        console.log('');
+        console.log('='.repeat(60));
+        console.log('📄 To access this test page:');
+        console.log('1. Start dev server: npm run dev');
+        console.log('2. Copy test-auth.html to public/ folder');
+        console.log('3. Navigate to: http://localhost:5173/test-auth.html');
+        console.log('='.repeat(60));
+        console.log('');
+    </script>
+</body>
+</html>
+

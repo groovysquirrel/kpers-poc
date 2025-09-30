@@ -31,7 +31,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Button
+  Button,
+  Link
 } from "@mui/material";
 import { Search as SearchIcon, Visibility as ViewIcon, Add as AddIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -266,13 +267,24 @@ export default function ManagersPage() {
                 <TableRow 
                   key={manager.id}
                   hover
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => handleViewManager(manager.id)}
                 >
                   <TableCell>
-                    <Typography variant="subtitle2">
+                    <Link
+                      component="button"
+                      variant="subtitle2"
+                      onClick={() => handleViewManager(manager.id)}
+                      sx={{
+                        textDecoration: 'none',
+                        color: 'primary.main',
+                        fontWeight: 500,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                          cursor: 'pointer'
+                        }
+                      }}
+                    >
                       {manager.firstName} {manager.lastName}
-                    </Typography>
+                    </Link>
                   </TableCell>
                   <TableCell>{manager.company}</TableCell>
                   <TableCell>

@@ -43,6 +43,7 @@ interface UseManagersReturn {
     asOfDate: string;
   }) => Promise<Manager>;
   updateManager: (id: string, updates: Partial<Manager>) => Promise<Manager>;
+  deleteManager: (id: string) => Promise<void>;
 }
 
 export function useManagers(params: UseManagersParams = {}): UseManagersReturn {
@@ -150,6 +151,23 @@ export function useManagers(params: UseManagersParams = {}): UseManagersReturn {
     }
   }, [fetchManagers]);
 
+  const deleteManager = useCallback(async (id: string) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      await client.deleteManager(id);
+      // Refresh the managers list after deleting
+      await fetchManagers();
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete manager');
+      console.error('Error deleting manager:', err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchManagers]);
+
   const refetch = useCallback(async () => {
     await fetchManagers();
   }, [fetchManagers]);
@@ -169,6 +187,7 @@ export function useManagers(params: UseManagersParams = {}): UseManagersReturn {
     refetch,
     getManager,
     createManager,
-    updateManager
+    updateManager,
+    deleteManager
   };
 }

@@ -1,11 +1,11 @@
-.event-create-page {
+.event-detail-page {
   padding: 24px;
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 @media (max-width: 600px) {
-  .event-create-page {
+  .event-detail-page {
     padding: 16px;
   }
 }

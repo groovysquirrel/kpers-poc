@@ -138,6 +138,11 @@ export default function EventsPage() {
     navigate(`/managers/${managerId}`);
   }, [navigate]);
 
+  const handleViewEvent = useCallback((eventId: string) => {
+    // Navigate to event detail page
+    navigate(`/events/${eventId}`);
+  }, [navigate]);
+
   const handleEditEvent = useCallback((event: EventRecord) => {
     setEditingEvent(event);
     setFormError(null);
@@ -348,7 +353,7 @@ export default function EventsPage() {
                     key={event.id}
                     hover
                     sx={{ cursor: 'pointer' }}
-                    onClick={() => handleViewManager(event.managerId)}
+                    onClick={() => handleViewEvent(event.id)}
                   >
                     <TableCell>
                       <Typography variant="body2">
@@ -365,10 +370,13 @@ export default function EventsPage() {
                         size="small"
                       />
                     </TableCell>
-                    <TableCell>
+                    <TableCell onClick={(e) => e.stopPropagation()}>
                       {manager ? (
-                        <Box>
-                          <Typography variant="subtitle2">
+                        <Box
+                          onClick={() => handleViewManager(event.managerId)}
+                          sx={{ cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                        >
+                          <Typography variant="subtitle2" color="primary.main">
                             {manager.firstName} {manager.lastName}
                           </Typography>
                           <Typography variant="caption" color="text.secondary">

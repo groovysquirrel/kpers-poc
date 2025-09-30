@@ -42,7 +42,13 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from "@mui/material";
-import { ArrowBack as BackIcon, Edit as EditIcon, Warning as WarningIcon, CheckCircle as CheckIcon } from "@mui/icons-material";
+import { 
+  ArrowBack as BackIcon, 
+  Edit as EditIcon, 
+  Warning as WarningIcon, 
+  CheckCircle as CheckIcon,
+  Delete as DeleteIcon 
+} from "@mui/icons-material";
 import { Manager, MeetingNote, ProbationChecklistItem } from "../../types/domain";
 import { useManagers } from "../../lib/hooks/useManagers";
 import { useEvents } from "../../lib/hooks/useEvents";
@@ -84,6 +90,7 @@ export default function ManagerDetailPage() {
     checklist: [] as ProbationChecklistItem[]
   });
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
   // Fetch manager data
@@ -91,17 +98,17 @@ export default function ManagerDetailPage() {
     managers, 
     loading: managersLoading, 
     error: managersError,
-    updateManager: updateManagerApi
+    updateManager: updateManagerApi,
+    deleteManager: deleteManagerApi
   } = useManagers({ autoFetch: true });
 
   // Fetch events for this manager
   const { 
     events, 
-    loading: eventsLoading, 
     error: eventsError 
   } = useEvents({
     managerId: id,
-    autoFetch: !!id
+    autoFetch: !!id  // Now enabled with real API
   });
 
   // Probation management hook
@@ -125,8 +132,9 @@ export default function ManagerDetailPage() {
   }, []);
 
   // Loading and error states
-  const isLoading = managersLoading || eventsLoading || probationLoading;
-  const hasError = managersError || eventsError || probationError;
+  // Only block on managers loading, not events (events API not ready yet)
+  const isLoading = managersLoading || probationLoading;
+  const hasError = managersError || probationError;
 
   const handleTabChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -234,6 +242,30 @@ export default function ManagerDetailPage() {
     setFormError(null);
   }, []);
 
+  // Delete manager functionality
+  const handleDeleteDialogOpen = useCallback(() => {
+    setDeleteDialogOpen(true);
+  }, []);
+
+  const handleDeleteDialogClose = useCallback(() => {
+    setDeleteDialogOpen(false);
+  }, []);
+
+  const handleDeleteManager = useCallback(async () => {
+    if (!manager) return;
+    
+    try {
+      await deleteManagerApi(manager.id);
+      setDeleteDialogOpen(false);
+      // Navigate back to managers list after deletion
+      navigate('/managers');
+    } catch (error: any) {
+      console.error('Failed to delete manager:', error);
+      setFormError(error.message || 'Failed to delete manager');
+      setDeleteDialogOpen(false);
+    }
+  }, [manager, deleteManagerApi, navigate]);
+
   // Show loading state
   if (isLoading) {
     return (
@@ -265,7 +297,7 @@ export default function ManagerDetailPage() {
         </Box>
         <ErrorAlert
           title="Failed to load manager details"
-          message={managersError || eventsError || 'An unexpected error occurred'}
+          message={managersError || 'An unexpected error occurred'}
         />
       </Box>
     );
@@ -314,6 +346,14 @@ export default function ManagerDetailPage() {
             onClick={handleEditDialogOpen}
           >
             Edit Manager
+          </Button>
+          <Button 
+            variant="outlined" 
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={handleDeleteDialogOpen}
+          >
+            Delete Manager
           </Button>
           {manager.status === 'Active' && (
             <Button 
@@ -390,7 +430,7 @@ export default function ManagerDetailPage() {
               Total Events
             </Typography>
             <Typography variant="h6">
-              {events.length}
+              {eventsError ? 'N/A' : events.length}
             </Typography>
           </CardContent>
         </Card>
@@ -437,32 +477,46 @@ export default function ManagerDetailPage() {
           <Typography variant="h6" gutterBottom>
             Recent Events
           </Typography>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Staff Attending</TableCell>
-                  <TableCell>Comments</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {events.map((event) => (
-                  <TableRow key={event.id}>
-                    <TableCell>{formatDate(event.date)}</TableCell>
-                    <TableCell>
-                      <Chip label={event.type} size="small" />
-                    </TableCell>
-                    <TableCell>
-                      {event.staffAttending.join(', ')}
-                    </TableCell>
-                    <TableCell>{event.comments}</TableCell>
+          {eventsError ? (
+            <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1, textAlign: 'center' }}>
+              <Typography color="text.secondary">
+                Events API not yet implemented
+              </Typography>
+            </Box>
+          ) : events.length === 0 ? (
+            <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1, textAlign: 'center' }}>
+              <Typography color="text.secondary">
+                No events recorded yet
+              </Typography>
+            </Box>
+          ) : (
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Staff Attending</TableCell>
+                    <TableCell>Comments</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {events.map((event) => (
+                    <TableRow key={event.id}>
+                      <TableCell>{formatDate(event.date)}</TableCell>
+                      <TableCell>
+                        <Chip label={event.type} size="small" />
+                      </TableCell>
+                      <TableCell>
+                        {event.staffAttending.join(', ')}
+                      </TableCell>
+                      <TableCell>{event.comments}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </TabPanel>
 
         <TabPanel value={tabValue} index={1}>
@@ -628,6 +682,32 @@ export default function ManagerDetailPage() {
         loading={isLoading}
         error={formError}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onClose={handleDeleteDialogClose}>
+        <DialogTitle>Delete Manager</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete <strong>{manager.firstName} {manager.lastName}</strong> from <strong>{manager.company}</strong>?
+          </Typography>
+          <Typography variant="body2" color="error" sx={{ mt: 2 }}>
+            This action cannot be undone. All associated events, notes, and documents will also be deleted.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteDialogClose}>
+            Cancel
+          </Button>
+          <Button 
+            onClick={handleDeleteManager} 
+            variant="contained" 
+            color="error"
+            startIcon={<DeleteIcon />}
+          >
+            Delete Manager
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

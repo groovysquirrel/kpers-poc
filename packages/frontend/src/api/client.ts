@@ -10,7 +10,10 @@
  * Example: const managers = await client.managers.list({ page: 1 })
  */
 
-import { api as fakeApi } from './fakeApi';
+import { api as fakeApi } from './mock/mockApi';
+import { managersService } from './services/managers';
+import { eventsService } from './services/events';
+import { eventTypesService } from './services/event-types';
 import {
   Manager,
   EventRecord,
@@ -29,7 +32,7 @@ import {
 
 // Configuration
 const API_CONFIG = {
-  useFakeApi: true, // Set to false when real API is ready
+  useFakeApi: false, // Set to false when real API is ready
   baseUrl: import.meta.env.VITE_API_BASE_URL || '/api',
   timeout: 10000,
 };
@@ -66,11 +69,8 @@ class ApiClient {
         return await fakeApi.getManagers(params);
       }
       
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_CONFIG.baseUrl}/managers?${new URLSearchParams(params)}`);
-      // return await response.json();
-      
-      throw new Error('Real API not implemented yet');
+      // Use real API
+      return await managersService.list(params);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -83,11 +83,8 @@ class ApiClient {
         return await fakeApi.getManager(id);
       }
       
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_CONFIG.baseUrl}/managers/${id}`);
-      // return await response.json();
-      
-      throw new Error('Real API not implemented yet');
+      // Use real API
+      return await managersService.get(id);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -109,15 +106,8 @@ class ApiClient {
         return await fakeApi.createManager(managerData);
       }
       
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_CONFIG.baseUrl}/managers`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(managerData)
-      // });
-      // return await response.json();
-      
-      throw new Error('Real API not implemented yet');
+      // Use real API
+      return await managersService.create(managerData);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -130,15 +120,23 @@ class ApiClient {
         return await fakeApi.updateManager(id, updates);
       }
       
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_CONFIG.baseUrl}/managers/${id}`, {
-      //   method: 'PUT',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(updates)
-      // });
-      // return await response.json();
+      // Use real API
+      return await managersService.update(id, updates);
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async deleteManager(id: string): Promise<{ ok: boolean; id: string }> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        // Fake API doesn't have delete, so we'll create a dummy response
+        return { ok: true, id };
+      }
       
-      throw new Error('Real API not implemented yet');
+      // Use real API
+      return await managersService.delete(id);
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -157,8 +155,8 @@ class ApiClient {
         return await fakeApi.getManagerEvents(managerId, params);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Use real API - delegate to getEvents with managerId filter
+      return await this.getEvents({ ...params, managerId });
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
@@ -174,18 +172,11 @@ class ApiClient {
         return await fakeApi.createEvent(eventData);
       }
       
-      // TODO: Replace with real API call
-      // const response = await fetch(`${API_CONFIG.baseUrl}/events`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(eventData)
-      // });
-      // return await response.json();
-      
-      throw new Error('Real API not implemented yet');
+      // Service handles event type name lookup
+      return await eventsService.create(eventData);
     } catch (error) {
       handleApiError(error);
-      return {} as any; // This will never be reached since handleApiError throws
+      return {} as any;
     }
   }
 
@@ -202,11 +193,11 @@ class ApiClient {
         return await fakeApi.getEvents(params);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Service handles event type name lookup
+      return await eventsService.list(params);
     } catch (error) {
       handleApiError(error);
-      return {} as any; // This will never be reached since handleApiError throws
+      return {} as any;
     }
   }
 
@@ -216,11 +207,11 @@ class ApiClient {
         return await fakeApi.getEvent(id);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Service handles event type name lookup
+      return await eventsService.get(id);
     } catch (error) {
       handleApiError(error);
-      return {} as any; // This will never be reached since handleApiError throws
+      return {} as any;
     }
   }
 
@@ -230,11 +221,11 @@ class ApiClient {
         return await fakeApi.updateEvent(id, eventData);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Service handles event type name lookup
+      return await eventsService.update(id, eventData);
     } catch (error) {
       handleApiError(error);
-      return {} as any; // This will never be reached since handleApiError throws
+      return {} as any;
     }
   }
 
@@ -244,11 +235,11 @@ class ApiClient {
         return await fakeApi.deleteEvent(id);
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      const result = await eventsService.delete(id);
+      return { ok: result.ok };
     } catch (error) {
       handleApiError(error);
-      return {} as any; // This will never be reached since handleApiError throws
+      return {} as any;
     }
   }
 
@@ -514,22 +505,20 @@ class ApiClient {
         return await fakeApi.getEventTypes();
       }
       
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Service returns the right format
+      const eventTypes = await eventTypesService.list();
+      return eventTypes.map(et => ({ id: et.id, name: et.name }));
     } catch (error) {
       handleApiError(error);
-      return {} as any; // This will never be reached since handleApiError throws
+      return {} as any;
     }
   }
 
   async getStaff() {
     try {
-      if (API_CONFIG.useFakeApi) {
-        return await fakeApi.getStaff();
-      }
-      
-      // TODO: Replace with real API call
-      throw new Error('Real API not implemented yet');
+      // Staff API not implemented yet in backend, use fake data for now
+      // TODO: Replace with real API call when staff service is ready
+      return await fakeApi.getStaff();
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws

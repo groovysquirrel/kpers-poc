@@ -11,7 +11,7 @@
  * Example: const managers = await api.managers.list({ page: 1, pageSize: 10 })
  */
 
-import mockData from './data/mockData.json';
+import mockData from './mockData.json';
 import {
   Manager,
   EventRecord,
@@ -28,7 +28,7 @@ import {
   NoteType,
   NoteCreateForm,
   NoteUpdateForm
-} from '../types/domain';
+} from '../../types/domain';
 
 // Types for API responses
 export interface ApiResponse<T> {

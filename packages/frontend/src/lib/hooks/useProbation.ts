@@ -10,7 +10,6 @@
  */
 
 import { useState, useCallback } from 'react';
-import { client } from '../../api/client';
 import { ProbationDetails, ProbationChecklistItem } from '../../types/domain';
 
 interface UseProbationReturn {
