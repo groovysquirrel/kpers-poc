@@ -17,7 +17,10 @@ import {
   DocumentItem,
   User,
   EventCreate,
-  EventUpdate
+  EventUpdate,
+  StaffMember,
+  Permission,
+  Role
 } from '../types/domain';
 
 // Configuration
@@ -427,6 +430,154 @@ class ApiClient {
     } catch (error) {
       handleApiError(error);
       return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  // -----------------------------
+  // Users API
+  // -----------------------------
+  async getUsers(): Promise<User[]> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getUsers();
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return [] as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async createUser(userData: {
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    role: 'Viewer' | 'Editor' | 'Administrator';
+    status: 'Active' | 'Inactive' | 'Suspended';
+    permissions: string[];
+  }): Promise<User> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.createUser(userData);
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async updateUser(id: string, updates: Partial<User>): Promise<User> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.updateUser(id, updates);
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async deleteUser(id: string): Promise<void> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.deleteUser(id);
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+    }
+  }
+
+  // -----------------------------
+  // Staff Management API
+  // -----------------------------
+  async createStaff(staffData: {
+    name: string;
+    role: string;
+    email?: string;
+    phone?: string;
+    department?: string;
+    status: 'Active' | 'Inactive' | 'Suspended';
+    permissions: string[];
+  }): Promise<StaffMember> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.createStaff(staffData);
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async updateStaff(id: string, updates: Partial<StaffMember>): Promise<StaffMember> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.updateStaff(id, updates);
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return {} as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async deleteStaff(id: string): Promise<void> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.deleteStaff(id);
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+    }
+  }
+
+  // -----------------------------
+  // Permissions & Roles API
+  // -----------------------------
+  async getPermissions(): Promise<Permission[]> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getPermissions();
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return [] as any; // This will never be reached since handleApiError throws
+    }
+  }
+
+  async getRoles(): Promise<Role[]> {
+    try {
+      if (API_CONFIG.useFakeApi) {
+        return await fakeApi.getRoles();
+      }
+      
+      // TODO: Replace with real API call
+      throw new Error('Real API not implemented yet');
+    } catch (error) {
+      handleApiError(error);
+      return [] as any; // This will never be reached since handleApiError throws
     }
   }
 

@@ -136,3 +136,4 @@ When integrating with the real backend:
 5. Test all endpoints
 
 The interface remains the same, so no changes are needed in the frontend components.
+

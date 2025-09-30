@@ -62,3 +62,4 @@ When ready to use the real backend:
 - Environment variables are built into the bundle at build time
 - Changes to `.env.local` require a restart of the dev server
 - The `VITE_` prefix is required for security (only these variables are exposed to the browser)
+

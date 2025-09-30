@@ -103,30 +103,6 @@
   padding: 8px 12px !important;
 }
 
-/* Center the hamburger icon in the app bar - match sidebar icon positioning */
-.hamburger-container {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 48px !important;
-  height: 48px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border-radius: 8px;
-  transition: all 0.2s ease-in-out;
-}
-
-.hamburger-container:hover {
-  background-color: rgba(25, 118, 210, 0.08) !important;
-}
-
-/* Override MUI IconButton default styles for hamburger */
-.hamburger-container .MuiIconButton-root {
-  padding: 12px !important;
-  margin: 0 !important;
-  border-radius: 8px;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sidebar-nav-item {

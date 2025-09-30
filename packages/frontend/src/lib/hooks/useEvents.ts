@@ -92,14 +92,8 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     
     try {
       const newEvent = await client.createEvent(eventData);
-      
-      // Add to local state
-      setEvents(prev => [newEvent, ...prev]);
-      setPagination(prev => ({
-        ...prev,
-        total: prev.total + 1
-      }));
-      
+      // Refresh the events list after creating
+      await fetchEvents();
       return newEvent;
     } catch (err: any) {
       setError(err.message || 'Failed to create event');
@@ -108,7 +102,7 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [fetchEvents]);
 
   const updateEvent = useCallback(async (id: string, eventData: EventUpdate): Promise<EventRecord> => {
     setLoading(true);
@@ -116,12 +110,8 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     
     try {
       const updatedEvent = await client.updateEvent(id, eventData);
-      
-      // Update local state
-      setEvents(prev => 
-        prev.map(event => event.id === id ? updatedEvent : event)
-      );
-      
+      // Refresh the events list after updating
+      await fetchEvents();
       return updatedEvent;
     } catch (err: any) {
       setError(err.message || 'Failed to update event');
@@ -130,7 +120,7 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [fetchEvents]);
 
   const deleteEvent = useCallback(async (id: string): Promise<void> => {
     setLoading(true);
@@ -138,13 +128,8 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     
     try {
       await client.deleteEvent(id);
-      
-      // Remove from local state
-      setEvents(prev => prev.filter(event => event.id !== id));
-      setPagination(prev => ({
-        ...prev,
-        total: Math.max(0, prev.total - 1)
-      }));
+      // Refresh the events list after deleting
+      await fetchEvents();
     } catch (err: any) {
       setError(err.message || 'Failed to delete event');
       console.error('Error deleting event:', err);
@@ -152,7 +137,7 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [fetchEvents]);
 
   const refetch = useCallback(async () => {
     await fetchEvents();
@@ -176,3 +161,4 @@ export function useEvents(params: UseEventsParams = {}): UseEventsReturn {
     deleteEvent
   };
 }
+

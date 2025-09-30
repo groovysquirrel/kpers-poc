@@ -4,7 +4,6 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import EventIcon from "@mui/icons-material/Event";
 import DescriptionIcon from "@mui/icons-material/Description";
-import SettingsIcon from "@mui/icons-material/Settings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -107,13 +106,6 @@ export default function SidebarNav({ expanded }: { expanded: boolean }) {
           text="Admin" 
           onClick={go("/admin")} 
           path="/admin"
-        />
-        
-        <Item 
-          icon={<SettingsIcon />} 
-          text="Settings" 
-          onClick={go("/settings")} 
-          path="/settings"
         />
       </List>
     </Box>

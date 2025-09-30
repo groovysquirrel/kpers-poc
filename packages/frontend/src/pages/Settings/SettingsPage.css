@@ -1,0 +1,52 @@
+.settings-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Ensure consistent spacing in form controls */
+.settings-page .MuiFormGroup-root {
+  gap: 12px;
+}
+
+/* Style dividers within forms */
+.settings-page .MuiDivider-root {
+  margin: 16px 0;
+}
+
+/* Card styling for information displays */
+.settings-page .MuiCard-root {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Stack spacing for account info */
+.settings-page .MuiStack-root {
+  gap: 8px;
+}
+
+/* Button container styling */
+.settings-page .MuiButton-root {
+  min-width: 150px;
+}
+
+/* Alert styling */
+.settings-page .MuiAlert-root {
+  border-radius: 8px;
+}
+
+/* Tab panel content */
+.settings-page [role="tabpanel"] {
+  min-height: 400px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 16px;
+  }
+  
+  .settings-page .MuiPaper-root {
+    padding: 16px;
+  }
+}
+

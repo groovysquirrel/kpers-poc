@@ -26,7 +26,7 @@ import {
   Autocomplete,
   Chip
 } from "@mui/material";
-import { EventRecord, Manager, StaffMember } from "../../types/domain";
+import { EventRecord, Manager, StaffMember, EventType } from "../../types/domain";
 
 interface EventFormData {
   type: string;
@@ -42,6 +42,7 @@ interface EventFormProps {
   event?: EventRecord;
   managers: Manager[];
   staffMembers: StaffMember[];
+  eventTypes: EventType[];
   onSubmit: (data: EventFormData) => Promise<void>;
   onCancel: () => void;
   loading?: boolean;
@@ -56,23 +57,13 @@ const initialFormData: EventFormData = {
   comments: ''
 };
 
-const eventTypes = [
-  'Meeting',
-  'Call',
-  'Email',
-  'Site Visit',
-  'Conference',
-  'Presentation',
-  'Review',
-  'Other'
-];
-
 export default function EventForm({ 
   open, 
   mode, 
   event, 
   managers,
   staffMembers,
+  eventTypes,
   onSubmit, 
   onCancel, 
   loading = false,
@@ -175,9 +166,9 @@ export default function EventForm({
                     label="Event Type"
                     onChange={(e) => handleInputChange('type', e.target.value)}
                   >
-                    {eventTypes.map((type) => (
-                      <MenuItem key={type} value={type}>
-                        {type}
+                    {eventTypes.map((eventType) => (
+                      <MenuItem key={eventType.id} value={eventType.name}>
+                        {eventType.name}
                       </MenuItem>
                     ))}
                   </Select>

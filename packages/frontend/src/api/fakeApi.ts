@@ -22,7 +22,9 @@ import {
   User,
   SearchResult,
   EventCreate,
-  EventUpdate
+  EventUpdate,
+  Permission,
+  Role
 } from '../types/domain';
 
 // Types for API responses
@@ -60,9 +62,42 @@ class FakeApiService {
   private eventTypes: EventType[] = mockData.eventTypes as EventType[];
   private documents: DocumentItem[] = [];
   private users: User[] = [
-    { id: '1', email: 'admin@kpers.gov', role: 'Administrator' },
-    { id: '2', email: 'editor@kpers.gov', role: 'Editor' },
-    { id: '3', email: 'viewer@kpers.gov', role: 'Viewer' }
+    { 
+      id: '1', 
+      email: 'admin@kpers.gov', 
+      firstName: 'Admin',
+      lastName: 'User',
+      role: 'Administrator',
+      status: 'Active',
+      permissions: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+      lastLogin: new Date().toISOString(),
+      createdAt: '2024-01-01T00:00:00Z',
+      updatedAt: new Date().toISOString()
+    },
+    { 
+      id: '2', 
+      email: 'editor@kpers.gov', 
+      firstName: 'Editor',
+      lastName: 'User',
+      role: 'Editor',
+      status: 'Active',
+      permissions: ['1', '2', '3', '4', '5', '6', '9'],
+      lastLogin: new Date(Date.now() - 86400000).toISOString(),
+      createdAt: '2024-01-02T00:00:00Z',
+      updatedAt: new Date().toISOString()
+    },
+    { 
+      id: '3', 
+      email: 'viewer@kpers.gov', 
+      firstName: 'Viewer',
+      lastName: 'User',
+      role: 'Viewer',
+      status: 'Active',
+      permissions: ['1', '3', '5', '9'],
+      lastLogin: new Date(Date.now() - 172800000).toISOString(),
+      createdAt: '2024-01-03T00:00:00Z',
+      updatedAt: new Date().toISOString()
+    }
   ];
 
   // -----------------------------
@@ -710,6 +745,193 @@ class FakeApiService {
   async getStaff(): Promise<StaffMember[]> {
     await delay(100);
     return [...this.staff];
+  }
+
+  // -----------------------------
+  // Users API
+  // -----------------------------
+  async getUsers(): Promise<User[]> {
+    await delay(100);
+    return [...this.users];
+  }
+
+  async createUser(userData: {
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    role: 'Viewer' | 'Editor' | 'Administrator';
+    status: 'Active' | 'Inactive' | 'Suspended';
+    permissions: string[];
+  }): Promise<User> {
+    await delay(800);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    const existingUser = this.users.find(u => u.email === userData.email);
+    if (existingUser) {
+      throw { status: 400, code: 'DUPLICATE_EMAIL', message: 'User with this email already exists' };
+    }
+
+    const newUser: User = {
+      id: (this.users.length + 1).toString(),
+      ...userData,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    this.users.push(newUser);
+    return newUser;
+  }
+
+  async updateUser(id: string, updates: Partial<User>): Promise<User> {
+    await delay(600);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+    
+    const userIndex = this.users.findIndex(u => u.id === id);
+    if (userIndex === -1) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'User not found' };
+    }
+    
+    if (updates.email) {
+      const existingUser = this.users.find(u => u.email === updates.email && u.id !== id);
+      if (existingUser) {
+        throw { status: 400, code: 'DUPLICATE_EMAIL', message: 'User with this email already exists' };
+      }
+    }
+    
+    this.users[userIndex] = { 
+      ...this.users[userIndex], 
+      ...updates, 
+      updatedAt: new Date().toISOString() 
+    };
+    return this.users[userIndex];
+  }
+
+  async deleteUser(id: string): Promise<void> {
+    await delay(500);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+    
+    const userIndex = this.users.findIndex(u => u.id === id);
+    if (userIndex === -1) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'User not found' };
+    }
+    
+    this.users.splice(userIndex, 1);
+  }
+
+  // -----------------------------
+  // Staff Management API
+  // -----------------------------
+  async createStaff(staffData: {
+    name: string;
+    role: string;
+    email?: string;
+    phone?: string;
+    department?: string;
+    status: 'Active' | 'Inactive' | 'Suspended';
+    permissions: string[];
+  }): Promise<StaffMember> {
+    await delay(800);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+
+    const newStaff: StaffMember = {
+      id: (this.staff.length + 1).toString(),
+      ...staffData,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    this.staff.push(newStaff);
+    return newStaff;
+  }
+
+  async updateStaff(id: string, updates: Partial<StaffMember>): Promise<StaffMember> {
+    await delay(600);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+    
+    const staffIndex = this.staff.findIndex(s => s.id === id);
+    if (staffIndex === -1) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'Staff member not found' };
+    }
+    
+    this.staff[staffIndex] = { 
+      ...this.staff[staffIndex], 
+      ...updates, 
+      updatedAt: new Date().toISOString() 
+    };
+    return this.staff[staffIndex];
+  }
+
+  async deleteStaff(id: string): Promise<void> {
+    await delay(500);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+    
+    const staffIndex = this.staff.findIndex(s => s.id === id);
+    if (staffIndex === -1) {
+      throw { status: 404, code: 'NOT_FOUND', message: 'Staff member not found' };
+    }
+    
+    this.staff.splice(staffIndex, 1);
+  }
+
+  // -----------------------------
+  // Permissions & Roles API
+  // -----------------------------
+  
+  private permissions: Permission[] = [
+    { id: '1', name: 'View Managers', description: 'View manager information', category: 'Managers' },
+    { id: '2', name: 'Edit Managers', description: 'Create and edit managers', category: 'Managers' },
+    { id: '3', name: 'View Events', description: 'View event information', category: 'Events' },
+    { id: '4', name: 'Edit Events', description: 'Create and edit events', category: 'Events' },
+    { id: '5', name: 'View Documents', description: 'View documents', category: 'Documents' },
+    { id: '6', name: 'Edit Documents', description: 'Create and edit documents', category: 'Documents' },
+    { id: '7', name: 'Admin Users', description: 'Manage user accounts', category: 'Admin' },
+    { id: '8', name: 'Admin Staff', description: 'Manage staff members', category: 'Admin' },
+    { id: '9', name: 'View Reports', description: 'Access reporting features', category: 'Reports' },
+    { id: '10', name: 'Export Data', description: 'Export data from the system', category: 'Reports' }
+  ];
+
+  private roles: Role[] = [
+    { id: '1', name: 'Administrator', description: 'Full system access', permissions: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], isSystem: true },
+    { id: '2', name: 'Editor', description: 'Can view and edit most content', permissions: ['1', '2', '3', '4', '5', '6', '9'], isSystem: true },
+    { id: '3', name: 'Viewer', description: 'Read-only access', permissions: ['1', '3', '5', '9'], isSystem: true }
+  ];
+
+  async getPermissions(): Promise<Permission[]> {
+    await delay(200);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+    
+    return [...this.permissions];
+  }
+
+  async getRoles(): Promise<Role[]> {
+    await delay(200);
+    
+    if (shouldSimulateError()) {
+      throw { status: 500, code: 'INTERNAL_ERROR', message: 'Simulated server error' };
+    }
+    
+    return [...this.roles];
   }
 
   /**

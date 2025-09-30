@@ -97,3 +97,4 @@ export function useSearch(): UseSearchReturn {
     clearResults
   };
 }
+

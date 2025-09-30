@@ -5,12 +5,14 @@ import { useState, useMemo, useCallback } from "react";
  * Purpose
  * - Display a filterable, searchable, paginated list of events using API client
  * - Allow navigation to create a new event and to a manager's detail page
+ * - Support editing events with EventForm component
  *
  * Concepts
  * - Local state manages ephemeral UI (search text, filters, pagination)
  * - Custom hooks handle data fetching and state management
  * - API-level filtering and pagination for better performance
  * - Proper loading states and error handling
+ * - EventForm integration for create/edit operations
  */
 import { 
   Box, 
@@ -33,14 +35,22 @@ import {
   MenuItem,
   Button
 } from "@mui/material";
-import { Search as SearchIcon, Visibility as ViewIcon, Add as AddIcon, AttachFile as AttachIcon, Description as DocumentIcon } from "@mui/icons-material";
+import { 
+  Search as SearchIcon, 
+  Visibility as ViewIcon, 
+  Add as AddIcon, 
+  AttachFile as AttachIcon, 
+  Description as DocumentIcon,
+  Edit as EditIcon
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { Manager } from "../../types/domain";
+import { Manager, EventRecord } from "../../types/domain";
 import { useEvents } from "../../lib/hooks/useEvents";
 import { useManagers } from "../../lib/hooks/useManagers";
 import { useReferenceData } from "../../lib/hooks/useReferenceData";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorAlert from "../../components/ErrorAlert";
+import EventForm from "../../components/forms/EventForm";
 import "./EventsPage.css";
 
 export default function EventsPage() {
@@ -52,6 +62,11 @@ export default function EventsPage() {
   const [managerFilter, setManagerFilter] = useState<string>("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  
+  // Edit dialog state
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<EventRecord | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
   // API state - fetch events with current filters
   const { 
@@ -59,7 +74,8 @@ export default function EventsPage() {
     pagination, 
     loading: eventsLoading, 
     error: eventsError, 
-    refetch: refetchEvents 
+    refetch: refetchEvents,
+    updateEvent 
   } = useEvents({
     type: typeFilter || undefined,
     managerId: managerFilter || undefined,
@@ -79,7 +95,8 @@ export default function EventsPage() {
 
   // Fetch reference data
   const { 
-    eventTypes, 
+    eventTypes,
+    staff,
     loading: referenceLoading, 
     error: referenceError 
   } = useReferenceData();
@@ -116,13 +133,43 @@ export default function EventsPage() {
   const isLoading = eventsLoading || managersLoading || referenceLoading;
   const hasError = eventsError || managersError || referenceError;
 
-  const handleViewEvent = useCallback((eventId: string) => {
-    // For now, navigate to manager detail page
-    const event = events.find(e => e.id === eventId);
-    if (event) {
-      navigate(`/managers/${event.managerId}`);
+  const handleViewManager = useCallback((managerId: string) => {
+    // Navigate to manager detail page
+    navigate(`/managers/${managerId}`);
+  }, [navigate]);
+
+  const handleEditEvent = useCallback((event: EventRecord) => {
+    setEditingEvent(event);
+    setFormError(null);
+    setEditDialogOpen(true);
+  }, []);
+
+  const handleEditDialogClose = useCallback(() => {
+    setEditDialogOpen(false);
+    setEditingEvent(null);
+    setFormError(null);
+  }, []);
+
+  const handleEditSubmit = useCallback(async (formData: {
+    type: string;
+    managerId: string;
+    date: string;
+    staffAttending: string[];
+    comments: string;
+  }) => {
+    if (!editingEvent) return;
+    
+    try {
+      await updateEvent(editingEvent.id, formData);
+      setEditDialogOpen(false);
+      setEditingEvent(null);
+      setFormError(null);
+      // Events list will automatically refresh via the hook
+    } catch (error: any) {
+      console.error('Failed to update event:', error);
+      setFormError(error.message || 'Failed to update event');
     }
-  }, [events, navigate]);
+  }, [editingEvent, updateEvent]);
 
   const handleViewEventDocuments = useCallback((eventId: string) => {
     // Navigate to documents page filtered by event
@@ -301,7 +348,7 @@ export default function EventsPage() {
                     key={event.id}
                     hover
                     sx={{ cursor: 'pointer' }}
-                    onClick={() => handleViewEvent(event.id)}
+                    onClick={() => handleViewManager(event.managerId)}
                   >
                     <TableCell>
                       <Typography variant="body2">
@@ -376,16 +423,28 @@ export default function EventsPage() {
                       </Box>
                     </TableCell>
                     <TableCell align="center">
-                      <IconButton 
-                        size="small"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleViewEvent(event.id);
-                        }}
-                        title="View Event"
-                      >
-                        <ViewIcon />
-                      </IconButton>
+                      <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
+                        <IconButton 
+                          size="small"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditEvent(event);
+                          }}
+                          title="Edit Event"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton 
+                          size="small"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewManager(event.managerId);
+                          }}
+                          title="View Manager"
+                        >
+                          <ViewIcon />
+                        </IconButton>
+                      </Box>
                     </TableCell>
                   </TableRow>
                 );
@@ -404,6 +463,20 @@ export default function EventsPage() {
           rowsPerPageOptions={[5, 10, 25]}
         />
       </Paper>
+
+      {/* Event Form Dialog */}
+      <EventForm
+        open={editDialogOpen}
+        mode="edit"
+        event={editingEvent || undefined}
+        managers={managers}
+        staffMembers={staff}
+        eventTypes={eventTypes}
+        onSubmit={handleEditSubmit}
+        onCancel={handleEditDialogClose}
+        loading={eventsLoading}
+        error={formError}
+      />
     </Box>
   );
 }

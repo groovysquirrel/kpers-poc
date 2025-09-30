@@ -58,6 +58,14 @@ export interface StaffMember {
   id: string;
   name: string;
   role: string;
+  email?: string;
+  phone?: string;
+  department?: string;
+  status: 'Active' | 'Inactive' | 'Suspended';
+  permissions: string[];
+  lastLogin?: string;          // ISO date string
+  createdAt: string;           // ISO date string
+  updatedAt: string;           // ISO date string
 }
 
 export interface EventType {
@@ -79,7 +87,29 @@ export interface DocumentItem {
 export interface User {
   id: string;
   email: string;
+  firstName?: string;
+  lastName?: string;
   role: 'Viewer' | 'Editor' | 'Administrator';
+  status: 'Active' | 'Inactive' | 'Suspended';
+  permissions: string[];
+  lastLogin?: string;          // ISO date string
+  createdAt: string;           // ISO date string
+  updatedAt: string;           // ISO date string
+}
+
+export interface Permission {
+  id: string;
+  name: string;
+  description: string;
+  category: 'Managers' | 'Events' | 'Documents' | 'Admin' | 'Reports';
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  description: string;
+  permissions: string[];       // Array of permission IDs
+  isSystem: boolean;          // System roles cannot be deleted
 }
 
 // Extended types for UI components

@@ -146,11 +146,71 @@
     }
   ],
   "staff": [
-    { "id": "1", "name": "Staff One", "role": "Investment Analyst" },
-    { "id": "2", "name": "Staff Two", "role": "Portfolio Manager" },
-    { "id": "3", "name": "Staff Three", "role": "Risk Manager" },
-    { "id": "4", "name": "Staff Four", "role": "Compliance Officer" },
-    { "id": "5", "name": "Staff Five", "role": "Senior Analyst" }
+    { 
+      "id": "1", 
+      "name": "Staff One", 
+      "role": "Investment Analyst",
+      "email": "staff1@kpers.gov",
+      "phone": "(555) 111-1111",
+      "department": "Investment Management",
+      "status": "Active",
+      "permissions": ["1", "3", "5"],
+      "lastLogin": "2025-01-15T10:30:00Z",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2025-01-15T10:30:00Z"
+    },
+    { 
+      "id": "2", 
+      "name": "Staff Two", 
+      "role": "Portfolio Manager",
+      "email": "staff2@kpers.gov",
+      "phone": "(555) 222-2222",
+      "department": "Investment Management",
+      "status": "Active",
+      "permissions": ["1", "2", "3", "4", "5", "6"],
+      "lastLogin": "2025-01-14T14:20:00Z",
+      "createdAt": "2024-01-02T00:00:00Z",
+      "updatedAt": "2025-01-14T14:20:00Z"
+    },
+    { 
+      "id": "3", 
+      "name": "Staff Three", 
+      "role": "Risk Manager",
+      "email": "staff3@kpers.gov",
+      "phone": "(555) 333-3333",
+      "department": "Risk Management",
+      "status": "Active",
+      "permissions": ["1", "3", "5", "9"],
+      "lastLogin": "2025-01-13T09:15:00Z",
+      "createdAt": "2024-01-03T00:00:00Z",
+      "updatedAt": "2025-01-13T09:15:00Z"
+    },
+    { 
+      "id": "4", 
+      "name": "Staff Four", 
+      "role": "Compliance Officer",
+      "email": "staff4@kpers.gov",
+      "phone": "(555) 444-4444",
+      "department": "Compliance",
+      "status": "Inactive",
+      "permissions": ["1", "3", "5"],
+      "lastLogin": "2025-01-10T16:45:00Z",
+      "createdAt": "2024-01-04T00:00:00Z",
+      "updatedAt": "2025-01-10T16:45:00Z"
+    },
+    { 
+      "id": "5", 
+      "name": "Staff Five", 
+      "role": "Senior Analyst",
+      "email": "staff5@kpers.gov",
+      "phone": "(555) 555-5555",
+      "department": "Research",
+      "status": "Active",
+      "permissions": ["1", "2", "3", "4", "5", "6", "9"],
+      "lastLogin": "2025-01-15T08:30:00Z",
+      "createdAt": "2024-01-05T00:00:00Z",
+      "updatedAt": "2025-01-15T08:30:00Z"
+    }
   ],
   "eventTypes": [
     { "id": "1", "name": "Q-Meeting: Call" },

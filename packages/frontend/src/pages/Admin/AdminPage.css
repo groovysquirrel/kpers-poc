@@ -1,0 +1,124 @@
+.admin-page {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-page .MuiCard-root {
+  height: 100%;
+}
+
+.admin-page .MuiCardContent-root {
+  padding: 16px;
+}
+
+.admin-page .MuiTabs-root {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-page .MuiTab-root {
+  min-width: 120px;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.admin-page .MuiTable-root {
+  table-layout: fixed;
+}
+
+.admin-page .MuiTableCell-root {
+  padding: 12px 16px;
+}
+
+.admin-page .MuiChip-root {
+  font-size: 0.75rem;
+  height: 24px;
+}
+
+.admin-page .MuiIconButton-root {
+  padding: 4px;
+}
+
+.admin-page .MuiIconButton-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.admin-page .MuiPaper-root {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-page .MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.admin-page .MuiFormControl-root {
+  margin-bottom: 16px;
+}
+
+.admin-page .MuiButton-root {
+  text-transform: none;
+  font-weight: 500;
+}
+
+.admin-page .MuiAlert-root {
+  margin-bottom: 16px;
+}
+
+.admin-page .MuiStack-root {
+  margin-bottom: 16px;
+}
+
+.admin-page .MuiGrid-root {
+  margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 16px;
+  }
+  
+  .admin-page .MuiTabs-root {
+    overflow-x: auto;
+  }
+  
+  .admin-page .MuiTab-root {
+    min-width: 100px;
+  }
+  
+  .admin-page .MuiTable-root {
+    font-size: 0.875rem;
+  }
+  
+  .admin-page .MuiTableCell-root {
+    padding: 8px 12px;
+  }
+  
+  .admin-page .MuiChip-root {
+    font-size: 0.7rem;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-page {
+    padding: 12px;
+  }
+  
+  .admin-page .MuiTypography-h4 {
+    font-size: 1.5rem;
+  }
+  
+  .admin-page .MuiTypography-h6 {
+    font-size: 1.1rem;
+  }
+  
+  .admin-page .MuiTable-root {
+    font-size: 0.8rem;
+  }
+  
+  .admin-page .MuiTableCell-root {
+    padding: 6px 8px;
+  }
+}
+
