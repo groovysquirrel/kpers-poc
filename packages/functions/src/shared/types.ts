@@ -50,3 +50,28 @@ export type EventTypeCreateInput = {
 
 export type EventTypeUpdateInput = Partial<EventTypeCreateInput>;
 
+// ============================================
+// Events
+// ============================================
+
+export type EventRow = {
+  id: string;
+  manager_id: string;
+  event_type_id: string;
+  event_date: string;  // YYYY-MM-DD
+  staff_attending: string | null;  // Semicolon-separated list
+  comments: string | null;
+  created_at: string;  // ISO timestamp
+  updated_at: string;  // ISO timestamp
+};
+
+export type EventCreateInput = {
+  managerId: string;
+  eventTypeId: string;
+  eventDate: string;  // YYYY-MM-DD
+  staffAttending?: string[];  // Array in input, stored as semicolon-separated
+  comments?: string;
+};
+
+export type EventUpdateInput = Partial<Omit<EventCreateInput, 'managerId'>>;
+

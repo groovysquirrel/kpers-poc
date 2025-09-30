@@ -1,10 +1,15 @@
 /**
- * Shared Aurora RDS Data API utilities
- * Provides retry logic and query execution helpers
+ * Aurora RDS Data API Implementation
+ * Implements the Database interface for AWS Aurora Serverless
  */
 
 import { Resource } from "sst";
 import { RDSDataClient, ExecuteStatementCommand } from "@aws-sdk/client-rds-data";
+import type { Database, QueryParameter, QueryResult } from "./database";
+
+// ============================================
+// Low-Level Aurora Utilities
+// ============================================
 
 export const client = new RDSDataClient({});
 
@@ -99,4 +104,74 @@ export function param(name: string, value: any, type: "string" | "long" | "doubl
   }
 }
 
+// ============================================
+// Database Implementation
+// ============================================
 
+/**
+ * Aurora implementation of the Database interface
+ * Uses RDS Data API with automatic retry for auto-pause/resume
+ */
+export class AuroraDatabase implements Database {
+  /**
+   * Execute a query and return results
+   */
+  async query(sql: string, parameters: QueryParameter[] = []): Promise<QueryResult> {
+    return await withAuroraRetry(async () => {
+      const formattedParams = this.formatParameters(parameters);
+      const response = await executeStatement(sql, formattedParams);
+      
+      return {
+        records: response.records || [],
+        numberOfRecordsUpdated: response.numberOfRecordsUpdated,
+      };
+    });
+  }
+
+  /**
+   * Execute a statement without expecting results
+   */
+  async execute(sql: string, parameters: QueryParameter[] = []): Promise<void> {
+    await withAuroraRetry(async () => {
+      const formattedParams = this.formatParameters(parameters);
+      await executeStatement(sql, formattedParams);
+    });
+  }
+
+  /**
+   * Internal: Format parameters for RDS Data API
+   */
+  private formatParameters(params: QueryParameter[]): any[] {
+    return params.map(p => {
+      if (p.value === null || p.value === undefined) {
+        return { name: p.name, value: { isNull: true } };
+      }
+
+      const type = p.type || this.inferType(p.value);
+      
+      switch (type) {
+        case "string":
+          return { name: p.name, value: { stringValue: String(p.value) } };
+        case "long":
+          return { name: p.name, value: { longValue: Number(p.value) } };
+        case "double":
+          return { name: p.name, value: { doubleValue: Number(p.value) } };
+        case "boolean":
+          return { name: p.name, value: { booleanValue: Boolean(p.value) } };
+        default:
+          return { name: p.name, value: { stringValue: String(p.value) } };
+      }
+    });
+  }
+
+  /**
+   * Internal: Infer parameter type from JavaScript value
+   */
+  private inferType(value: any): "string" | "long" | "double" | "boolean" {
+    if (typeof value === "boolean") return "boolean";
+    if (typeof value === "number") {
+      return Number.isInteger(value) ? "long" : "double";
+    }
+    return "string";
+  }
+}

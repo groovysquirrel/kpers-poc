@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "manager_id": "1",
+    "event_type_id": "1",
+    "event_date": "2025-09-15",
+    "staff_attending": "John Smith;Jane Doe",
+    "comments": "Quarterly review meeting - discussed portfolio performance and strategy"
+  },
+  {
+    "id": "2",
+    "manager_id": "2",
+    "event_type_id": "4",
+    "event_date": "2025-09-20",
+    "staff_attending": "Sarah Johnson",
+    "comments": "Due diligence call - reviewed investment strategy"
+  },
+  {
+    "id": "3",
+    "manager_id": "1",
+    "event_type_id": "7",
+    "event_date": "2025-08-10",
+    "staff_attending": "John Smith;Michael Brown;Jane Doe",
+    "comments": "On-site due diligence visit - reviewed operations and compliance"
+  },
+  {
+    "id": "4",
+    "manager_id": "3",
+    "event_type_id": "2",
+    "event_date": "2025-08-25",
+    "staff_attending": "Alice Cooper;Bob Jones",
+    "comments": "Quarterly meeting at KPERS office - discussed market outlook"
+  },
+  {
+    "id": "5",
+    "manager_id": "2",
+    "event_type_id": "6",
+    "event_date": "2025-07-14",
+    "staff_attending": null,
+    "comments": "Email correspondence regarding fund performance report"
+  }
+]

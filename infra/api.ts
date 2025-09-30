@@ -38,3 +38,10 @@ api.route("GET /event-types/{id}", "packages/functions/src/event-types/get.main"
 api.route("POST /event-types", "packages/functions/src/event-types/create.main");
 api.route("PUT /event-types/{id}", "packages/functions/src/event-types/update.main");
 api.route("DELETE /event-types/{id}", "packages/functions/src/event-types/delete.main");
+
+// Events routes
+api.route("GET /events", "packages/functions/src/events/list.main");
+api.route("GET /events/{id}", "packages/functions/src/events/get.main");
+api.route("POST /events", "packages/functions/src/events/create.main");
+api.route("PUT /events/{id}", "packages/functions/src/events/update.main");
+api.route("DELETE /events/{id}", "packages/functions/src/events/delete.main");
